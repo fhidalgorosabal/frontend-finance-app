@@ -3,17 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
-
-import { StyleClassModule } from 'primeng/styleclass';
-import { MenubarModule } from 'primeng/menubar';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { TabViewModule } from 'primeng/tabview';
-import { BadgeModule } from 'primeng/badge';
-import { PanelModule } from 'primeng/panel';
-import { ToastModule } from 'primeng/toast';
-import { MenuModule } from 'primeng/menu';
 
 
 @NgModule({
@@ -24,15 +15,8 @@ import { MenuModule } from 'primeng/menu';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    StyleClassModule,
-    MenubarModule,
-    InputTextModule,
-    ButtonModule,
-    TabViewModule,
-    BadgeModule,
-    PanelModule,
-    ToastModule,
-    MenuModule
+    SharedModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
