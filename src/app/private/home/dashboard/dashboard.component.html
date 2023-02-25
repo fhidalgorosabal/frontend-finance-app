@@ -55,16 +55,17 @@
   </div>
 </div>
 <div class="px-4 py-3 md:px-6 lg:px-8">
-  <p-panel header="Header" [toggleable]="true">
+  <p-panel header="Creado con PrimeNG" [toggleable]="true">
     <ng-template pTemplate="icons">
-            <button pButton class="p-panel-header-icon p-link" (click)="menu.toggle($event)">
+            <button pButton class="p-panel-header-icon" (click)="menu.toggle($event)">
                 <span class="pi pi-cog"></span>
             </button>
             <p-menu #menu id="config_menu" [model]="items" [popup]="true"></p-menu>
     </ng-template>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>PrimeNG es una biblioteca de componentes de interfaz de usuario para Angular. Proporciona una amplia variedad de componentes UI preconstruidos y de alta calidad, como tablas de datos, grillas, menús, listas desplegables, botones, paneles, calendarios, entre otros.</p>
+    <p>PrimeNG se basa en la biblioteca de componentes de interfaz de usuario de PrimeFaces, que se utiliza en el desarrollo de aplicaciones web basadas en Java. La biblioteca PrimeNG está escrita en TypeScript y se integra fácilmente con proyectos de Angular, lo que permite
+      a los desarrolladores crear aplicaciones web ricas en funciones y visualmente atractivas.</p>
+    <p>La biblioteca PrimeNG es de código abierto y se distribuye bajo la licencia MIT. Los desarrolladores pueden utilizarla de forma gratuita y personalizarla según sus necesidades. Además, PrimeNG cuenta con una comunidad activa que proporciona soporte y contribuye con
+      nuevas características y mejoras a la biblioteca.</p>
   </p-panel>
 </div>
