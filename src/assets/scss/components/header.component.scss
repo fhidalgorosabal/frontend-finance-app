@@ -1,28 +1,32 @@
 header {
-  & .dark-navbar,
-  & .p-menubar.p-component {
+  .dark-navbar,
+  .p-menubar.p-component {
     background-color: var(--gray-800) !important;
     color: var(--surface-0) !important;
   }
 
+  .p-menubar .p-menubar-button {
+    color: var(--surface-0) !important;
+  }
+
+  .p-menubar-end > span.p-element {
+    color: var(--surface-0) !important;
+  }
+
   @media (min-width: 992px) {
-    & .p-menubar-root-list > li > a {
-    & span.p-menuitem-icon,
-    & span.p-menuitem-text,
-    & span.p-submenu-icon {
+    .p-menubar-root-list > li > a {
+    span.p-menuitem-icon,
+    span.p-menuitem-text,
+    span.p-submenu-icon {
         color: var(--surface-0) !important;
       }
     }
 
-    & .p-submenu-list {
+    .p-submenu-list {
       margin-top: 8px !important;
     }
 
-    & .p-menubar-end > span.p-element {
-      color: var(--surface-0) !important;
-    }
-
-    & .p-menu.p-menu-overlay {
+    .p-menu.p-menu-overlay {
       margin-top: 15px !important;
     }
   }
