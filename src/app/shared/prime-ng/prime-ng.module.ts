@@ -10,6 +10,7 @@ import { BadgeModule } from 'primeng/badge';
 import { ToastModule } from 'primeng/toast';
 import { MenuModule } from 'primeng/menu';
 import { PanelModule } from 'primeng/panel';
+import {TooltipModule} from 'primeng/tooltip';
 
 
 
@@ -25,7 +26,8 @@ import { PanelModule } from 'primeng/panel';
     BadgeModule,
     ToastModule,
     MenuModule,
-    PanelModule
+    PanelModule,
+    TooltipModule
   ],
   exports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { PanelModule } from 'primeng/panel';
     BadgeModule,
     ToastModule,
     MenuModule,
-    PanelModule
+    PanelModule,
+    TooltipModule
   ]
 })
 export class PrimeNgModule { }

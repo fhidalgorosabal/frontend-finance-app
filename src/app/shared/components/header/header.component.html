@@ -16,12 +16,27 @@
           pBadge
           style="font-size: 1.25rem; cursor: pointer;"
           value="2"
-          (click)="notification.toggle($event)">
-        </span>
-        <button pButton pRipple type="button" icon="pi pi-power-off" label="Salir" class="p-button-rounded p-button-danger p-button-text"></button>
+          (click)="notification.toggle($event)"
+          pTooltip="Notificaciones"
+          tooltipPosition="bottom"
+        ></span>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-power-off"
+          class="p-button-rounded p-button-text p-button-danger"
+          pTooltip="Salir"
+          tooltipPosition="bottom"
+        ></button>
       </ng-template>
     </p-menubar>
 
-    <p-menu #notification id="notification_menu" [model]="notifications" [popup]="true"></p-menu>
+    <p-menu
+      #notification
+      id="notification_menu"
+      [model]="notifications"
+      [popup]="true"
+    ></p-menu>
   </div>
 </header>
