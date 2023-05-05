@@ -1,1 +1,113 @@
-<p>expense-list works!</p>
+<div class="p-2 mt-5 md:px-4 lg:px-6">
+  <p-card>
+    <p-table
+      #dt1
+      responsiveLayout="scroll"
+      styleClass="p-datatable-gridlines"
+      [value]="expenses"
+      [paginator]="true"
+      [rows]="rows"
+      [showCurrentPageReport]="true"
+      [(first)]="first"
+      currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} comprobantes"
+      [rowsPerPageOptions]="[10,25,50]"
+      [globalFilterFields]="['date','concept','amount']"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+          <button
+            pButton type="button"
+            icon="pi pi-plus"
+            [label]="'Nuevo'"
+            class="p-button-success"
+            (click)="showDialogDetails('Crear comprobante')"
+          ></button>
+          <span>{{ 'Comprobantes de gasto' }}</span>
+          <button
+            pButton type="button"
+            icon="pi pi-filter"
+            [label]="'Filtrar'"
+            class="p-button-primary"
+            (click)="showDialogFilter()"
+          ></button>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+          <tr>
+              <th *ngFor="let col of columnData" [pSortableColumn]="col.value"> {{ col.label }} <p-sortIcon [field]="col.value"></p-sortIcon></th>
+              <th class="text-center">{{ 'Acciones' }}</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-expense>
+          <tr>
+              <td>{{ expense.date | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ expense.concept }}</td>
+              <td>{{ expense.amount | currency }}</td>
+              <td class="text-center">
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  icon="pi pi-pencil"
+                  class="p-button-rounded p-button-text p-button-plain mr-2"
+                  (click)="showDialogDetails('Editar comprobante')"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  icon="pi pi-trash"
+                  class="p-button-rounded p-button-text p-button-danger"
+                ></button>
+              </td>
+          </tr>
+      </ng-template>
+    </p-table>
+
+  </p-card>
+</div>
+
+<p-dialog
+  [header]="'Filtrar comprobantes'"
+  [(visible)]="displayFilter"
+  [draggable]="false"
+  [resizable]="false"
+  [modal]="true">
+  Content
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      type="button"
+      icon="pi pi-check"
+      [label]="'Aceptar'"
+      class="p-button-secondary"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  [header]="titleDetails"
+  [(visible)]="displayDetails"
+  [draggable]="false"
+  [resizable]="false"
+  [modal]="true">
+  <app-expense-details></app-expense-details>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      type="button"
+      icon="pi pi-times"
+      [label]="'Cancelar'"
+      class="p-button-danger"
+      (click)="cancelDialogDetails()"
+    ></button>
+    <button
+      pButton
+      type="button"
+      icon="pi pi-check"
+      [label]="'Aceptar'"
+      class="p-button-secondary"
+    ></button>
+  </ng-template>
+</p-dialog>
+

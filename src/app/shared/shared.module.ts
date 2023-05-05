@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PrimeNgModule } from './prime-ng/prime-ng.module';
 import { HeaderComponent } from './components/header/header.component';
+import { ConfirmationService } from 'primeng/api';
 
 
 
@@ -17,6 +18,9 @@ import { HeaderComponent } from './components/header/header.component';
   exports: [
     PrimeNgModule,
     HeaderComponent
+  ],
+  providers: [
+    ConfirmationService
   ]
 })
 export class SharedModule { }
