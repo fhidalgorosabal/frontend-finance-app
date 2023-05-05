@@ -10,8 +10,11 @@ import { BadgeModule } from 'primeng/badge';
 import { ToastModule } from 'primeng/toast';
 import { MenuModule } from 'primeng/menu';
 import { PanelModule } from 'primeng/panel';
-import {TooltipModule} from 'primeng/tooltip';
-
+import { TooltipModule } from 'primeng/tooltip';
+import { TableModule } from 'primeng/table';
+import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 @NgModule({
@@ -27,7 +30,12 @@ import {TooltipModule} from 'primeng/tooltip';
     ToastModule,
     MenuModule,
     PanelModule,
-    TooltipModule
+    TooltipModule,
+    TableModule,
+    CardModule,
+    DialogModule,
+    ConfirmDialogModule,
+
   ],
   exports: [
     CommonModule,
@@ -40,7 +48,11 @@ import {TooltipModule} from 'primeng/tooltip';
     ToastModule,
     MenuModule,
     PanelModule,
-    TooltipModule
+    TooltipModule,
+    TableModule,
+    CardModule,
+    DialogModule,
+    ConfirmDialogModule,
   ]
 })
 export class PrimeNgModule { }
