@@ -1,23 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { PrimeNgModule } from './prime-ng/prime-ng.module';
-import { HeaderComponent } from './components/header/header.component';
 import { ConfirmationService } from 'primeng/api';
+import { ComponentsModule } from './components/components.module';
+import { PrimeNgModule } from './prime-ng/prime-ng.module';
 
 
 
 @NgModule({
-  declarations: [
-    HeaderComponent
-  ],
+  declarations: [  ],
   imports: [
     CommonModule,
+    ComponentsModule,
     PrimeNgModule
   ],
   exports: [
-    PrimeNgModule,
-    HeaderComponent
+    ComponentsModule,
+    PrimeNgModule
   ],
   providers: [
     ConfirmationService

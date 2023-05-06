@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject, tap } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable, Subject, of } from 'rxjs';
+import { takeUntil, catchError } from 'rxjs/operators';
 import { ReceiptService } from 'src/app/services/receipt.service';
 import { IReceiptData } from 'src/app/shared/interfaces/receipt.interface';
 import { RECEIPT_TYPE } from 'src/app/shared/enums/receipt.enum';
-import { Label } from 'src/app/shared/interfaces/label.interface';
 
 @Component({
   selector: 'app-expense-list',
@@ -13,17 +12,9 @@ import { Label } from 'src/app/shared/interfaces/label.interface';
 })
 export class ExpenseListComponent implements OnInit, OnDestroy {
 
-  expenses: IReceiptData[] = [];
+  title: string = 'Comprobantes de gasto';
 
-  columnData: Label[] = [
-    { label: 'Fecha', value: 'date'},
-    { label: 'Concepto', value: 'concept'},
-    { label: 'Importe', value: 'amount'}
-  ]
-
-  first = 0;
-
-  rows = 10;
+  expenses$ = new Observable<IReceiptData[] | undefined>();
 
   displayFilter = false;
 
@@ -36,37 +27,14 @@ export class ExpenseListComponent implements OnInit, OnDestroy {
   constructor(private receiptService: ReceiptService) { }
 
   ngOnInit(): void {
-    this.receiptService.receiptsList( RECEIPT_TYPE.EXPENSE )
+    this.expenses$ = this.receiptService.receiptsList( RECEIPT_TYPE.EXPENSE )
     .pipe(
       takeUntil(this.destroy$),
-      tap((res: IReceiptData[]) => {
-        this.expenses = res;
-      })
-    ).subscribe();
-  }
-
-  next() {
-      this.first = this.first + this.rows;
-  }
-
-  prev() {
-      this.first = this.first - this.rows;
-  }
-
-  reset() {
-      this.first = 0;
-  }
-
-  isLastPage(): boolean {
-      return this.expenses ? this.first === (this.expenses.length - this.rows): true;
-  }
-
-  isFirstPage(): boolean {
-      return this.expenses ? this.first === 0 : true;
-  }
-
-  showDialogFilter() {
-      this.displayFilter = true;
+      catchError((error) => {
+        console.error(error);
+        return of(undefined);
+      }),
+      );
   }
 
   showDialogDetails(title: string) {
@@ -76,6 +44,10 @@ export class ExpenseListComponent implements OnInit, OnDestroy {
 
   cancelDialogDetails() {
     this.displayDetails = false;
+  }
+
+  showDialogFilter() {
+    this.displayFilter = true;
   }
 
   ngOnDestroy(): void {
