@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { IReceiptData } from 'src/app/shared/interfaces/receipt.interface';
 import { RECEIPT_TYPE } from 'src/app/shared/enums/receipt.enum';
 
+
 @Component({
   selector: 'app-expense-list',
   templateUrl: './expense-list.component.html',

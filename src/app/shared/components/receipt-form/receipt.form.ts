@@ -6,13 +6,13 @@ export class ReceiptForm extends FormGroup {
     super({
       date: new FormControl('', [ Validators.required ]),
 
-      concept_id: new FormControl('', [ Validators.required ]),
+      concept: new FormControl('', [ Validators.required ]),
 
       description: new FormControl(''),
 
       amount: new FormControl('', [ Validators.required, Validators.min(1) ]),
 
-      currency_id: new FormControl('', [ Validators.required ]),
+      currency: new FormControl('', [ Validators.required ]),
 
       actual_amount: new FormControl(''),
     });

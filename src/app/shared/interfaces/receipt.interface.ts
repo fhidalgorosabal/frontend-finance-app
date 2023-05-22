@@ -1,9 +1,10 @@
 export interface IReceiptData {
-  id: number;
+  id?: number;
   amount: number;
-  date: Date;
-  concept: string;
+  date: string;
+  concept_id: string;
   type: string;
-  currency: string;
-  actual_amount: number;
+  currency_id: string;
+  actual_amount?: number;
+  description?: string;
 }

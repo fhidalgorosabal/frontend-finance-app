@@ -19,7 +19,7 @@
           icon="pi pi-plus"
           [label]="'Nuevo'"
           class="p-button-success"
-          (click)="showDetails('Crear comprobante')"
+          (click)="showDetails(1)"
         ></button>
         <span>{{ title }}</span>
         <button
@@ -63,7 +63,7 @@
               type="button"
               icon="pi pi-pencil"
               class="p-button-rounded p-button-text p-button-plain mr-2"
-              (click)="showDetails('Editar comprobante')"
+              (click)="showDetails(2)"
             ></button>
             <button
               pButton

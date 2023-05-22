@@ -7,7 +7,9 @@ import { CurrencyService } from 'src/app/services/currency.service';
 import { ReceiptService } from 'src/app/services/receipt.service';
 import { ReceiptForm } from 'src/app/shared/components/receipt-form/receipt.form';
 import { ILabel } from 'src/app/shared/interfaces/label.interface';
-import { RECEIPT_TYPE } from 'src/app/shared/enums/receipt.enum';
+import { ACTION_TYPE, RECEIPT_TYPE } from 'src/app/shared/enums/receipt.enum';
+import { IReceiptData } from 'src/app/shared/interfaces/receipt.interface';
+import { Utils } from 'src/app/shared/utils/utils';
 
 @Component({
   selector: 'app-expense-details',
@@ -93,9 +95,34 @@ export class ExpenseDetailsComponent implements OnInit, OnDestroy {
   }
 
   save(){
-    console.log(this.expenseForm.value);
+    (this.titleDetails === ACTION_TYPE.CREATE) ? this.createExpense() : this.editExpense();
     this.displayDetails = false;
     this.cancelDetails.emit();
+  }
+
+  createExpense() {
+    const dataForm = this.expenseForm.value;
+
+    const expense: IReceiptData = {
+      date: Utils.dateFormat(dataForm.date),
+      concept_id: dataForm.concept.value,
+      type: RECEIPT_TYPE.EXPENSE,
+      amount: dataForm.amount,
+      currency_id: dataForm.currency.value,
+      description: dataForm.description
+    }
+
+    this.receiptService.createReceipt(expense)
+    .subscribe({
+      next: (res) => {
+        console.log(res)
+      },
+      error: (error) => this.messageService.add({severity: 'error', summary: '¡Error!', detail: error.message}),
+    });
+  }
+
+  editExpense() {
+    console.log('Edit', this.expenseForm.value);
   }
 
   ngOnDestroy(): void {

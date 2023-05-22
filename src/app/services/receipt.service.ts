@@ -26,4 +26,8 @@ export class ReceiptService {
       );
   }
 
+  createReceipt(receipt: IReceiptData): Observable<IResponse> {
+    return this.http.post<IResponse>(`${ this._url }/receipt`, receipt);
+  }
+
 }
