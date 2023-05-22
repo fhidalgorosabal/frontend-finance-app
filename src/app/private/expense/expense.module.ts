@@ -5,11 +5,13 @@ import { ExpenseRoutingModule } from './expense-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { ExpenseListComponent } from './expense-list/expense-list.component';
+import { ExpenseDetailsComponent } from './expense-details/expense-details.component';
 
 
 @NgModule({
   declarations: [
     ExpenseListComponent,
+    ExpenseDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { ExpenseListComponent } from './expense-list/expense-list.component';
     SharedModule
   ],
   exports: [
-    ExpenseListComponent
+    ExpenseListComponent,
+    ExpenseDetailsComponent,
   ]
 })
 export class ExpenseModule { }

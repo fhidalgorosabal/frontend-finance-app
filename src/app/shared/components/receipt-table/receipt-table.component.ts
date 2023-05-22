@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { Label } from 'src/app/shared/interfaces/label.interface';
+import { ILabel } from 'src/app/shared/interfaces/label.interface';
 import { IReceiptData } from 'src/app/shared/interfaces/receipt.interface';
 
 @Component({
@@ -16,9 +16,9 @@ export class ReceiptTableComponent implements OnInit {
 
   @Output() details = new EventEmitter<string>();
 
-  @Output() filter = new EventEmitter<void>();
+  filter: boolean = false;
 
-  columnData: Label[] = [
+  columnData: ILabel[] = [
     { label: 'Fecha', value: 'date'},
     { label: 'Concepto', value: 'concept'},
     { label: 'Importe', value: 'amount'}
@@ -58,7 +58,7 @@ export class ReceiptTableComponent implements OnInit {
   }
 
   showFilter() {
-    this.filter.emit();
+    this.filter = !this.filter;
   }
 
 }

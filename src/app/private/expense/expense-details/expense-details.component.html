@@ -1,0 +1,44 @@
+<p-dialog
+  [(visible)]="displayDetails"
+  [header]="titleDetails"
+  [closable]="false"
+  [breakpoints]="{'960px': '75vw', '640px': '100vw'}"
+  [style]="{width: '75vw'}"
+  [draggable]="false"
+  [resizable]="false"
+  [modal]="true">
+  <app-receipt-form
+    *ngIf="data$ | async as data; else loading"
+    [optionsConcept]="data.concepts"
+    [optionsCurrency]="data.currencies"
+    [receiptForm]="expenseForm"
+    (formState)="setForm($event)"
+  ></app-receipt-form>
+
+  <ng-template #loading>
+    <div class="flex justify-content-center flex-wrap my-8">
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-spin pi-spinner" style="font-size: 3rem"></i>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      type="button"
+      icon="pi pi-times"
+      [label]="'Cancelar'"
+      class="p-button-danger"
+      (click)="cancelDialogDetails()"
+    ></button>
+    <button
+      pButton
+      type="button"
+      icon="pi pi-check"
+      [label]="'Aceptar'"
+      class="p-button-secondary"
+      [disabled]="isInvalidForm()"
+      (click)="save()"
+    ></button>
+  </ng-template>
+</p-dialog>

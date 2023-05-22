@@ -1,1 +1,88 @@
-<p>receipt-form works!</p>
+<form [formGroup]="receiptForm">
+  <div class="grid p-fluid">
+
+    <div class="col-12 md:col-6">
+      <div class="field col-12">
+        <label for="concept-input">{{ 'Concepto:' }}</label>
+        <p-dropdown
+          id="concept-input"
+          [class]="isValidField('concept_id') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
+          optionLabel="Concepto"
+          [options]="optionsConcept"
+          optionLabel="label"
+          [placeholder]="'Seleccione el concepto'"
+          aria-describedby="concept-help"
+          formControlName="concept_id"
+        ></p-dropdown>
+        <small *ngIf="isValidField('concept_id')" id="concept-help" class="p-error block">
+          {{ 'El concepto es obligatorio.' }}
+        </small>
+      </div>
+      <div class="field col-12">
+        <label for="amount-input">{{ 'Importe:' }}</label>
+        <p-inputNumber
+          id="amount-input"
+          [class]="isValidField('amount') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
+          mode="decimal"
+          [minFractionDigits]="2"
+          formControlName="amount"
+        ></p-inputNumber>
+        <small *ngIf="isValidField('amount')" id="concept-help" class="p-error block">
+          {{ 'El importe es obligatorio y debe ser mayor a cero.' }}
+        </small>
+      </div>
+      <div class="field col-12">
+        <label for="currency-input">{{ 'Tipo de moneda:' }}</label>
+        <p-dropdown
+          id="currency-input"
+          [class]="isValidField('currency_id') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
+          [options]="optionsCurrency"
+          optionLabel="label"
+          [placeholder]="'Seleccione la moneda'"
+          formControlName="currency_id"
+        ></p-dropdown>
+        <small *ngIf="isValidField('currency_id')" id="concept-help" class="p-error block">
+          {{ 'El tipo de moneda es obligatorio.' }}
+        </small>
+      </div>
+      <div class="field col-12">
+        <label for="actual-amount-input">{{ 'Importe real:' }}</label>
+        <p-inputNumber
+          id="actual-amount-input"
+          styleClass="w-12"
+          mode="decimal"
+          [minFractionDigits]="2"
+          [readonly]="true"
+          formControlName="actual_amount"
+        ></p-inputNumber>
+      </div>
+    </div>
+
+    <div class="field col-12 md:col-6">
+      <label
+        for="date-input"
+        [class]="this.receiptForm.controls['date'].invalid ? 'p-error' : ''"
+      >{{ this.receiptForm.controls['date'].valid ? 'Fecha:' : 'Fecha obligatoria' }}</label>
+      <p-calendar
+        id="date-input"
+        styleClass="w-12"
+        [inline]="true"
+        [firstDayOfWeek]="1"
+        formControlName="date"
+      ></p-calendar>
+    </div>
+
+    <div class="field col-12">
+      <label for="description-input">{{ 'Descripción:' }}</label>
+      <textarea
+        id="description-input"
+        class="w-12 h-max"
+        [rows]="3"
+        pInputTextarea
+        [autoResize]="true"
+        formControlName="description"
+      ></textarea>
+    </div>
+
+  </div>
+</form>

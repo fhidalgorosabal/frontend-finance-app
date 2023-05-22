@@ -1,54 +1,24 @@
 <div class="p-2 mt-5 md:px-4 lg:px-6">
   <app-receipt-table
     [title]="title"
-    *ngIf="expenses$ | async as expenses"
+    *ngIf="expenses$ | async as expenses; else loading"
     [receipts]="expenses"
     (details)="showDialogDetails($event)"
-    (filter)="showDialogFilter()"
   ></app-receipt-table>
 </div>
 
-<p-dialog
-  [header]="'Filtrar comprobantes'"
-  [(visible)]="displayFilter"
-  [draggable]="false"
-  [resizable]="false"
-  [modal]="true">
-  Content
-  <ng-template pTemplate="footer">
-    <button
-      pButton
-      type="button"
-      icon="pi pi-check"
-      [label]="'Aceptar'"
-      class="p-button-secondary"
-    ></button>
-  </ng-template>
-</p-dialog>
+<app-expense-details
+  *ngIf="displayDetails"
+  [displayDetails]="displayDetails"
+  [titleDetails]="titleDetails"
+  (cancelDetails)="cancelDialogDetails()"
+></app-expense-details>
 
-<p-dialog
-  [header]="titleDetails"
-  [(visible)]="displayDetails"
-  [draggable]="false"
-  [resizable]="false"
-  [modal]="true">
-  <app-receipt-form></app-receipt-form>
-  <ng-template pTemplate="footer">
-    <button
-      pButton
-      type="button"
-      icon="pi pi-times"
-      [label]="'Cancelar'"
-      class="p-button-danger"
-      (click)="cancelDialogDetails()"
-    ></button>
-    <button
-      pButton
-      type="button"
-      icon="pi pi-check"
-      [label]="'Aceptar'"
-      class="p-button-secondary"
-    ></button>
-  </ng-template>
-</p-dialog>
+<ng-template #loading>
+  <div class="flex justify-content-center flex-wrap mt-8">
+    <div class="flex align-items-center justify-content-center">
+      <i class="pi pi-spin pi-spinner" style="font-size: 3rem"></i>
+    </div>
+  </div>
+</ng-template>
 

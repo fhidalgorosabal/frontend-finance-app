@@ -50,11 +50,11 @@ export class DashboardComponent implements OnInit {
 }
 
 update() {
-    this.messageService.add({severity:'success', summary:'Success', detail:'Data Updated'});
+  this.messageService.add({severity:'success', summary:'Success', detail:'Data Updated'});
 }
 
 delete() {
-    this.messageService.add({severity:'warn', summary:'Delete', detail:'Data Deleted'});
+  this.messageService.add({severity:'warn', summary:'Delete', detail:'Data Deleted'});
 }
 
 }

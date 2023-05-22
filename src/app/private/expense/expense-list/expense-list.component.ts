@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subject, of } from 'rxjs';
+import { EMPTY, Observable, Subject } from 'rxjs';
 import { takeUntil, catchError } from 'rxjs/operators';
 import { ReceiptService } from 'src/app/services/receipt.service';
+import { MessageService } from 'primeng/api';
 import { IReceiptData } from 'src/app/shared/interfaces/receipt.interface';
 import { RECEIPT_TYPE } from 'src/app/shared/enums/receipt.enum';
 
@@ -14,27 +15,32 @@ export class ExpenseListComponent implements OnInit, OnDestroy {
 
   title: string = 'Comprobantes de gasto';
 
-  expenses$ = new Observable<IReceiptData[] | undefined>();
-
-  displayFilter = false;
-
-  displayDetails = false;
+  expenses$ = new Observable<IReceiptData[]>();
 
   titleDetails: string = '';
 
+  displayDetails = false;
+
   destroy$ = new Subject<void>();
 
-  constructor(private receiptService: ReceiptService) { }
+  constructor(
+    private receiptService: ReceiptService,
+    private messageService: MessageService
+  ) { }
 
   ngOnInit(): void {
+    this.expensesList();
+  }
+
+  expensesList(): void {
     this.expenses$ = this.receiptService.receiptsList( RECEIPT_TYPE.EXPENSE )
     .pipe(
       takeUntil(this.destroy$),
       catchError((error) => {
-        console.error(error);
-        return of(undefined);
+        this.messageService.add({severity: 'error', summary: '¡Error!', detail: error.message});
+        return EMPTY;
       }),
-      );
+    );
   }
 
   showDialogDetails(title: string) {
@@ -44,10 +50,6 @@ export class ExpenseListComponent implements OnInit, OnDestroy {
 
   cancelDialogDetails() {
     this.displayDetails = false;
-  }
-
-  showDialogFilter() {
-    this.displayFilter = true;
   }
 
   ngOnDestroy(): void {

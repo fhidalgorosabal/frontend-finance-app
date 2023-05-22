@@ -5,6 +5,7 @@ import { HeaderComponent } from './header/header.component';
 import { ReceiptTableComponent } from './receipt-table/receipt-table.component';
 import { ReceiptFormComponent } from './receipt-form/receipt-form.component';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -17,6 +18,7 @@ import { PrimeNgModule } from '../prime-ng/prime-ng.module';
   imports: [
     CommonModule,
     PrimeNgModule,
+    ReactiveFormsModule
   ],
   exports: [
     HeaderComponent,
