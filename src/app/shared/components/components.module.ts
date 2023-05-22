@@ -6,6 +6,7 @@ import { ReceiptTableComponent } from './receipt-table/receipt-table.component';
 import { ReceiptFormComponent } from './receipt-form/receipt-form.component';
 import { PrimeNgModule } from '../prime-ng/prime-ng.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoadingComponent } from './loading/loading.component';
 
 
 
@@ -13,7 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     HeaderComponent,
     ReceiptTableComponent,
-    ReceiptFormComponent
+    ReceiptFormComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   exports: [
     HeaderComponent,
     ReceiptTableComponent,
-    ReceiptFormComponent
+    ReceiptFormComponent,
+    LoadingComponent
   ]
 })
 export class ComponentsModule { }

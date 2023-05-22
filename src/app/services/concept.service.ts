@@ -3,13 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IReceiptData } from '../shared/interfaces/receipt.interface';
 import { IResponse } from '../shared/interfaces/response.interface';
+import { IConceptData } from '../shared/interfaces/concept.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ReceiptService {
+export class ConceptService {
 
   _url: string;
 
@@ -17,13 +17,12 @@ export class ReceiptService {
     this._url = environment.base_url;
   }
 
-  receiptsList(receiptType: string): Observable<IReceiptData[]> {
-    return this.http.post<IResponse>(`${ this._url }/receipt/list`, { type: receiptType })
+  conceptsList(conceptType: string): Observable<IConceptData[]> {
+    return this.http.get<IResponse>(`${ this._url }/concept`)
       .pipe(
         map(
-          (res) => res.data
+          (res) => res.data.filter(data => data.type === conceptType)
         )
       );
   }
-
 }

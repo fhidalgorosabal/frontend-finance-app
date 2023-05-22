@@ -1,9 +1,3 @@
-export interface IReceiptResponse {
-  status: string;
-  message: string;
-  data: IReceiptData[];
-}
-
 export interface IReceiptData {
   id: number;
   amount: number;

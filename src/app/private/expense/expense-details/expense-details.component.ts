@@ -2,9 +2,12 @@ import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angu
 import { MessageService } from 'primeng/api';
 import { EMPTY, Observable, Subject, combineLatest, of } from 'rxjs';
 import { takeUntil, catchError, delay, map } from 'rxjs/operators';
+import { ConceptService } from 'src/app/services/concept.service';
+import { CurrencyService } from 'src/app/services/currency.service';
 import { ReceiptService } from 'src/app/services/receipt.service';
 import { ReceiptForm } from 'src/app/shared/components/receipt-form/receipt.form';
 import { ILabel } from 'src/app/shared/interfaces/label.interface';
+import { RECEIPT_TYPE } from 'src/app/shared/enums/receipt.enum';
 
 @Component({
   selector: 'app-expense-details',
@@ -27,6 +30,8 @@ export class ExpenseDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private receiptService: ReceiptService,
+    private conceptService: ConceptService,
+    private currencyService: CurrencyService,
     private messageService: MessageService
   ) {
     this.expenseForm = new ReceiptForm();
@@ -53,22 +58,18 @@ export class ExpenseDetailsComponent implements OnInit, OnDestroy {
   }
 
   getConcepts() { //TODO: Consumir datos de la API
-    return of([
-      { label: 'Concepto 1', value: '1' },
-      { label: 'Concepto 2', value: '2' },
-      { label: 'Concepto 3', value: '3' },
-    ]).pipe(
-      delay(1000),
+    return this.conceptService.conceptsList( RECEIPT_TYPE.EXPENSE ).pipe(
+      map(
+        (data) => data.map(data => ({label: data.description, value: data.id }))
+      )
     );
   }
 
   getCurrencies() { //TODO: Consumir datos de la API
-    return of([
-      { label: 'USD', value: '1' },
-      { label: 'MLC', value: '2' },
-      { label: 'CUP', value: '3' },
-    ]).pipe(
-      delay(2000),
+    return this.currencyService.currenciesList().pipe(
+      map(
+        (data) => data.map(data => ({label: data.initials, value: data.id }))
+      )
     );
   }
 

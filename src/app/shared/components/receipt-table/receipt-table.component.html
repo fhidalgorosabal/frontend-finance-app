@@ -33,7 +33,7 @@
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-          <th *ngFor="let col of columnData" [pSortableColumn]="col.value"> {{ col.label }} <p-sortIcon [field]="col.value"></p-sortIcon></th>
+          <th *ngFor="let col of columnData" [pSortableColumn]="col.value.toString()"> {{ col.label }} <p-sortIcon [field]="col.value.toString()"></p-sortIcon></th>
           <th class="text-center">{{ 'Acciones' }}</th>
       </tr>
       <tr *ngIf="filter">

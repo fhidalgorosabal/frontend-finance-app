@@ -1,4 +1,4 @@
 export interface ILabel {
   label: string;
-  value: string;
+  value: string | number;
 }
