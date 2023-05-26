@@ -8,13 +8,13 @@ export class ReceiptFormModel extends FormGroup {
 
       concept: new FormControl('', [ Validators.required ]),
 
-      description: new FormControl(''),
-
       amount: new FormControl('', [ Validators.required, Validators.min(1) ]),
 
       currency: new FormControl('', [ Validators.required ]),
 
       actual_amount: new FormControl(''),
+
+      description: new FormControl(''),
     });
   }
 }

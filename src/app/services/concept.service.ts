@@ -21,7 +21,7 @@ export class ConceptService {
     return this.http.get<IResponse>(`${ this._url }/concept`)
       .pipe(
         map(
-          (res) => res.data.filter(data => data.type === conceptType)
+          (res) => res.data.filter((data: IConceptData) => data.type === conceptType)
         )
       );
   }

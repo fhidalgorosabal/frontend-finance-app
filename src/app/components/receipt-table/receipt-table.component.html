@@ -19,7 +19,7 @@
           icon="pi pi-plus"
           [label]="'Nuevo'"
           class="p-button-success"
-          (click)="showDetails(1)"
+          (click)="showDetails()"
         ></button>
         <span>{{ title }}</span>
         <button
@@ -46,7 +46,7 @@
           <p-columnFilter type="text" field="concept"></p-columnFilter>
         </th>
         <th>
-          <p-columnFilter type="text" field="amount"></p-columnFilter>
+          <p-columnFilter type="text" field="actual_amount"></p-columnFilter>
         </th>
         <th>&nbsp;</th>
       </tr>
@@ -55,7 +55,7 @@
       <tr>
           <td>{{ receipt.date | date: 'dd/MM/yyyy' }}</td>
           <td>{{ receipt.concept }}</td>
-          <td>{{ receipt.amount | currency }}</td>
+          <td>{{ receipt.actual_amount | currency }}</td>
           <td class="text-center">
             <button
               pButton
@@ -63,7 +63,7 @@
               type="button"
               icon="pi pi-pencil"
               class="p-button-rounded p-button-text p-button-plain mr-2"
-              (click)="showDetails(2)"
+              (click)="showDetails(receipt.id)"
             ></button>
             <button
               pButton

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { EMPTY, Observable, combineLatest, of } from 'rxjs';
-import { catchError, map, first } from 'rxjs/operators';
+import { catchError, map, first, switchMap } from 'rxjs/operators';
 import { ConceptService } from 'src/app/services/concept.service';
 import { CurrencyService } from 'src/app/services/currency.service';
 import { ReceiptService } from 'src/app/services/receipt.service';
@@ -9,7 +9,7 @@ import { ReceiptFormModel } from 'src/app/components/receipt-form/receipt-form.m
 import { ILabel } from 'src/app/interfaces/label.interface';
 import { RECEIPT_TYPE } from 'src/app/enums/receipt.enum';
 import { ACTION_TYPE } from 'src/app/enums/actions.enum';
-import { IReceiptData } from 'src/app/interfaces/receipt.interface';
+import { IReceiptData, IReceipt } from 'src/app/interfaces/receipt.interface';
 import { Utils } from 'src/app/shared/utils/utils';
 
 @Component({
@@ -25,7 +25,7 @@ export class ExpenseDetailsComponent implements OnInit {
 
   @Output() closeDetails = new EventEmitter<boolean>();
 
-  data$ = new Observable<{ concepts: ILabel[]; currencies: ILabel[]; }>();
+  data$ = new Observable<IReceiptData>();
 
   expenseForm: ReceiptFormModel;
 
@@ -36,6 +36,9 @@ export class ExpenseDetailsComponent implements OnInit {
     private messageService: MessageService
   ) {
     this.expenseForm = new ReceiptFormModel();
+    if (this.actionDetails === ACTION_TYPE.DETAIL) {
+      this.getDetailReceipt();
+    }
   }
 
   ngOnInit(): void {
@@ -43,12 +46,21 @@ export class ExpenseDetailsComponent implements OnInit {
   }
 
   getData(): void {
-    this.data$ = combineLatest([this.getConcepts(), this.getCurrencies()]).pipe(
+    const concepts$ = this.getConcepts();
+    const currencies$ = this.getCurrencies();
+    const receipt$ = this.getDetailReceipt();
+
+    this.data$ = combineLatest([
+      concepts$,
+      currencies$,
+      ...(this.actionDetails === ACTION_TYPE.DETAIL ? [receipt$] : [])
+    ]).pipe(
       first(),
-      map(([concepts, currencies]) => {
+      map(([concepts, currencies, receipt]) => {
         return {
           'concepts': concepts,
-          'currencies': currencies
+          'currencies': currencies,
+          'receipt': receipt
         }
       }),
       catchError((error) => {
@@ -58,7 +70,7 @@ export class ExpenseDetailsComponent implements OnInit {
     );
   }
 
-  getConcepts() {
+  getConcepts(): Observable<ILabel[]> {
     return this.conceptService.conceptsList( RECEIPT_TYPE.EXPENSE ).pipe(
       map(
         (data) => data.map(data => ({label: data.description, value: data.id }))
@@ -66,7 +78,7 @@ export class ExpenseDetailsComponent implements OnInit {
     );
   }
 
-  getCurrencies() {
+  getCurrencies(): Observable<ILabel[]> {
     return this.currencyService.currenciesList().pipe(
       map(
         (data) => data.map(data => ({label: data.initials, value: data.id }))
@@ -74,39 +86,46 @@ export class ExpenseDetailsComponent implements OnInit {
     );
   }
 
-  getTitle(actionDetails: ACTION_TYPE) {
-    return (actionDetails === ACTION_TYPE.CREATE) ? 'Crear comprobante' : 'Editar Comprobante';
+  getDetailReceipt(): Observable<IReceipt> {
+    return this.receiptService.detailId.asObservable().pipe(
+      first(),
+      switchMap(id => this.receiptService.getReceipt(id))
+    );
   }
 
-  showDialogDetails(action: ACTION_TYPE) {
+  getTitle(actionDetails: ACTION_TYPE): string {
+    return (actionDetails === ACTION_TYPE.DETAIL) ? 'Detalles del comprobante' : 'Crear Comprobante';
+  }
+
+  showDialogDetails(action: ACTION_TYPE): void {
     this.actionDetails = action;
     this.displayDetails = true;
   }
 
-  cancelDialogDetails() {
+  cancelDialogDetails(): void {
     this.expenseForm.reset();
     this.displayDetails = false;
     this.closeDetails.emit(false);
   }
 
-  setForm(form: ReceiptFormModel) {
+  setForm(form: ReceiptFormModel): void {
     this.expenseForm = form;
   }
 
-  isInvalidForm() {
+  isInvalidForm(): boolean {
     return this.expenseForm.invalid;
   }
 
-  save(){
+  save(): void {
     (this.actionDetails === ACTION_TYPE.CREATE) ? this.createExpense() : this.editExpense();
     this.displayDetails = false;
     this.closeDetails.emit(true);
   }
 
-  createExpense() {
+  createExpense(): void {
     const dataForm = this.expenseForm.value;
 
-    const expense: IReceiptData = {
+    const expense: IReceipt = {
       date: Utils.dateFormat(dataForm.date),
       concept_id: dataForm.concept.value,
       type: RECEIPT_TYPE.EXPENSE,
@@ -118,12 +137,12 @@ export class ExpenseDetailsComponent implements OnInit {
     this.receiptService.createReceipt(expense)
     .pipe(first())
     .subscribe({
-      next: (res) => this.messageService.add({ severity: res?.status, summary:'¡Correcto!', detail: res?.message }),
+      next: (res) => this.messageService.add({ severity: res?.status, summary:'¡Nuevo comprobante!', detail: res?.message }),
       error: (error) => this.messageService.add({ severity: 'error', summary: '¡Error!', detail: error.message }),
     });
   }
 
-  editExpense() {
+  editExpense(): void {
     console.log('Edit', this.expenseForm.value);
   }
 

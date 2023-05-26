@@ -3,7 +3,7 @@ import { EMPTY, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ReceiptService } from 'src/app/services/receipt.service';
 import { MessageService } from 'primeng/api';
-import { IReceiptData } from 'src/app/interfaces/receipt.interface';
+import { IReceiptResponse } from 'src/app/interfaces/receipt.interface';
 import { RECEIPT_TYPE } from 'src/app/enums/receipt.enum';
 import { ACTION_TYPE } from 'src/app/enums/actions.enum';
 
@@ -17,7 +17,7 @@ export class ExpenseListComponent implements OnInit {
 
   title: string = 'Comprobantes de gasto';
 
-  expenses$ = new Observable<IReceiptData[]>();
+  expenses$ = new Observable<IReceiptResponse[]>();
 
   actionDetails = ACTION_TYPE.DETAIL;
 
