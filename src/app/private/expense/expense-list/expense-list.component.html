@@ -10,11 +10,9 @@
 <app-expense-details
   *ngIf="displayDetails"
   [displayDetails]="displayDetails"
-  [titleDetails]="titleDetails"
-  (cancelDetails)="cancelDialogDetails()"
+  [actionDetails]="actionDetails"
+  (closeDetails)="cancelDialogDetails($event)"
 ></app-expense-details>
 
-<ng-template #loading>
-  <app-loading></app-loading>
-</ng-template>
+<ng-template #loading><app-loading></app-loading></ng-template>
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { ILabel } from 'src/app/shared/interfaces/label.interface';
-import { IReceiptData } from 'src/app/shared/interfaces/receipt.interface';
-import { ACTION_TYPE } from 'src/app/shared/enums/receipt.enum';
+import { ILabel } from 'src/app/interfaces/label.interface';
+import { IReceiptData } from 'src/app/interfaces/receipt.interface';
+import { ACTION_TYPE } from 'src/app/enums/actions.enum';
 
 @Component({
   selector: 'app-receipt-table',
@@ -15,9 +15,11 @@ export class ReceiptTableComponent implements OnInit {
 
   @Input() receipts: IReceiptData[] = [];
 
-  @Output() details = new EventEmitter<string>();
+  @Output() details = new EventEmitter<ACTION_TYPE>();
 
   filter: boolean = false;
+
+  filterFields = ['date','concept','amount'];
 
   columnData: ILabel[] = [
     { label: 'Fecha', value: 'date'},
@@ -27,7 +29,9 @@ export class ReceiptTableComponent implements OnInit {
 
   first = 0;
 
-  rows = 10;
+  arrayRows = [5,10,25,100];
+
+  rows = 5;
 
   constructor() { }
 

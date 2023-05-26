@@ -1,14 +1,15 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { EMPTY, Observable, Subject, combineLatest, of } from 'rxjs';
-import { takeUntil, catchError, delay, map } from 'rxjs/operators';
+import { EMPTY, Observable, combineLatest, of } from 'rxjs';
+import { catchError, map, first } from 'rxjs/operators';
 import { ConceptService } from 'src/app/services/concept.service';
 import { CurrencyService } from 'src/app/services/currency.service';
 import { ReceiptService } from 'src/app/services/receipt.service';
-import { ReceiptForm } from 'src/app/shared/components/receipt-form/receipt.form';
-import { ILabel } from 'src/app/shared/interfaces/label.interface';
-import { ACTION_TYPE, RECEIPT_TYPE } from 'src/app/shared/enums/receipt.enum';
-import { IReceiptData } from 'src/app/shared/interfaces/receipt.interface';
+import { ReceiptFormModel } from 'src/app/components/receipt-form/receipt-form.model';
+import { ILabel } from 'src/app/interfaces/label.interface';
+import { RECEIPT_TYPE } from 'src/app/enums/receipt.enum';
+import { ACTION_TYPE } from 'src/app/enums/actions.enum';
+import { IReceiptData } from 'src/app/interfaces/receipt.interface';
 import { Utils } from 'src/app/shared/utils/utils';
 
 @Component({
@@ -16,19 +17,17 @@ import { Utils } from 'src/app/shared/utils/utils';
   templateUrl: './expense-details.component.html',
   styleUrls: ['./expense-details.component.scss']
 })
-export class ExpenseDetailsComponent implements OnInit, OnDestroy {
+export class ExpenseDetailsComponent implements OnInit {
 
-  @Input() titleDetails: string = '';
+  @Input() actionDetails = ACTION_TYPE.DETAIL;
 
   @Input() displayDetails = false;
 
-  @Output() cancelDetails = new EventEmitter<void>();
+  @Output() closeDetails = new EventEmitter<boolean>();
 
   data$ = new Observable<{ concepts: ILabel[]; currencies: ILabel[]; }>();
 
-  expenseForm: ReceiptForm;
-
-  destroy$ = new Subject<void>();
+  expenseForm: ReceiptFormModel;
 
   constructor(
     private receiptService: ReceiptService,
@@ -36,7 +35,7 @@ export class ExpenseDetailsComponent implements OnInit, OnDestroy {
     private currencyService: CurrencyService,
     private messageService: MessageService
   ) {
-    this.expenseForm = new ReceiptForm();
+    this.expenseForm = new ReceiptFormModel();
   }
 
   ngOnInit(): void {
@@ -45,7 +44,7 @@ export class ExpenseDetailsComponent implements OnInit, OnDestroy {
 
   getData(): void {
     this.data$ = combineLatest([this.getConcepts(), this.getCurrencies()]).pipe(
-      takeUntil(this.destroy$),
+      first(),
       map(([concepts, currencies]) => {
         return {
           'concepts': concepts,
@@ -59,7 +58,7 @@ export class ExpenseDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  getConcepts() { //TODO: Consumir datos de la API
+  getConcepts() {
     return this.conceptService.conceptsList( RECEIPT_TYPE.EXPENSE ).pipe(
       map(
         (data) => data.map(data => ({label: data.description, value: data.id }))
@@ -67,7 +66,7 @@ export class ExpenseDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  getCurrencies() { //TODO: Consumir datos de la API
+  getCurrencies() {
     return this.currencyService.currenciesList().pipe(
       map(
         (data) => data.map(data => ({label: data.initials, value: data.id }))
@@ -75,18 +74,22 @@ export class ExpenseDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  showDialogDetails(title: string) {
-    this.titleDetails = title;
+  getTitle(actionDetails: ACTION_TYPE) {
+    return (actionDetails === ACTION_TYPE.CREATE) ? 'Crear comprobante' : 'Editar Comprobante';
+  }
+
+  showDialogDetails(action: ACTION_TYPE) {
+    this.actionDetails = action;
     this.displayDetails = true;
   }
 
   cancelDialogDetails() {
     this.expenseForm.reset();
     this.displayDetails = false;
-    this.cancelDetails.emit();
+    this.closeDetails.emit(false);
   }
 
-  setForm(form: ReceiptForm) {
+  setForm(form: ReceiptFormModel) {
     this.expenseForm = form;
   }
 
@@ -95,9 +98,9 @@ export class ExpenseDetailsComponent implements OnInit, OnDestroy {
   }
 
   save(){
-    (this.titleDetails === ACTION_TYPE.CREATE) ? this.createExpense() : this.editExpense();
+    (this.actionDetails === ACTION_TYPE.CREATE) ? this.createExpense() : this.editExpense();
     this.displayDetails = false;
-    this.cancelDetails.emit();
+    this.closeDetails.emit(true);
   }
 
   createExpense() {
@@ -113,21 +116,15 @@ export class ExpenseDetailsComponent implements OnInit, OnDestroy {
     }
 
     this.receiptService.createReceipt(expense)
+    .pipe(first())
     .subscribe({
-      next: (res) => {
-        console.log(res)
-      },
-      error: (error) => this.messageService.add({severity: 'error', summary: '¡Error!', detail: error.message}),
+      next: (res) => this.messageService.add({ severity: res?.status, summary:'¡Correcto!', detail: res?.message }),
+      error: (error) => this.messageService.add({ severity: 'error', summary: '¡Error!', detail: error.message }),
     });
   }
 
   editExpense() {
     console.log('Edit', this.expenseForm.value);
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
 }

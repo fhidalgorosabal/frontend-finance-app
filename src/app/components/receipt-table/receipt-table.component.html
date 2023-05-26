@@ -9,8 +9,8 @@
     [showCurrentPageReport]="true"
     [(first)]="first"
     currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} comprobantes"
-    [rowsPerPageOptions]="[10,25,50]"
-    [globalFilterFields]="['date','concept','amount']"
+    [rowsPerPageOptions]="arrayRows"
+    [globalFilterFields]="filterFields"
   >
     <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between">
@@ -46,7 +46,7 @@
           <p-columnFilter type="text" field="concept"></p-columnFilter>
         </th>
         <th>
-          <p-columnFilter type="numeric" field="amount"></p-columnFilter>
+          <p-columnFilter type="text" field="amount"></p-columnFilter>
         </th>
         <th>&nbsp;</th>
       </tr>

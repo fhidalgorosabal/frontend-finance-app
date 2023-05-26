@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { EMPTY, Observable, Subject } from 'rxjs';
-import { takeUntil, catchError } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { EMPTY, Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { ReceiptService } from 'src/app/services/receipt.service';
 import { MessageService } from 'primeng/api';
-import { IReceiptData } from 'src/app/shared/interfaces/receipt.interface';
-import { RECEIPT_TYPE } from 'src/app/shared/enums/receipt.enum';
+import { IReceiptData } from 'src/app/interfaces/receipt.interface';
+import { RECEIPT_TYPE } from 'src/app/enums/receipt.enum';
+import { ACTION_TYPE } from 'src/app/enums/actions.enum';
 
 
 @Component({
@@ -12,17 +13,15 @@ import { RECEIPT_TYPE } from 'src/app/shared/enums/receipt.enum';
   templateUrl: './expense-list.component.html',
   styleUrls: ['./expense-list.component.scss']
 })
-export class ExpenseListComponent implements OnInit, OnDestroy {
+export class ExpenseListComponent implements OnInit {
 
   title: string = 'Comprobantes de gasto';
 
   expenses$ = new Observable<IReceiptData[]>();
 
-  titleDetails: string = '';
+  actionDetails = ACTION_TYPE.DETAIL;
 
   displayDetails = false;
-
-  destroy$ = new Subject<void>();
 
   constructor(
     private receiptService: ReceiptService,
@@ -36,7 +35,6 @@ export class ExpenseListComponent implements OnInit, OnDestroy {
   expensesList(): void {
     this.expenses$ = this.receiptService.receiptsList( RECEIPT_TYPE.EXPENSE )
     .pipe(
-      takeUntil(this.destroy$),
       catchError((error) => {
         this.messageService.add({severity: 'error', summary: '¡Error!', detail: error.message});
         return EMPTY;
@@ -44,17 +42,15 @@ export class ExpenseListComponent implements OnInit, OnDestroy {
     );
   }
 
-  showDialogDetails(title: string) {
-    this.titleDetails = title;
+  showDialogDetails(action: ACTION_TYPE) {
+    this.actionDetails = action;
     this.displayDetails = true;
   }
 
-  cancelDialogDetails() {
+  cancelDialogDetails(event: boolean) {
+    if (event) {
+      this.expensesList();
+    }
     this.displayDetails = false;
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

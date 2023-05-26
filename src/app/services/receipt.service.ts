@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IReceiptData } from '../shared/interfaces/receipt.interface';
-import { IResponse } from '../shared/interfaces/response.interface';
+import { IReceiptData } from '../interfaces/receipt.interface';
+import { IResponse } from '../interfaces/response.interface';
 
 @Injectable({
   providedIn: 'root'

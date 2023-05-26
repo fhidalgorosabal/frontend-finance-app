@@ -1,7 +1,7 @@
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 
-export class ReceiptForm extends FormGroup {
+export class ReceiptFormModel extends FormGroup {
   constructor() {
     super({
       date: new FormControl('', [ Validators.required ]),

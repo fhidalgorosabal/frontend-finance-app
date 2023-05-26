@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IResponse } from '../shared/interfaces/response.interface';
-import { IConceptData } from '../shared/interfaces/concept.interface';
+import { IResponse } from '../interfaces/response.interface';
+import { IConceptData } from '../interfaces/concept.interface';
 
 @Injectable({
   providedIn: 'root'
