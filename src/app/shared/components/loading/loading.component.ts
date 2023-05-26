@@ -1,11 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-loading',
-  templateUrl: './loading.component.html',
-  styleUrls: ['./loading.component.scss'],
+  template: `
+    <div class="flex justify-content-center flex-wrap my-8">
+      <div class="flex align-items-center justify-content-center">
+        <i class="pi pi-spin pi-spinner text-6xl"></i>
+      </div>
+    </div>`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoadingComponent {
-
-}
+export class LoadingComponent { }

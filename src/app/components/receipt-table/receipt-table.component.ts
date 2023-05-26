@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { ILabel } from 'src/app/interfaces/label.interface';
 import { IReceiptData } from 'src/app/interfaces/receipt.interface';
 import { ACTION_TYPE } from 'src/app/enums/actions.enum';
@@ -6,10 +12,9 @@ import { ACTION_TYPE } from 'src/app/enums/actions.enum';
 @Component({
   selector: 'app-receipt-table',
   templateUrl: './receipt-table.component.html',
-  styleUrls: ['./receipt-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ReceiptTableComponent implements OnInit {
+export class ReceiptTableComponent {
 
   @Input() title: string = '';
 
@@ -17,7 +22,7 @@ export class ReceiptTableComponent implements OnInit {
 
   @Output() details = new EventEmitter<ACTION_TYPE>();
 
-  filter: boolean = false;
+  filter = false;
 
   filterFields = ['date','concept','amount'];
 
@@ -25,7 +30,7 @@ export class ReceiptTableComponent implements OnInit {
     { label: 'Fecha', value: 'date'},
     { label: 'Concepto', value: 'concept'},
     { label: 'Importe', value: 'amount'}
-  ]
+  ];
 
   first = 0;
 
@@ -33,10 +38,9 @@ export class ReceiptTableComponent implements OnInit {
 
   rows = 5;
 
-  constructor() { }
+  pageReport = 'Mostrando {first} a {last} de {totalRecords} comprobantes';
 
-  ngOnInit(): void {
-  }
+  constructor() { }
 
   next() {
     this.first = this.first + this.rows;
@@ -69,6 +73,10 @@ export class ReceiptTableComponent implements OnInit {
 
   showFilter() {
     this.filter = !this.filter;
+  }
+
+  trackBy(index: number, col: any): number {
+    return col.id;
   }
 
 }

@@ -1,12 +1,19 @@
-import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy,
+  Input,
+  Output,
+  EventEmitter
+} from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { ILabel } from '../../interfaces/label.interface';
 import { ReceiptFormModel } from './receipt-form.model';
-import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-receipt-form',
   templateUrl: './receipt-form.component.html',
-  styleUrls: ['./receipt-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReceiptFormModelComponent implements OnInit, OnDestroy {
@@ -15,15 +22,13 @@ export class ReceiptFormModelComponent implements OnInit, OnDestroy {
 
   @Input() optionsCurrency: ILabel[] = []
 
-  @Input() receiptForm: ReceiptFormModel;
+  @Input() receiptForm = new ReceiptFormModel();
 
   @Output() formState = new EventEmitter<ReceiptFormModel>();
 
   destroy$ = new Subject<void>();
 
-  constructor() {
-    this.receiptForm = new ReceiptFormModel();
-   }
+  constructor() { }
 
   ngOnInit(): void {
     this.receiptForm.statusChanges

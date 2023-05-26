@@ -8,7 +8,7 @@
     [rows]="rows"
     [showCurrentPageReport]="true"
     [(first)]="first"
-    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} comprobantes"
+    [currentPageReportTemplate]="pageReport"
     [rowsPerPageOptions]="arrayRows"
     [globalFilterFields]="filterFields"
   >
@@ -33,7 +33,7 @@
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-          <th *ngFor="let col of columnData" [pSortableColumn]="col.value.toString()"> {{ col.label }} <p-sortIcon [field]="col.value.toString()"></p-sortIcon></th>
+          <th *ngFor="let col of columnData; trackBy:trackBy" [pSortableColumn]="col.value.toString()"> {{ col.label }} <p-sortIcon [field]="col.value.toString()"></p-sortIcon></th>
           <th class="text-center">{{ 'Acciones' }}</th>
       </tr>
       <tr *ngIf="filter">
