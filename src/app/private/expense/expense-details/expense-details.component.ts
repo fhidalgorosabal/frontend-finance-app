@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { EMPTY, Observable, combineLatest, of } from 'rxjs';
-import { catchError, map, first, switchMap } from 'rxjs/operators';
+import { catchError, map, first, switchMap, tap } from 'rxjs/operators';
 import { ConceptService } from 'src/app/services/concept.service';
 import { CurrencyService } from 'src/app/services/currency.service';
 import { ReceiptService } from 'src/app/services/receipt.service';
@@ -26,6 +26,8 @@ export class ExpenseDetailsComponent implements OnInit {
   @Output() closeDetails = new EventEmitter<boolean>();
 
   data$ = new Observable<IReceiptData>();
+
+  id?: number;
 
   expenseForm: ReceiptFormModel;
 
@@ -89,7 +91,8 @@ export class ExpenseDetailsComponent implements OnInit {
   getDetailReceipt(): Observable<IReceipt> {
     return this.receiptService.detailId.asObservable().pipe(
       first(),
-      switchMap(id => this.receiptService.getReceipt(id))
+      tap( detailId => this.id = detailId ),
+      switchMap( detailId => this.receiptService.getReceipt(detailId) )
     );
   }
 
@@ -118,14 +121,42 @@ export class ExpenseDetailsComponent implements OnInit {
 
   save(): void {
     (this.actionDetails === ACTION_TYPE.CREATE) ? this.createExpense() : this.editExpense();
-    this.displayDetails = false;
-    this.closeDetails.emit(true);
   }
 
-  createExpense(): void {
-    const dataForm = this.expenseForm.value;
+  private createExpense(): void {
+    this.receiptService.createReceipt(this.getFormReceipt()).pipe(
+      first(),
+      tap((res) => {
+        this.messageService.add({ severity: res?.status, summary:'¡Nuevo comprobante!', detail: res?.message });
+        this.close();
+      }),
+      catchError((error) => {
+        this.messageService.add({ severity: 'error', summary: '¡Error!', detail: error.message });
+        return EMPTY;
+      }),
+    ).subscribe();
+  }
 
-    const expense: IReceipt = {
+  private editExpense(): void {
+    if (this.id) {
+      this.receiptService.editReceipt(this.getFormReceipt(), this.id).pipe(
+        first(),
+        tap((res) => {
+          this.messageService.add({ severity: res?.status, summary:'¡Comprobante actualizado!', detail: res?.message });
+          this.close();
+        }),
+        catchError((error) => {
+          this.messageService.add({ severity: 'error', summary: '¡Error!', detail: error.message });
+          return EMPTY;
+        }),
+      ).subscribe();
+    }
+  }
+
+  private getFormReceipt(): IReceipt {
+    const dataForm = this.expenseForm.value;
+    console.log(Utils.dateFormat(dataForm.date));
+    return {
       date: Utils.dateFormat(dataForm.date),
       concept_id: dataForm.concept.value,
       type: RECEIPT_TYPE.EXPENSE,
@@ -133,17 +164,10 @@ export class ExpenseDetailsComponent implements OnInit {
       currency_id: dataForm.currency.value,
       description: dataForm.description
     }
-
-    this.receiptService.createReceipt(expense)
-    .pipe(first())
-    .subscribe({
-      next: (res) => this.messageService.add({ severity: res?.status, summary:'¡Nuevo comprobante!', detail: res?.message }),
-      error: (error) => this.messageService.add({ severity: 'error', summary: '¡Error!', detail: error.message }),
-    });
   }
 
-  editExpense(): void {
-    console.log('Edit', this.expenseForm.value);
+  private close(): void {
+    this.displayDetails = false;
+    this.closeDetails.emit(true);
   }
-
 }

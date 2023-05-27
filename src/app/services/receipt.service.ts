@@ -29,7 +29,7 @@ export class ReceiptService {
   }
 
   getReceipt(id: number): Observable<IReceipt> {
-    return this.http.get<IResponse>(`${ this._url }/receipt/${id}`)
+    return this.http.get<IResponse>(`${ this._url }/receipt/${ id }`)
       .pipe(
         map(
           (res) => res.data
@@ -39,6 +39,10 @@ export class ReceiptService {
 
   createReceipt(receipt: IReceipt): Observable<IResponse> {
     return this.http.post<IResponse>(`${ this._url }/receipt`, receipt);
+  }
+
+  editReceipt(receipt: IReceipt, id: number): Observable<IResponse> {
+    return this.http.patch<IResponse>(`${ this._url }/receipt/${ id }`, receipt);
   }
 
   setDetailId(id: number) {
