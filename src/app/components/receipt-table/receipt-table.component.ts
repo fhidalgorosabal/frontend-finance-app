@@ -23,6 +23,8 @@ export class ReceiptTableComponent {
 
   @Output() details = new EventEmitter<ACTION_TYPE>();
 
+  @Output() delete = new EventEmitter<number>();
+
   filter = false;
 
   filterFields = ['date','concept','actual_amount'];
@@ -72,6 +74,10 @@ export class ReceiptTableComponent {
       action = ACTION_TYPE.CREATE;
     }
     this.details.emit(action);
+  }
+
+  confirmDelete(id?: number) {
+    this.delete.emit(id);
   }
 
   showFilter() {

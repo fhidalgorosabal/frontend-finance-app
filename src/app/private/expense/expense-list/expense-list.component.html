@@ -4,6 +4,7 @@
     *ngIf="expenses$ | async as expenses; else loading"
     [receipts]="expenses"
     (details)="showDialogDetails($event)"
+    (delete)="confirmDelete($event)"
   ></app-receipt-table>
 </div>
 
@@ -13,6 +14,8 @@
   [actionDetails]="actionDetails"
   (closeDetails)="cancelDialogDetails($event)"
 ></app-expense-details>
+
+<p-confirmDialog [header]="'Eliminar'" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 
 <ng-template #loading><app-loading></app-loading></ng-template>
 

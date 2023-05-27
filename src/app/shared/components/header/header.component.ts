@@ -121,6 +121,6 @@ export class HeaderComponent implements OnInit {
         rejectLabel: 'Cancelar',
         rejectButtonStyleClass: 'p-button-danger'
     });
-}
+  }
 
 }

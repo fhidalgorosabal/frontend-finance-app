@@ -45,6 +45,10 @@ export class ReceiptService {
     return this.http.patch<IResponse>(`${ this._url }/receipt/${ id }`, receipt);
   }
 
+  deleteReceipt(id: number): Observable<IResponse> {
+    return this.http.delete<IResponse>(`${ this._url }/receipt/${ id }`);
+  }
+
   setDetailId(id: number) {
     this.detailId$.next(id);
   }

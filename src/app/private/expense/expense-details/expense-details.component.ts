@@ -155,7 +155,6 @@ export class ExpenseDetailsComponent implements OnInit {
 
   private getFormReceipt(): IReceipt {
     const dataForm = this.expenseForm.value;
-    console.log(Utils.dateFormat(dataForm.date));
     return {
       date: Utils.dateFormat(dataForm.date),
       concept_id: dataForm.concept.value,
