@@ -28,6 +28,7 @@
           class="p-button-rounded p-button-text p-button-danger"
           pTooltip="Salir"
           tooltipPosition="bottom"
+          (click)="confirmExit()"
         ></button>
       </ng-template>
     </p-menubar>
@@ -40,3 +41,5 @@
     ></p-menu>
   </div>
 </header>
+
+<p-confirmDialog [header]="'Salir'" icon="pi pi-exclamation-triangle"></p-confirmDialog>

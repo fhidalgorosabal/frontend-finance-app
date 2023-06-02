@@ -1,30 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ExpenseRoutingModule } from './expense-routing.module';
+import { IngressRoutingModule } from './ingress-routing.module';
 import { ReceiptFormModelModule } from 'src/app/components/receipt-form/receipt-form.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-import { ExpenseListComponent } from './expense-list/expense-list.component';
-import { ExpenseDetailsComponent } from './expense-details/expense-details.component';
+import { IngressListComponent } from './ingress-list/ingress-list.component';
+import { IngressDetailsComponent } from './ingress-details/ingress-details.component';
 import { ReceiptTableModule } from 'src/app/components/receipt-table/receipt-table.module';
 
 
 
 @NgModule({
   declarations: [
-    ExpenseListComponent,
-    ExpenseDetailsComponent,
+    IngressListComponent,
+    IngressDetailsComponent,
   ],
   imports: [
     CommonModule,
-    ExpenseRoutingModule,
+    IngressRoutingModule,
     ReceiptFormModelModule,
     ReceiptTableModule,
     SharedModule
   ],
   exports: [
-    ExpenseListComponent,
-    ExpenseDetailsComponent,
+    IngressListComponent,
+    IngressDetailsComponent,
   ]
 })
-export class ExpenseModule { }
+export class IngressModule { }

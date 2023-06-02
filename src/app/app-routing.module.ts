@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./private/expense/expense.module').then( m => m.ExpenseModule )
   },
   {
+    path: 'ingress',
+    loadChildren: () => import('./private/ingress/ingress.module').then( m => m.IngressModule )
+  },
+  {
     path: '**',
     redirectTo: 'home'
   }

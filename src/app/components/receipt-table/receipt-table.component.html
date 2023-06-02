@@ -1,0 +1,73 @@
+<p-card>
+  <p-table
+    #dt1
+    responsiveLayout="scroll"
+    styleClass="p-datatable-gridlines"
+    [value]="receipts"
+    [paginator]="true"
+    [rows]="rows"
+    [showCurrentPageReport]="true"
+    [(first)]="first"
+    [currentPageReportTemplate]="pageReport"
+    [rowsPerPageOptions]="arrayRows"
+    [globalFilterFields]="filterFields"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between">
+        <button
+          pButton type="button"
+          icon="pi pi-plus"
+          [label]="'Nuevo'"
+          class="p-button-success"
+          (click)="showDetails()"
+        ></button>
+        <span class="text-xl">{{ title }}</span>
+        <button
+          pButton type="button"
+          icon="pi pi-filter"
+          [label]="filter ? 'Ocultar filtros': 'Mostrar filtros'"
+          [ngClass]="filter ? 'p-button-outlined': 'p-button-primary'"
+          (click)="showFilter()"
+        ></button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+          <th *ngFor="let col of columnData; trackBy:trackBy" [pSortableColumn]="col.value.toString()"> {{ col.label }} <p-sortIcon [field]="col.value.toString()"></p-sortIcon></th>
+          <th class="text-center">{{ 'Acciones' }}</th>
+      </tr>
+      <tr *ngIf="filter">
+        <th *ngFor="let filter of columnData">
+          <p-columnFilter type="text" [field]="string(filter.value)"></p-columnFilter>
+        </th>
+        <th>&nbsp;</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-receipt>
+      <tr>
+          <td>{{ receipt.date | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ receipt.concept }}</td>
+          <td>{{ receipt.actual_amount | currency }}</td>
+          <td class="text-center">
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-pencil"
+              class="p-button-rounded p-button-text p-button-plain mr-2"
+              (click)="showDetails(receipt.id)"
+            ></button>
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-text p-button-danger"
+              (click)="confirmDelete(receipt.id)"
+            ></button>
+          </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</p-card>

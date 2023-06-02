@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { StyleClassModule } from 'primeng/styleclass';
+
 import { MenubarModule } from 'primeng/menubar';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -10,8 +11,15 @@ import { BadgeModule } from 'primeng/badge';
 import { ToastModule } from 'primeng/toast';
 import { MenuModule } from 'primeng/menu';
 import { PanelModule } from 'primeng/panel';
-import {TooltipModule} from 'primeng/tooltip';
-
+import { TooltipModule } from 'primeng/tooltip';
+import { TableModule } from 'primeng/table';
+import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import {CalendarModule} from 'primeng/calendar';
+import {InputNumberModule} from 'primeng/inputnumber';
+import {DropdownModule} from 'primeng/dropdown';
+import {InputTextareaModule} from 'primeng/inputtextarea';
 
 
 @NgModule({
@@ -27,7 +35,15 @@ import {TooltipModule} from 'primeng/tooltip';
     ToastModule,
     MenuModule,
     PanelModule,
-    TooltipModule
+    TooltipModule,
+    TableModule,
+    CardModule,
+    DialogModule,
+    ConfirmDialogModule,
+    CalendarModule,
+    InputNumberModule,
+    DropdownModule,
+    InputTextareaModule,
   ],
   exports: [
     CommonModule,
@@ -40,7 +56,15 @@ import {TooltipModule} from 'primeng/tooltip';
     ToastModule,
     MenuModule,
     PanelModule,
-    TooltipModule
+    TooltipModule,
+    TableModule,
+    CardModule,
+    DialogModule,
+    ConfirmDialogModule,
+    CalendarModule,
+    InputNumberModule,
+    DropdownModule,
+    InputTextareaModule,
   ]
 })
 export class PrimeNgModule { }

@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import {ConfirmationService} from 'primeng/api';
+
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html'
+  templateUrl: './header.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
 
   links: MenuItem[] = [];
   notifications: MenuItem[] = [];
 
-  constructor() { }
+  constructor(private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.setLinks();
@@ -29,14 +32,14 @@ export class HeaderComponent implements OnInit {
           icon:'pi pi-shopping-cart',
           items:[
               {
-                  label:'Nuevo gasto',
+                  label:'Gastos',
                   routerLink: '/expense'
               },
               {
                   separator:true
               },
               {
-                  label:'Nuevo pago',
+                  label:'Pagos',
                   routerLink:'/expense'
               },
               {
@@ -50,14 +53,14 @@ export class HeaderComponent implements OnInit {
           icon:'pi pi-money-bill',
           items:[
               {
-                  label:'Nuevo ingreso',
+                  label:'Ingresos',
                   routerLink: '/ingress'
               },
               {
                   separator:true
               },
               {
-                  label:'Nuevo cobro',
+                  label:'Cobros',
                   routerLink:'/ingress'
               },
               {
@@ -104,6 +107,20 @@ export class HeaderComponent implements OnInit {
         label: 'Notificación 2'
       }
     ];
+  }
+
+  confirmExit() {
+    this.confirmationService.confirm({
+        message: '¿Está seguro que desea salir de la aplicación?',
+        accept: () => {
+            console.log('Salir');
+        },
+        acceptLabel: 'Salir',
+        acceptIcon: 'pi pi-power-off',
+        acceptButtonStyleClass: 'p-button-secondary',
+        rejectLabel: 'Cancelar',
+        rejectButtonStyleClass: 'p-button-danger'
+    });
   }
 
 }

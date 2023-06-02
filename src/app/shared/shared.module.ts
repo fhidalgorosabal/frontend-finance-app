@@ -2,13 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PrimeNgModule } from './prime-ng/prime-ng.module';
+import { ConfirmationService } from 'primeng/api';
 import { HeaderComponent } from './components/header/header.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +19,11 @@ import { HeaderComponent } from './components/header/header.component';
   ],
   exports: [
     PrimeNgModule,
-    HeaderComponent
+    HeaderComponent,
+    LoadingComponent
+  ],
+  providers: [
+    ConfirmationService
   ]
 })
 export class SharedModule { }
