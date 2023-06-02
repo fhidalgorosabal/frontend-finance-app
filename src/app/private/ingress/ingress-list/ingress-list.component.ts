@@ -11,15 +11,15 @@ import { ACTION_TYPE } from 'src/app/enums/actions.enum';
 
 
 @Component({
-  selector: 'app-expense-list',
-  templateUrl: './expense-list.component.html',
-  styleUrls: ['./expense-list.component.scss']
+  selector: 'app-ingress-list',
+  templateUrl: './ingress-list.component.html',
+  styleUrls: ['./ingress-list.component.scss']
 })
-export class ExpenseListComponent implements OnInit {
+export class IngressListComponent implements OnInit {
 
-  title: string = 'Gastos';
+  title: string = 'Ingresos';
 
-  expenses$ = new Observable<IReceiptResponse[]>();
+  ingress$ = new Observable<IReceiptResponse[]>();
 
   actionDetails = ACTION_TYPE.DETAIL;
 
@@ -32,18 +32,18 @@ export class ExpenseListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.expensesList();
+    this.ingressList();
   }
 
-  expensesList(): void {
-    this.expenses$ = this.receiptService.receiptsList( RECEIPT_TYPE.EXPENSE )
+  ingressList(): void {
+    this.ingress$ = this.receiptService.receiptsList( RECEIPT_TYPE.INGRESS )
     .pipe(
       tap( res => {      
         if (res.length === 0) {
           this.messageService.add({
             severity: 'warn', 
             summary: '¡Atención!', 
-            detail: 'No hay comprobantes de gasto para mostrar',
+            detail: 'No hay comprobantes de ingreso para mostrar',
             life: 5000
           });  
         }
@@ -62,16 +62,16 @@ export class ExpenseListComponent implements OnInit {
 
   cancelDialogDetails(event: boolean) {
     if (event) {
-      this.expensesList();
+      this.ingressList();
     }
     this.displayDetails = false;
   }
 
   confirmDelete(id: number) {
     this.confirmationService.confirm({
-        message: '¿Está seguro que desea eliminar este comprobante de gasto?',
+        message: '¿Está seguro que desea eliminar este comprobante de ingreso?',
         accept: () => {
-          this.deleteExpense(id);
+          this.deleteIngress(id);
         },
         acceptLabel: 'Eliminar',
         acceptIcon: 'pi pi-trash',
@@ -81,12 +81,12 @@ export class ExpenseListComponent implements OnInit {
     });
   }
 
-  deleteExpense(id: number) {
+  deleteIngress(id: number) {
     this.receiptService.deleteReceipt(id).pipe(
       first(),
       tap(res => {
-        this.messageService.add(Utils.messageServiceTitle('¡Gasto eliminado!', res));
-        this.expensesList();
+        this.messageService.add(Utils.messageServiceTitle('¡Ingreso eliminado!', res));
+        this.ingressList();
       }),
       catchError((error) => {
         this.messageService.add(Utils.responseError(error));

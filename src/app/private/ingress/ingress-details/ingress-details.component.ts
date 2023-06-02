@@ -1,23 +1,23 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { EMPTY, Observable, combineLatest } from 'rxjs';
+import { EMPTY, Observable, combineLatest, of } from 'rxjs';
 import { catchError, map, first, switchMap, tap } from 'rxjs/operators';
 import { ConceptService } from 'src/app/services/concept.service';
 import { CurrencyService } from 'src/app/services/currency.service';
 import { ReceiptService } from 'src/app/services/receipt.service';
 import { ReceiptFormModel } from 'src/app/components/receipt-form/receipt-form.model';
-import { Utils } from 'src/app/shared/utils/utils';
 import { ILabel } from 'src/app/interfaces/label.interface';
 import { RECEIPT_TYPE } from 'src/app/enums/receipt.enum';
 import { ACTION_TYPE } from 'src/app/enums/actions.enum';
 import { IReceiptData, IReceipt } from 'src/app/interfaces/receipt.interface';
+import { Utils } from 'src/app/shared/utils/utils';
 
 @Component({
-  selector: 'app-expense-details',
-  templateUrl: './expense-details.component.html',
-  styleUrls: ['./expense-details.component.scss']
+  selector: 'app-ingress-details',
+  templateUrl: './ingress-details.component.html',
+  styleUrls: ['./ingress-details.component.scss']
 })
-export class ExpenseDetailsComponent implements OnInit {
+export class IngressDetailsComponent implements OnInit {
 
   @Input() actionDetails = ACTION_TYPE.DETAIL;
 
@@ -29,7 +29,7 @@ export class ExpenseDetailsComponent implements OnInit {
 
   id?: number;
 
-  expenseForm: ReceiptFormModel;
+  ingressForm: ReceiptFormModel;
 
   constructor(
     private receiptService: ReceiptService,
@@ -37,7 +37,7 @@ export class ExpenseDetailsComponent implements OnInit {
     private currencyService: CurrencyService,
     private messageService: MessageService
   ) {
-    this.expenseForm = new ReceiptFormModel();
+    this.ingressForm = new ReceiptFormModel();
     if (this.actionDetails === ACTION_TYPE.DETAIL) {
       this.getDetailReceipt();
     }
@@ -73,7 +73,7 @@ export class ExpenseDetailsComponent implements OnInit {
   }
 
   getConcepts(): Observable<ILabel[]> {
-    return this.conceptService.conceptsList( RECEIPT_TYPE.EXPENSE ).pipe(
+    return this.conceptService.conceptsList( RECEIPT_TYPE.INGRESS ).pipe(
       map(
         (data) => data.map(data => ({label: data.description, value: data.id }))
       )
@@ -106,43 +106,43 @@ export class ExpenseDetailsComponent implements OnInit {
   }
 
   cancelDialogDetails(): void {
-    this.expenseForm.reset();
+    this.ingressForm.reset();
     this.displayDetails = false;
     this.closeDetails.emit(false);
   }
 
   setForm(form: ReceiptFormModel): void {
-    this.expenseForm = form;
+    this.ingressForm = form;
   }
 
   isInvalidForm(): boolean {
-    return this.expenseForm.invalid;
+    return this.ingressForm.invalid;
   }
 
   save(): void {
-    (this.actionDetails === ACTION_TYPE.CREATE) ? this.createExpense() : this.editExpense();
+    (this.actionDetails === ACTION_TYPE.CREATE) ? this.createIngress() : this.editIngress();
   }
 
-  private createExpense(): void {
+  private createIngress(): void {
     this.receiptService.createReceipt(this.getFormReceipt()).pipe(
       first(),
       tap((res) => {
-        this.messageService.add(Utils.messageServiceTitle('¡Nuevo gasto!', res));
+        this.messageService.add(Utils.messageServiceTitle('¡Nuevo ingreso!', res));
         this.close();
       }),
-      catchError((error) => {        
+      catchError((error) => {
         this.messageService.add(Utils.responseError(error));
         return EMPTY;
       }),
     ).subscribe();
   }
 
-  private editExpense(): void {
+  private editIngress(): void {
     if (this.id) {
       this.receiptService.editReceipt(this.getFormReceipt(), this.id).pipe(
         first(),
         tap((res) => {
-          this.messageService.add(Utils.messageServiceTitle('¡Gasto actualizado!', res));
+          this.messageService.add(Utils.messageServiceTitle('¡Ingreso actualizado!', res));
           this.close();
         }),
         catchError((error) => {
@@ -154,11 +154,11 @@ export class ExpenseDetailsComponent implements OnInit {
   }
 
   private getFormReceipt(): IReceipt {
-    const dataForm = this.expenseForm.value;
+    const dataForm = this.ingressForm.value;
     return {
       date: Utils.dateFormatISO8601(dataForm.date),
       concept_id: dataForm.concept.value,
-      type: RECEIPT_TYPE.EXPENSE,
+      type: RECEIPT_TYPE.INGRESS,
       amount: dataForm.amount,
       currency_id: dataForm.currency.value,
       description: dataForm.description

@@ -66,15 +66,12 @@ export class ReceiptTableComponent {
   }
 
   showDetails(id?: number) {
-    let action : ACTION_TYPE;
     if (id) {
-      action = ACTION_TYPE.DETAIL;
       this.receiptService.setDetailId(id);
-    } else {
-      action = ACTION_TYPE.CREATE;
     }
+    const action = id ? ACTION_TYPE.DETAIL : ACTION_TYPE.CREATE;
     this.details.emit(action);
-  }
+  }  
 
   confirmDelete(id?: number) {
     this.delete.emit(id);
@@ -82,6 +79,10 @@ export class ReceiptTableComponent {
 
   showFilter() {
     this.filter = !this.filter;
+  }
+
+  string(field: string | number): string {
+    return String(field);
   }
 
   trackBy(index: number, col: any): number {

@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IReceipt, IReceiptResponse } from '../interfaces/receipt.interface';
 import { IResponse } from '../interfaces/response.interface';
+import { Utils } from '../shared/utils/utils';
 
 @Injectable({
   providedIn: 'root'
