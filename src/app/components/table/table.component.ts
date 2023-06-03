@@ -5,45 +5,42 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { ReceiptService } from 'src/app/services/receipt.service';
+import { TableService } from 'src/app/services/table.service';
 import { ILabel } from 'src/app/interfaces/label.interface';
-import { IReceiptResponse } from 'src/app/interfaces/receipt.interface';
 import { ACTION_TYPE } from 'src/app/enums/actions.enum';
 
 @Component({
-  selector: 'app-receipt-table',
-  templateUrl: './receipt-table.component.html',
+  selector: 'app-table',
+  templateUrl: './table.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ReceiptTableComponent {
+export class TableComponent {
 
   @Input() title: string = '';
 
-  @Input() receipts: IReceiptResponse[] = [];
+  @Input() records: any[] = [];
 
   @Output() details = new EventEmitter<ACTION_TYPE>();
 
   @Output() delete = new EventEmitter<number>();
+  
+  @Input() columnData: ILabel[] = [];
+
+  @Input() arrayRows = [5,10,25,100];
 
   filter = false;
 
-  filterFields = ['date','concept','actual_amount'];
+  @Input() rows = 5;
 
-  columnData: ILabel[] = [
-    { label: 'Fecha', value: 'date'},
-    { label: 'Concepto', value: 'concept'},
-    { label: 'Importe Real', value: 'actual_amount'}
-  ];
+  fields: string[] = [];
 
   first = 0;
 
-  arrayRows = [5,10,25,100];
+  pageReport = 'Mostrando {first} a {last} de {totalRecords} elementos';
 
-  rows = 5;
-
-  pageReport = 'Mostrando {first} a {last} de {totalRecords} comprobantes';
-
-  constructor( private receiptService: ReceiptService) { }
+  constructor( private tableService: TableService) {
+    this.fields = this.columnData.map( col => this.string(col.value) );  
+   }
 
   next() {
     this.first = this.first + this.rows;
@@ -58,16 +55,16 @@ export class ReceiptTableComponent {
   }
 
   isLastPage(): boolean {
-    return this.receipts ? this.first === (this.receipts.length - this.rows): true;
+    return this.records ? this.first === (this.records.length - this.rows): true;
   }
 
   isFirstPage(): boolean {
-    return this.receipts ? this.first === 0 : true;
+    return this.records ? this.first === 0 : true;
   }
 
   showDetails(id?: number) {
     if (id) {
-      this.receiptService.setDetailId(id);
+      this.tableService.setDetailId(id);
     }
     const action = id ? ACTION_TYPE.DETAIL : ACTION_TYPE.CREATE;
     this.details.emit(action);
@@ -83,10 +80,6 @@ export class ReceiptTableComponent {
 
   string(field: string | number): string {
     return String(field);
-  }
-
-  trackBy(index: number, col: any): number {
-    return col.id;
   }
 
 }

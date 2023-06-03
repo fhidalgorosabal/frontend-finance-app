@@ -1,11 +1,12 @@
 <div class="p-2 mt-5 md:px-4 lg:px-6">
-  <app-receipt-table
+  <app-table
     [title]="title"
     *ngIf="ingress$ | async as ingress; else loading"
-    [receipts]="ingress"
+    [records]="ingress"
+    [columnData]="columnData"
     (details)="showDialogDetails($event)"
     (delete)="confirmDelete($event)"
-  ></app-receipt-table>
+  ></app-table>
 </div>
 
 <app-ingress-details

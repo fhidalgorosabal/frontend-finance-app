@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
 import { Utils } from 'src/app/shared/utils/utils';
 import { IReceiptResponse } from 'src/app/interfaces/receipt.interface';
+import { ILabel } from 'src/app/interfaces/label.interface';
 import { RECEIPT_TYPE } from 'src/app/enums/receipt.enum';
 import { ACTION_TYPE } from 'src/app/enums/actions.enum';
 
@@ -20,6 +21,12 @@ export class IngressListComponent implements OnInit {
   title: string = 'Ingresos';
 
   ingress$ = new Observable<IReceiptResponse[]>();
+
+  columnData: ILabel[] = [
+    { label: 'Fecha', value: 'date'},
+    { label: 'Concepto', value: 'concept'},
+    { label: 'Importe Real', value: 'actual_amount'}
+  ];
 
   actionDetails = ACTION_TYPE.DETAIL;
 

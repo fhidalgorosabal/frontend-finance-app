@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IReceipt, IReceiptResponse } from '../interfaces/receipt.interface';
 import { IResponse } from '../interfaces/response.interface';
-import { Utils } from '../shared/utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +12,6 @@ import { Utils } from '../shared/utils/utils';
 export class ReceiptService {
 
   _url: string;
-
-  detailId$ = new BehaviorSubject<number>(0);
 
   constructor(private http: HttpClient) {
     this._url = environment.base_url;
@@ -29,7 +26,7 @@ export class ReceiptService {
       );
   }
 
-  getReceipt(id: number): Observable<IReceipt> {
+  getReceipt(id: number | null): Observable<IReceipt> {
     return this.http.get<IResponse>(`${ this._url }/receipt/${ id }`)
       .pipe(
         map(
@@ -48,14 +45,6 @@ export class ReceiptService {
 
   deleteReceipt(id: number): Observable<IResponse> {
     return this.http.delete<IResponse>(`${ this._url }/receipt/${ id }`);
-  }
-
-  setDetailId(id: number) {
-    this.detailId$.next(id);
-  }
-
-  get detailId() {
-    return this.detailId$;
   }
 
 }
