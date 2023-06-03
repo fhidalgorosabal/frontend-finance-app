@@ -49,7 +49,12 @@
     </ng-template>
     <ng-template pTemplate="body" let-register>
       <tr>
-          <td *ngFor="let col of columnData">{{ register[string(col.value)] }}</td>
+          <td *ngFor="let col of columnData">
+            <app-field-pipe 
+              [value]="register[string(col.value)]" 
+              [type]="col.type"
+            ></app-field-pipe>
+          </td>
           <td class="text-center">
             <button
               pButton

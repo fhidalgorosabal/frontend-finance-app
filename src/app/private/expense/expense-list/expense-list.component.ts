@@ -23,9 +23,9 @@ export class ExpenseListComponent implements OnInit {
   expenses$ = new Observable<IReceiptResponse[]>();
 
   columnData: ILabel[] = [
-    { label: 'Fecha', value: 'date'},
+    { label: 'Fecha', value: 'date', type: 'date'},
     { label: 'Concepto', value: 'concept'},
-    { label: 'Importe Real', value: 'actual_amount'}
+    { label: 'Importe Real', value: 'actual_amount', type: 'currency'}
   ];
 
   actionDetails = ACTION_TYPE.DETAIL;
