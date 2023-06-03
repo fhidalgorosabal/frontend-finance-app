@@ -23,7 +23,7 @@ export class IngressListComponent implements OnInit {
   ingress$ = new Observable<IReceiptResponse[]>();
 
   columnData: ILabel[] = [
-    { label: 'Fecha', value: 'date', type: 'date'},
+    { label: 'Fecha', value: 'date'},
     { label: 'Concepto', value: 'concept'},
     { label: 'Importe Real', value: 'actual_amount', type: 'currency'}
   ];

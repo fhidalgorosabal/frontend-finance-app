@@ -5,15 +5,23 @@ export class Utils {
 
   static dateFormatISO8601(date: string | number | Date): string {
     const newDate = new Date(date);
-    const month = newDate.getMonth() + 1 < 10 ? `0${newDate.getMonth() + 1}` : newDate.getMonth() + 1;
-    const day = newDate.getDate() < 10 ? `0${newDate.getDate()}` : newDate.getDate();
+    newDate.setUTCHours(0, 0, 0, 0);  
+    const month = (newDate.getUTCMonth() + 1).toString().padStart(2, '0');
+    const day = newDate.getUTCDate().toString().padStart(2, '0');
+    return `${newDate.getUTCFullYear()}/${month}/${day}`;
+  }
 
-    return `${newDate.getFullYear()}/${month}/${day}`;
+  static dateFormatFilter(date: string): string {
+    const value = this.dateFormatISO8601(date);
+    const parts = value.split('/');  
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
   }
 
   static dateFormatDate(date: string | number | Date): Date {
-    const newDate = this.dateFormatISO8601(date);
-    return new Date(newDate);
+    const value = this.dateFormatISO8601(date);
+    const newDate = new Date(value);
+    newDate.setUTCHours(0, 0, 0, 0);
+    return newDate;
   }
 
   static dateType(date: string) :string {

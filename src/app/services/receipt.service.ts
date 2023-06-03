@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IReceipt, IReceiptResponse } from '../interfaces/receipt.interface';
 import { IResponse } from '../interfaces/response.interface';
+import { Utils } from '../shared/utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +17,16 @@ export class ReceiptService {
   constructor(private http: HttpClient) {
     this._url = environment.base_url;
   }
-
+  
   receiptsList(receiptType: string): Observable<IReceiptResponse[]> {
-    return this.http.post<IResponse>(`${ this._url }/receipt/list`, { type: receiptType })
+    return this.http.post<IResponse>(`${this._url}/receipt/list`, { type: receiptType })
       .pipe(
-        map(
-          (res) => res.data
-        )
+        map((res) => {
+          return res.data.map((receipt: IReceipt) => {
+            const formattedDate = Utils.dateFormatFilter(receipt.date);        
+            return { ...receipt, date: formattedDate };
+          });
+        })
       );
   }
 
