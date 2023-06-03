@@ -3,14 +3,14 @@
     #dt1
     responsiveLayout="scroll"
     styleClass="p-datatable-gridlines"
-    [value]="receipts"
+    [value]="records"
     [paginator]="true"
     [rows]="rows"
     [showCurrentPageReport]="true"
     [(first)]="first"
     [currentPageReportTemplate]="pageReport"
     [rowsPerPageOptions]="arrayRows"
-    [globalFilterFields]="filterFields"
+    [globalFilterFields]="fields"
   >
     <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between">
@@ -33,29 +33,36 @@
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-          <th *ngFor="let col of columnData; trackBy:trackBy" [pSortableColumn]="col.value.toString()"> {{ col.label }} <p-sortIcon [field]="col.value.toString()"></p-sortIcon></th>
+          <th 
+            *ngFor="let col of columnData" 
+            [pSortableColumn]="string(col.value)">
+            {{ col.label }} <p-sortIcon [field]="string(col.value)"></p-sortIcon>
+          </th>
           <th class="text-center">{{ 'Acciones' }}</th>
       </tr>
       <tr *ngIf="filter">
-        <th *ngFor="let filter of columnData">
-          <p-columnFilter type="text" [field]="string(filter.value)"></p-columnFilter>
+        <th *ngFor="let col of columnData">
+          <p-columnFilter type="text" [field]="string(col.value)"></p-columnFilter>
         </th>
         <th>&nbsp;</th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-receipt>
+    <ng-template pTemplate="body" let-register>
       <tr>
-          <td>{{ receipt.date | date: 'dd/MM/yyyy' }}</td>
-          <td>{{ receipt.concept }}</td>
-          <td>{{ receipt.actual_amount | currency }}</td>
+          <td *ngFor="let col of columnData">
+            <app-field-pipe 
+              [value]="register[string(col.value)]" 
+              [type]="col.type"
+            ></app-field-pipe>
+          </td>
           <td class="text-center">
             <button
               pButton
               pRipple
               type="button"
-              icon="pi pi-pencil"
+              icon="pi pi-eye"
               class="p-button-rounded p-button-text p-button-plain mr-2"
-              (click)="showDetails(receipt.id)"
+              (click)="showDetails(register.id)"
             ></button>
             <button
               pButton
@@ -63,7 +70,7 @@
               type="button"
               icon="pi pi-trash"
               class="p-button-rounded p-button-text p-button-danger"
-              (click)="confirmDelete(receipt.id)"
+              (click)="confirmDelete(register.id)"
             ></button>
           </td>
       </tr>

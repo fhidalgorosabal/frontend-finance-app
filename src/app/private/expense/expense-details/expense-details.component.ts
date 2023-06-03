@@ -5,6 +5,7 @@ import { catchError, map, first, switchMap, tap } from 'rxjs/operators';
 import { ConceptService } from 'src/app/services/concept.service';
 import { CurrencyService } from 'src/app/services/currency.service';
 import { ReceiptService } from 'src/app/services/receipt.service';
+import { TableService } from 'src/app/services/table.service';
 import { ReceiptFormModel } from 'src/app/components/receipt-form/receipt-form.model';
 import { Utils } from 'src/app/shared/utils/utils';
 import { ILabel } from 'src/app/interfaces/label.interface';
@@ -27,7 +28,7 @@ export class ExpenseDetailsComponent implements OnInit {
 
   data$ = new Observable<IReceiptData>();
 
-  id?: number;
+  id: number | null = null;
 
   expenseForm: ReceiptFormModel;
 
@@ -35,7 +36,8 @@ export class ExpenseDetailsComponent implements OnInit {
     private receiptService: ReceiptService,
     private conceptService: ConceptService,
     private currencyService: CurrencyService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private tableService: TableService
   ) {
     this.expenseForm = new ReceiptFormModel();
     if (this.actionDetails === ACTION_TYPE.DETAIL) {
@@ -89,7 +91,7 @@ export class ExpenseDetailsComponent implements OnInit {
   }
 
   getDetailReceipt(): Observable<IReceipt> {
-    return this.receiptService.detailId.asObservable().pipe(
+    return this.tableService.detailId.asObservable().pipe(
       first(),
       tap( detailId => this.id = detailId ),
       switchMap( detailId => this.receiptService.getReceipt(detailId) )

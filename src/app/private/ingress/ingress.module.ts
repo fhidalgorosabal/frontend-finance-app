@@ -6,7 +6,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 import { IngressListComponent } from './ingress-list/ingress-list.component';
 import { IngressDetailsComponent } from './ingress-details/ingress-details.component';
-import { ReceiptTableModule } from 'src/app/components/receipt-table/receipt-table.module';
+import { TableModule } from 'src/app/components/table/table.module';
 
 
 
@@ -19,7 +19,7 @@ import { ReceiptTableModule } from 'src/app/components/receipt-table/receipt-tab
     CommonModule,
     IngressRoutingModule,
     ReceiptFormModelModule,
-    ReceiptTableModule,
+    TableModule,
     SharedModule
   ],
   exports: [

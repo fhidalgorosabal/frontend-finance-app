@@ -1,0 +1,11 @@
+<div [ngSwitch]="type">
+    <div *ngSwitchCase="'date'">{{ value | date: 'dd/MM/yyyy' }}</div> 
+    <div *ngSwitchCase="'currency'">{{ value | currency }}</div> 
+    <div *ngSwitchCase="'uppercase'">{{ value | uppercase }}</div> 
+    <div *ngSwitchCase="'lowercase'">{{ value | lowercase }}</div> 
+    <div *ngSwitchCase="'titlecase'">{{ value | titlecase }}</div> 
+    <div *ngSwitchCase="'number'">{{ value | number: '3.2-4' }}</div> 
+    <div *ngSwitchCase="'percent'">{{ value | percent }}</div> 
+    <div *ngSwitchCase="'json'">{{ value | json }}</div> 
+    <div *ngSwitchDefault>{{ value }}</div>
+</div>
