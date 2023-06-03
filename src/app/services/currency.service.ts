@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IResponse } from '../interfaces/response.interface';
-import { ICurrencyData } from '../interfaces/currency.interface';
+import { ICurrency } from '../interfaces/currency.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class CurrencyService {
     this._url = environment.base_url;
   }
 
-  currenciesList(): Observable<ICurrencyData[]> {
+  currenciesList(): Observable<ICurrency[]> {
     return this.http.get<IResponse>(`${ this._url }/currency`)
       .pipe(
         map(

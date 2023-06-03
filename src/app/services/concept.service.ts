@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IResponse } from '../interfaces/response.interface';
-import { IConceptData } from '../interfaces/concept.interface';
+import { IConcept } from '../interfaces/concept.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +17,11 @@ export class ConceptService {
     this._url = environment.base_url;
   }
 
-  conceptsList(conceptType: string): Observable<IConceptData[]> {
+  conceptsList(conceptType: string): Observable<IConcept[]> {    
     return this.http.get<IResponse>(`${ this._url }/concept`)
       .pipe(
         map(
-          (res) => res.data.filter((data: IConceptData) => data.type === conceptType)
+          (res) => res.data.filter((data: IConcept) => data.type === conceptType)
         )
       );
   }

@@ -1,4 +1,4 @@
-export interface ICurrencyData {
+export interface ICurrency {
   id: number;
   initials: string;
   description: string;
