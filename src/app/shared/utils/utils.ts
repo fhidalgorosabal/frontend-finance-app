@@ -38,7 +38,7 @@ export class Utils {
       severity: error?.error?.status, 
       summary: error?.error?.message, 
       detail: this.createErrorList(error?.error?.errors),
-      life: 8000 
+      life: 6000 
     };
   }
 
@@ -47,7 +47,7 @@ export class Utils {
       severity: res?.status, 
       summary: title,
       detail: res.message,
-      life: 8000
+      life: 6000
     };
   }
 

@@ -33,6 +33,8 @@ export class ConceptDetailsComponent implements OnInit {
 
   conceptForm: ConceptFormModel;
 
+  saving = false;
+
   constructor(
     private conceptService: ConceptService,
     private messageService: MessageService,
@@ -85,6 +87,7 @@ export class ConceptDetailsComponent implements OnInit {
   }
 
   save(): void {
+    this.saving = true;
     (this.actionDetails === ACTION_TYPE.CREATE) ? this.createConcept() : this.editConcept();
   }
 
@@ -97,6 +100,7 @@ export class ConceptDetailsComponent implements OnInit {
       }),
       catchError((error) => {        
         this.messageService.add(Utils.responseError(error));
+        this.saving = false;
         return EMPTY;
       }),
     ).subscribe();
@@ -112,6 +116,7 @@ export class ConceptDetailsComponent implements OnInit {
         }),
         catchError((error) => {
           this.messageService.add(Utils.responseError(error));
+          this.saving = false;
           return EMPTY;
         }),
       ).subscribe();
