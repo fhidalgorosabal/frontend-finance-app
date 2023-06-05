@@ -40,9 +40,6 @@ export class IngressDetailsComponent implements OnInit {
     private tableService: TableService
   ) {
     this.ingressForm = new ReceiptFormModel();
-    if (this.actionDetails === ACTION_TYPE.DETAIL) {
-      this.getDetailReceipt();
-    }
   }
 
   ngOnInit(): void {
@@ -99,7 +96,7 @@ export class IngressDetailsComponent implements OnInit {
   }
 
   getTitle(actionDetails: ACTION_TYPE): string {
-    return (actionDetails === ACTION_TYPE.DETAIL) ? 'Detalles del comprobante' : 'Crear Comprobante';
+    return (actionDetails === ACTION_TYPE.DETAIL) ? 'Detalles del comprobante' : 'Crear comprobante';
   }
 
   showDialogDetails(action: ACTION_TYPE): void {

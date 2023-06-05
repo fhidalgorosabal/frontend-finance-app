@@ -1,0 +1,35 @@
+<div class="p-2 mt-5 md:px-4 lg:px-6">
+    <div class="field col-12">
+        <label for="type-input">{{ 'Tipo:' }}</label>
+        <p-dropdown
+          id="type-input"
+          class="w-12 ml-2"
+          optionLabel="Concepto"
+          [options]="types"
+          optionLabel="label"
+          [(ngModel)]="typeConcept"
+          (onChange)="conceptsList()"
+        ></p-dropdown>
+    </div>
+
+    <app-table
+      [title]="title"
+      *ngIf="concepts$ | async as concepts; else loading"
+      [records]="concepts"
+      [columnData]="columnData"
+      (details)="showDialogDetails($event)"
+      (delete)="confirmDelete($event)"
+    ></app-table>
+</div>
+
+<app-concept-details
+  *ngIf="displayDetails"
+  [displayDetails]="displayDetails"
+  [type]="getType()"
+  [actionDetails]="actionDetails"
+  (closeDetails)="cancelDialogDetails($event)"
+></app-concept-details>
+
+<p-confirmDialog [header]="'Eliminar'" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+<ng-template #loading><app-loading></app-loading></ng-template>

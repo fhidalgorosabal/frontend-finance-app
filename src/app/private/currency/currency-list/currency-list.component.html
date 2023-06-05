@@ -1,0 +1,21 @@
+<div class="p-2 mt-5 md:px-4 lg:px-6">
+    <app-table
+      [title]="title"
+      *ngIf="currencies$ | async as currencies; else loading"
+      [records]="currencies"
+      [columnData]="columnData"
+      (details)="showDialogDetails($event)"
+      (delete)="confirmDelete($event)"
+    ></app-table>
+</div>
+
+<app-currency-details
+  *ngIf="displayDetails"
+  [displayDetails]="displayDetails"
+  [actionDetails]="actionDetails"
+  (closeDetails)="cancelDialogDetails($event)"
+></app-currency-details>
+
+<p-confirmDialog [header]="'Eliminar'" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+<ng-template #loading><app-loading></app-loading></ng-template>
