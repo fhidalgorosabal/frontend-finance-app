@@ -32,6 +32,8 @@ export class ExpenseDetailsComponent implements OnInit {
 
   expenseForm: ReceiptFormModel;
 
+  saving = false;
+
   constructor(
     private receiptService: ReceiptService,
     private conceptService: ConceptService,
@@ -119,6 +121,7 @@ export class ExpenseDetailsComponent implements OnInit {
   }
 
   save(): void {
+    this.saving = true;
     (this.actionDetails === ACTION_TYPE.CREATE) ? this.createExpense() : this.editExpense();
   }
 
@@ -131,6 +134,7 @@ export class ExpenseDetailsComponent implements OnInit {
       }),
       catchError((error) => {        
         this.messageService.add(Utils.responseError(error));
+        this.saving = false;
         return EMPTY;
       }),
     ).subscribe();
@@ -146,6 +150,7 @@ export class ExpenseDetailsComponent implements OnInit {
         }),
         catchError((error) => {
           this.messageService.add(Utils.responseError(error));
+          this.saving = false;
           return EMPTY;
         }),
       ).subscribe();

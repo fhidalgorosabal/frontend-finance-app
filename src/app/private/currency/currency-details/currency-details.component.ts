@@ -30,6 +30,8 @@ export class CurrencyDetailsComponent implements OnInit {
 
   currencyForm: CurrencyFormModel;
 
+  saving = false;
+
   constructor(
     private currencyService: CurrencyService,
     private messageService: MessageService,
@@ -82,6 +84,7 @@ export class CurrencyDetailsComponent implements OnInit {
   }
 
   save(): void {
+    this.saving = true;
     (this.actionDetails === ACTION_TYPE.CREATE) ? this.createCurrency() : this.editCurrency();
   }
 
@@ -94,6 +97,7 @@ export class CurrencyDetailsComponent implements OnInit {
       }),
       catchError((error) => {        
         this.messageService.add(Utils.responseError(error));
+        this.saving = false;
         return EMPTY;
       }),
     ).subscribe();
@@ -109,6 +113,7 @@ export class CurrencyDetailsComponent implements OnInit {
         }),
         catchError((error) => {
           this.messageService.add(Utils.responseError(error));
+          this.saving = false;
           return EMPTY;
         }),
       ).subscribe();
