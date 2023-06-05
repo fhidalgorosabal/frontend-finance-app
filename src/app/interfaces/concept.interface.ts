@@ -1,5 +1,5 @@
 export interface IConcept {
-  id: number;
+  id?: number;
   description: string;
   type: string;
 }

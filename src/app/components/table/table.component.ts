@@ -63,7 +63,7 @@ export class TableComponent {
   }
 
   showDetails(id?: number) {
-    if (id) {
+    if(id) {
       this.tableService.setDetailId(id);
     }
     const action = id ? ACTION_TYPE.DETAIL : ACTION_TYPE.CREATE;
@@ -78,7 +78,7 @@ export class TableComponent {
     this.filter = !this.filter;
   }
 
-  string(field: string | number): string {
+  string(field?: string | number): string {
     return String(field);
   }
 

@@ -17,7 +17,7 @@ export class ConceptService {
     this._url = environment.base_url;
   }
 
-  conceptsList(conceptType: string): Observable<IConcept[]> {    
+  conceptsList(conceptType?: string): Observable<IConcept[]> {    
     return this.http.get<IResponse>(`${ this._url }/concept`)
       .pipe(
         map(
@@ -25,4 +25,26 @@ export class ConceptService {
         )
       );
   }
+
+  getConcept(id: number | null): Observable<IConcept> {
+    return this.http.get<IResponse>(`${ this._url }/concept/${ id }`)
+      .pipe(
+        map(
+          (res) => res.data
+        )
+      );
+  }
+
+  createConcept(concept: IConcept): Observable<IResponse> {
+    return this.http.post<IResponse>(`${ this._url }/concept`, concept);
+  }
+
+  editConcept(concept: IConcept, id: number): Observable<IResponse> {
+    return this.http.patch<IResponse>(`${ this._url }/concept/${ id }`, concept);
+  }
+
+  deleteConcept(id: number): Observable<IResponse> {
+    return this.http.delete<IResponse>(`${ this._url }/concept/${ id }`);
+  }
+
 }

@@ -1,0 +1,43 @@
+<form [formGroup]="currencyForm">
+    <div class="grid p-fluid">  
+        <div class="field col-12 md:col-6">
+            <label for="initials-input">{{ 'Sigla:' }}</label>
+            <input 
+                id="initials" 
+                [class]="isValidField('initials') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
+                pInputText 
+                type="text" 
+                formControlName="initials"
+            >
+            <small *ngIf="isValidField('initials')" id="concept-help" class="p-error block">
+              {{ 'La sigla es obligatoria y debe contener 3 caracteres.' }}
+            </small>
+        </div>
+        <div class="field col-12">
+            <label for="description-input">{{ 'Descripción:' }}</label>
+            <input 
+                id="description"                 
+                [class]="isValidField('description') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
+                pInputText 
+                type="text" 
+                formControlName="description"
+            >
+            <small *ngIf="isValidField('description')" id="concept-help" class="p-error block">
+              {{ 'La descripción es obligatoria.' }}
+            </small>
+        </div>
+        <div class="field col-12 md:col-6">
+            <label for="exchange-rate-input">{{ 'Tasa de cambio:' }}</label>
+            <p-inputNumber
+                id="exchange-rate"
+                [class]="isValidField('exchange_rate') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
+                mode="decimal"
+                [minFractionDigits]="2"
+                formControlName="exchange_rate"
+            ></p-inputNumber>
+            <small *ngIf="isValidField('exchange_rate')" id="concept-help" class="p-error block">
+              {{ 'La tasa de cambio es obligatoria y debe ser mayor a cero.' }}
+            </small>
+        </div>
+    </div>
+</form> 

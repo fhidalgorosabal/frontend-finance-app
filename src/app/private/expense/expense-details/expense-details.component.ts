@@ -40,9 +40,6 @@ export class ExpenseDetailsComponent implements OnInit {
     private tableService: TableService
   ) {
     this.expenseForm = new ReceiptFormModel();
-    if (this.actionDetails === ACTION_TYPE.DETAIL) {
-      this.getDetailReceipt();
-    }
   }
 
   ngOnInit(): void {
@@ -99,7 +96,7 @@ export class ExpenseDetailsComponent implements OnInit {
   }
 
   getTitle(actionDetails: ACTION_TYPE): string {
-    return (actionDetails === ACTION_TYPE.DETAIL) ? 'Detalles del comprobante' : 'Crear Comprobante';
+    return (actionDetails === ACTION_TYPE.DETAIL) ? 'Detalles del comprobante' : 'Crear comprobante';
   }
 
   showDialogDetails(action: ACTION_TYPE): void {

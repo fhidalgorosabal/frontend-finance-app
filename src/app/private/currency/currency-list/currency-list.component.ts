@@ -47,7 +47,7 @@ export class CurrencyListComponent implements OnInit {
           this.messageService.add({
             severity: 'warn', 
             summary: '¡Atención!', 
-            detail: 'No hay tipo de monedas para mostrar',
+            detail: 'No hay tipos de monedas para mostrar',
             life: 5000
           });  
         }
@@ -86,17 +86,17 @@ export class CurrencyListComponent implements OnInit {
   }
 
   deleteCurrency(id: number): void {
-    /* this.currencyService.deleteCurrency(id).pipe(
+    this.currencyService.deleteCurrency(id).pipe(
       first(),
       tap(res => {
-        this.messageService.add(Utils.messageServiceTitle('¡Moneda eliminado!', res));
+        this.messageService.add(Utils.messageServiceTitle('¡Moneda eliminada!', res));
         this.currenciesList();
       }),
       catchError((error) => {
         this.messageService.add(Utils.responseError(error));
         return EMPTY;
       })
-    ).subscribe(); */
+    ).subscribe();
   }
 
 }

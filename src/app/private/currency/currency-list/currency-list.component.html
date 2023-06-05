@@ -9,4 +9,13 @@
     ></app-table>
 </div>
 
+<app-currency-details
+  *ngIf="displayDetails"
+  [displayDetails]="displayDetails"
+  [actionDetails]="actionDetails"
+  (closeDetails)="cancelDialogDetails($event)"
+></app-currency-details>
+
+<p-confirmDialog [header]="'Eliminar'" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
 <ng-template #loading><app-loading></app-loading></ng-template>

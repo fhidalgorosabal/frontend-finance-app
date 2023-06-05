@@ -28,9 +28,9 @@ export class ConceptListComponent implements OnInit {
   typeConcept: ILabel = { label: 'Gastos', value: RECEIPT_TYPE.EXPENSE};
 
   columnData: ILabel[] = [
-    { label: 'Id', value: 'id'},
+    { label: 'Id Concepto', value: 'id'},
     { label: 'Descripción', value: 'description', type: 'titlecase'},
-    { label: 'Tipo', value: 'type', type: 'titlecase'}
+    { label: 'Id Tipo', value: 'type', type: 'titlecase'}
   ];
 
   actionDetails = ACTION_TYPE.DETAIL;
@@ -47,8 +47,12 @@ export class ConceptListComponent implements OnInit {
     this.conceptsList();
   }
 
+  getType(): string | undefined {
+    return this.typeConcept.value?.toString();
+  }
+
   conceptsList(): void {
-    const type = this.typeConcept.value.toString();
+    const type = this.getType();
     this.concepts$ = this.conceptService.conceptsList( type )
     .pipe(
       tap( res => {      
@@ -95,7 +99,7 @@ export class ConceptListComponent implements OnInit {
   }
 
   deleteConcept(id: number): void {
-    /* this.conceptService.deleteConcept(id).pipe(
+    this.conceptService.deleteConcept(id).pipe(
       first(),
       tap(res => {
         this.messageService.add(Utils.messageServiceTitle('¡Concepto eliminado!', res));
@@ -105,7 +109,7 @@ export class ConceptListComponent implements OnInit {
         this.messageService.add(Utils.responseError(error));
         return EMPTY;
       })
-    ).subscribe(); */
+    ).subscribe();
   }
 
 }

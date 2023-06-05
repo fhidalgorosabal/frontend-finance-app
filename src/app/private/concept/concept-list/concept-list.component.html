@@ -22,4 +22,14 @@
     ></app-table>
 </div>
 
+<app-concept-details
+  *ngIf="displayDetails"
+  [displayDetails]="displayDetails"
+  [type]="getType()"
+  [actionDetails]="actionDetails"
+  (closeDetails)="cancelDialogDetails($event)"
+></app-concept-details>
+
+<p-confirmDialog [header]="'Eliminar'" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
 <ng-template #loading><app-loading></app-loading></ng-template>

@@ -25,4 +25,26 @@ export class CurrencyService {
         )
       );
   }
+
+  getCurrency(id: number | null): Observable<ICurrency> {
+    return this.http.get<IResponse>(`${ this._url }/currency/${ id }`)
+      .pipe(
+        map(
+          (res) => res.data
+        )
+      );
+  }
+
+  createCurrency(currency: ICurrency): Observable<IResponse> {
+    return this.http.post<IResponse>(`${ this._url }/currency`, currency);
+  }
+
+  editCurrency(currency: ICurrency, id: number): Observable<IResponse> {
+    return this.http.patch<IResponse>(`${ this._url }/currency/${ id }`, currency);
+  }
+
+  deleteCurrency(id: number): Observable<IResponse> {
+    return this.http.delete<IResponse>(`${ this._url }/currency/${ id }`);
+  }
+
 }
