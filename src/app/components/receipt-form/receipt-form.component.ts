@@ -24,6 +24,8 @@ export class ReceiptFormModelComponent implements OnInit, OnDestroy {
 
   @Input() optionsCurrency: ILabel[] = []
 
+  @Input() optionsAccount: ILabel[] = []
+
   @Input() receiptForm = new ReceiptFormModel();
 
   @Input() receipt?: IReceipt;
@@ -48,6 +50,7 @@ export class ReceiptFormModelComponent implements OnInit, OnDestroy {
       const date = new Date(Utils.dateType(this.receipt.date));
       const concept = this.optionsConcept.find( option => option.value == this.receipt?.concept_id );
       const currency = this.optionsCurrency.find( option => option.value == this.receipt?.currency_id );
+      const account = this.optionsCurrency.find( option => option.value == this.receipt?.account_id );
 
       this.receiptForm.setValue({
         date: date,
@@ -55,6 +58,7 @@ export class ReceiptFormModelComponent implements OnInit, OnDestroy {
         amount: this.receipt.amount,
         currency: currency,
         actual_amount: this.receipt.actual_amount,
+        account: account,
         description: this.receipt.description
       });
     }

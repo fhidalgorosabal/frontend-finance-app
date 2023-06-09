@@ -14,11 +14,13 @@ export interface IReceipt {
   amount: number;
   currency_id: string;
   actual_amount?: number;
+  account_id: string;
   description?: string;
 }
 
 export interface IReceiptData {
   concepts: ILabel[];
   currencies: ILabel[];
+  accounts: ILabel[];
   receipt?: IReceipt;
 }

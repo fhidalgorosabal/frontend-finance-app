@@ -52,17 +52,20 @@ export class IngressDetailsComponent implements OnInit {
     const concepts$ = this.getConcepts();
     const currencies$ = this.getCurrencies();
     const receipt$ = this.getDetailReceipt();
+    const accounts$ = this.getAccounts();
 
     this.data$ = combineLatest([
       concepts$,
       currencies$,
+      accounts$,
       ...(this.actionDetails === ACTION_TYPE.DETAIL ? [receipt$] : [])
     ]).pipe(
       first(),
-      map(([concepts, currencies, receipt]) => {
+      map(([concepts, currencies, accounts, receipt]) => {
         return {
           'concepts': concepts,
           'currencies': currencies,
+          'accounts': accounts,
           'receipt': receipt
         }
       }),
@@ -87,6 +90,10 @@ export class IngressDetailsComponent implements OnInit {
         (data) => data.map(data => ({label: data.initials, value: data.id }))
       )
     );
+  }
+
+  getAccounts(): Observable<ILabel[]> {
+    return of([{label: 'Cuenta Principal', value: '1'}]);
   }
 
   getDetailReceipt(): Observable<IReceipt> {
@@ -165,6 +172,7 @@ export class IngressDetailsComponent implements OnInit {
       type: RECEIPT_TYPE.INGRESS,
       amount: dataForm.amount,
       currency_id: dataForm.currency.value,
+      account_id: dataForm.account.value,
       description: dataForm.description
     }
   }

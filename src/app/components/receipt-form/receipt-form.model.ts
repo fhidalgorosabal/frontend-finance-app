@@ -14,6 +14,8 @@ export class ReceiptFormModel extends FormGroup {
 
       actual_amount: new FormControl(''),
 
+      account: new FormControl('', [ Validators.required ]),
+
       description: new FormControl(''),
     });
   }
