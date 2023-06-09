@@ -105,7 +105,7 @@ export class IngressDetailsComponent implements OnInit {
   }
 
   getTitle(actionDetails: ACTION_TYPE): string {
-    return (actionDetails === ACTION_TYPE.DETAIL) ? 'Detalles del comprobante' : 'Crear comprobante';
+    return (actionDetails === ACTION_TYPE.DETAIL) ? 'Detalles del comprobante de ingreso' : 'Crear comprobante de ingreso';
   }
 
   showDialogDetails(action: ACTION_TYPE): void {

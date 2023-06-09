@@ -105,7 +105,7 @@ export class ExpenseDetailsComponent implements OnInit {
   }
 
   getTitle(actionDetails: ACTION_TYPE): string {
-    return (actionDetails === ACTION_TYPE.DETAIL) ? 'Detalles del comprobante' : 'Crear comprobante';
+    return (actionDetails === ACTION_TYPE.DETAIL) ? 'Detalles del comprobante de gasto' : 'Crear comprobante de gasto';
   }
 
   showDialogDetails(action: ACTION_TYPE): void {
