@@ -7,5 +7,8 @@
     <div *ngSwitchCase="'number'">{{ value | number: '1.2-4' }}</div> 
     <div *ngSwitchCase="'percent'">{{ value | percent }}</div> 
     <div *ngSwitchCase="'json'">{{ value | json }}</div> 
+    <div *ngSwitchCase="'status'">
+        <p-badge [value]="value" [severity]="(value === 'Active') ? 'success' : 'danger'"></p-badge>
+    </div> 
     <div *ngSwitchDefault>{{ value }}</div>
 </div>

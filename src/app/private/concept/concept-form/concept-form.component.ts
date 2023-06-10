@@ -20,10 +20,6 @@ import { IConcept } from 'src/app/interfaces/concept.interface';
 })
 export class ConceptFormComponent implements OnInit, OnDestroy {
 
-  @Input() optionsConcept: ILabel[] = []
-
-  @Input() optionsCurrency: ILabel[] = []
-
   @Input() conceptForm = new ConceptFormModel();
 
   @Input() concept?: IConcept;

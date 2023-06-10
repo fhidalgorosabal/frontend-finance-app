@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { EMPTY, Observable, first } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
-import { CurrencyService } from 'src/app/services/currency.service';
+import { AccountService } from 'src/app/services/account.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ICurrency } from 'src/app/interfaces/currency.interface';
+import { IAccount } from 'src/app/interfaces/account.interface';
 import { ILabel } from 'src/app/interfaces/label.interface';
 import { ACTION_TYPE } from 'src/app/enums/actions.enum';
 import { Utils } from 'src/app/shared/utils/utils';
 
 @Component({
-  selector: 'app-currency-list',
-  templateUrl: './currency-list.component.html',
-  styleUrls: ['./currency-list.component.scss']
+  selector: 'app-account-list',
+  templateUrl: './account-list.component.html',
+  styleUrls: ['./account-list.component.scss']
 })
-export class CurrencyListComponent implements OnInit {
+export class AccountListComponent implements OnInit {
 
-  title: string = 'Tipo de monedas';
+  title: string = 'Cuentas';
 
-  currencies$ = new Observable<ICurrency[]>();
+  accounts$ = new Observable<IAccount[]>();
 
   columnData: ILabel[] = [
-    { label: 'Sigla', value: 'initials', type: 'uppercase'},
-    { label: 'Tipo de cambio', value: 'exchange_rate', type: 'number'},
+    { label: 'Código', value: 'code', type: 'uppercase'},
+    { label: 'Descripción', value: 'description', type: 'titlecase'},
     { label: 'Estado', value: 'active', type: 'status'}
   ];
 
@@ -30,24 +30,24 @@ export class CurrencyListComponent implements OnInit {
   displayDetails = false;
 
   constructor(
-    private currencyService: CurrencyService,
+    private accountService: AccountService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit(): void {
-    this.currenciesList();
+    this.accountsList();
   }
 
-  currenciesList(): void {
-    this.currencies$ = this.currencyService.currenciesList()
+  accountsList(): void {
+    this.accounts$ = this.accountService.accountsList()
     .pipe(
       tap( res => {      
         if (res.length === 0) {
           this.messageService.add({
             severity: 'warn', 
             summary: '¡Atención!', 
-            detail: 'No hay tipos de monedas para mostrar',
+            detail: 'No hay cuentas para mostrar',
             life: 5000
           });  
         }
@@ -66,16 +66,16 @@ export class CurrencyListComponent implements OnInit {
 
   cancelDialogDetails(event: boolean): void {
     if (event) {
-      this.currenciesList();
+      this.accountsList();
     }
     this.displayDetails = false;
   }
 
   confirmDelete(id: number): void {
     this.confirmationService.confirm({
-        message: '¿Está seguro que desea eliminar esta moneda?',
+        message: '¿Está seguro que desea eliminar esta cuenta?',
         accept: () => {
-          this.deleteCurrency(id);
+          this.deleteAccount(id);
         },
         acceptLabel: 'Eliminar',
         acceptIcon: 'pi pi-trash',
@@ -85,12 +85,12 @@ export class CurrencyListComponent implements OnInit {
     });
   }
 
-  deleteCurrency(id: number): void {
-    this.currencyService.deleteCurrency(id).pipe(
+  deleteAccount(id: number): void {
+    this.accountService.deleteAccount(id).pipe(
       first(),
       tap(res => {
-        this.messageService.add(Utils.messageServiceTitle('¡Moneda eliminada!', res));
-        this.currenciesList();
+        this.messageService.add(Utils.messageServiceTitle('¡Cuenta eliminada!', res));
+        this.accountsList();
       }),
       catchError((error) => {
         this.messageService.add(Utils.responseError(error));

@@ -21,12 +21,10 @@ export class ReceiptService {
   receiptsList(receiptType: string): Observable<IReceiptResponse[]> {
     return this.http.post<IResponse>(`${this._url}/receipt/list`, { type: receiptType })
       .pipe(
-        map((res) => {
-          return res.data.map((receipt: IReceipt) => {
-            const formattedDate = Utils.dateFormatFilter(receipt.date);        
-            return { ...receipt, date: formattedDate };
-          });
-        })
+        map((res) => res.data.map((receipt: IReceipt) => ({
+          ...receipt,
+          date: Utils.dateFormatFilter(receipt.date)
+        })))
       );
   }
 

@@ -39,5 +39,12 @@
               {{ 'La tasa de cambio es obligatoria y debe ser mayor a cero.' }}
             </small>
         </div>
+        <div *ngIf="currency" class="field field-checkbox col-12">
+            <p-inputSwitch 
+                inputId="active"
+                formControlName="active"
+            ></p-inputSwitch>
+            <label for="active-input">{{ 'Activa' }}</label>
+        </div>
     </div>
 </form> 

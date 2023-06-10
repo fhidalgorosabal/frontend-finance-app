@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { EMPTY, Observable, combineLatest } from 'rxjs';
+import { EMPTY, Observable, combineLatest, of } from 'rxjs';
 import { catchError, map, first, switchMap, tap } from 'rxjs/operators';
 import { ConceptService } from 'src/app/services/concept.service';
 import { CurrencyService } from 'src/app/services/currency.service';
 import { ReceiptService } from 'src/app/services/receipt.service';
+import { AccountService } from 'src/app/services/account.service';
 import { TableService } from 'src/app/services/table.service';
 import { ReceiptFormModel } from 'src/app/components/receipt-form/receipt-form.model';
 import { Utils } from 'src/app/shared/utils/utils';
@@ -38,6 +39,7 @@ export class ExpenseDetailsComponent implements OnInit {
     private receiptService: ReceiptService,
     private conceptService: ConceptService,
     private currencyService: CurrencyService,
+    private accountService: AccountService,
     private messageService: MessageService,
     private tableService: TableService
   ) {
@@ -51,18 +53,21 @@ export class ExpenseDetailsComponent implements OnInit {
   getData(): void {
     const concepts$ = this.getConcepts();
     const currencies$ = this.getCurrencies();
+    const accounts$ = this.getAccounts();
     const receipt$ = this.getDetailReceipt();
 
     this.data$ = combineLatest([
       concepts$,
       currencies$,
+      accounts$,
       ...(this.actionDetails === ACTION_TYPE.DETAIL ? [receipt$] : [])
     ]).pipe(
       first(),
-      map(([concepts, currencies, receipt]) => {
+      map(([concepts, currencies, accounts, receipt]) => {
         return {
           'concepts': concepts,
           'currencies': currencies,
+          'accounts': accounts,
           'receipt': receipt
         }
       }),
@@ -89,6 +94,14 @@ export class ExpenseDetailsComponent implements OnInit {
     );
   }
 
+  getAccounts(): Observable<ILabel[]> {
+    return this.accountService.accountsList().pipe(
+      map(
+        (data) => data.map(data => ({label: data.description, value: data.id }))
+      )
+    );
+  }
+
   getDetailReceipt(): Observable<IReceipt> {
     return this.tableService.detailId.asObservable().pipe(
       first(),
@@ -98,7 +111,7 @@ export class ExpenseDetailsComponent implements OnInit {
   }
 
   getTitle(actionDetails: ACTION_TYPE): string {
-    return (actionDetails === ACTION_TYPE.DETAIL) ? 'Detalles del comprobante' : 'Crear comprobante';
+    return (actionDetails === ACTION_TYPE.DETAIL) ? 'Detalles del comprobante de gasto' : 'Crear comprobante de gasto';
   }
 
   showDialogDetails(action: ACTION_TYPE): void {
@@ -165,6 +178,7 @@ export class ExpenseDetailsComponent implements OnInit {
       type: RECEIPT_TYPE.EXPENSE,
       amount: dataForm.amount,
       currency_id: dataForm.currency.value,
+      account_id: dataForm.account.value,
       description: dataForm.description
     }
   }

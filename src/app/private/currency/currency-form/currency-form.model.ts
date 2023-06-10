@@ -8,6 +8,7 @@ export class CurrencyFormModel extends FormGroup {
         description: new FormControl('', [ Validators.required ]),
         exchange_rate: new FormControl('', [ Validators.required, Validators.min(1) ]),
         is_default: new FormControl(''),
+        active: new FormControl(''),
     });
   }
 }

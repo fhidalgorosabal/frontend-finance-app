@@ -56,6 +56,23 @@
           {{ 'El tipo de moneda es obligatorio.' }}
         </small>
       </div>
+      <div class="field col-12 md:col-6">
+        <label for="account-input">{{ 'Cuenta:' }}</label>
+        <p-dropdown
+          id="account-input"
+          [class]="isValidField('account') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
+          [options]="optionsAccount"
+          [filter]="true"
+          filterBy="label"
+          optionLabel="label"
+          [placeholder]="'--Seleccione--'"
+          formControlName="account"
+        ></p-dropdown>
+        <small *ngIf="isValidField('account')" id="concept-help" class="p-error block">
+          {{ 'La cuenta es obligatoria.' }}
+        </small>
+      </div>
+    </div>
 
     <div class="field col-12">
       <label for="description-input">{{ 'Descripción:' }}</label>
@@ -67,7 +84,6 @@
         [autoResize]="true"
         formControlName="description"
       ></textarea>
-    </div>
     </div>
 
   </div>

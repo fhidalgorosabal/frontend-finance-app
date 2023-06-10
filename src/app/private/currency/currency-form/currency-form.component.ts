@@ -12,8 +12,6 @@ import { ILabel } from 'src/app/interfaces/label.interface';
 })
 export class CurrencyFormComponent implements OnInit, OnDestroy {
 
-  @Input() optionsCurrency: ILabel[] = []
-
   @Input() currencyForm = new CurrencyFormModel();
 
   @Input() currency?: ICurrency;
@@ -22,7 +20,7 @@ export class CurrencyFormComponent implements OnInit, OnDestroy {
 
   destroy$ = new Subject<void>();
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.currencyForm.statusChanges
     .pipe(takeUntil(this.destroy$))
     .subscribe(
@@ -37,7 +35,8 @@ export class CurrencyFormComponent implements OnInit, OnDestroy {
         initials: this.currency.initials,
         description: this.currency.description,
         exchange_rate: this.currency.exchange_rate,
-        is_default: this.currency.is_default
+        is_default: this.currency.is_default,
+        active: this.currency.active
       });
     }
   }

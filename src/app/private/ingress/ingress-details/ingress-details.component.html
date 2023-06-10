@@ -11,6 +11,7 @@
     *ngIf="data$ | async as data; else loading"
     [optionsConcept]="data.concepts"
     [optionsCurrency]="data.currencies"
+    [optionsAccount]="data.accounts"
     [receipt]="data.receipt"
     [receiptForm]="ingressForm"
     (formState)="setForm($event)"

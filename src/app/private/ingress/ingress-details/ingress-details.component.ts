@@ -51,18 +51,21 @@ export class IngressDetailsComponent implements OnInit {
   getData(): void {
     const concepts$ = this.getConcepts();
     const currencies$ = this.getCurrencies();
+    const accounts$ = this.getAccounts();
     const receipt$ = this.getDetailReceipt();
 
     this.data$ = combineLatest([
       concepts$,
       currencies$,
+      accounts$,
       ...(this.actionDetails === ACTION_TYPE.DETAIL ? [receipt$] : [])
     ]).pipe(
       first(),
-      map(([concepts, currencies, receipt]) => {
+      map(([concepts, currencies, accounts, receipt]) => {
         return {
           'concepts': concepts,
           'currencies': currencies,
+          'accounts': accounts,
           'receipt': receipt
         }
       }),
@@ -89,6 +92,10 @@ export class IngressDetailsComponent implements OnInit {
     );
   }
 
+  getAccounts(): Observable<ILabel[]> {
+    return of([{label: 'Cuenta Principal', value: 1}]);
+  }
+
   getDetailReceipt(): Observable<IReceipt> {
     return this.tableService.detailId.asObservable().pipe(
       first(),
@@ -98,7 +105,7 @@ export class IngressDetailsComponent implements OnInit {
   }
 
   getTitle(actionDetails: ACTION_TYPE): string {
-    return (actionDetails === ACTION_TYPE.DETAIL) ? 'Detalles del comprobante' : 'Crear comprobante';
+    return (actionDetails === ACTION_TYPE.DETAIL) ? 'Detalles del comprobante de ingreso' : 'Crear comprobante de ingreso';
   }
 
   showDialogDetails(action: ACTION_TYPE): void {
@@ -165,6 +172,7 @@ export class IngressDetailsComponent implements OnInit {
       type: RECEIPT_TYPE.INGRESS,
       amount: dataForm.amount,
       currency_id: dataForm.currency.value,
+      account_id: dataForm.account.value,
       description: dataForm.description
     }
   }

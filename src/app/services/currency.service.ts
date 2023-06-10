@@ -20,11 +20,13 @@ export class CurrencyService {
   currenciesList(): Observable<ICurrency[]> {
     return this.http.get<IResponse>(`${ this._url }/currency`)
       .pipe(
-        map(
-          (res) => res.data
-        )
+        map((res) => res.data.map((currency: ICurrency) => ({
+          ...currency,
+          active: currency.active ? 'Active' : 'Inactive'
+        })))
       );
   }
+  
 
   getCurrency(id: number | null): Observable<ICurrency> {
     return this.http.get<IResponse>(`${ this._url }/currency/${ id }`)
