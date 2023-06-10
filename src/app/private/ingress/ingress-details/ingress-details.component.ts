@@ -51,8 +51,8 @@ export class IngressDetailsComponent implements OnInit {
   getData(): void {
     const concepts$ = this.getConcepts();
     const currencies$ = this.getCurrencies();
-    const receipt$ = this.getDetailReceipt();
     const accounts$ = this.getAccounts();
+    const receipt$ = this.getDetailReceipt();
 
     this.data$ = combineLatest([
       concepts$,
@@ -93,7 +93,7 @@ export class IngressDetailsComponent implements OnInit {
   }
 
   getAccounts(): Observable<ILabel[]> {
-    return of([{label: 'Cuenta Principal', value: '1'}]);
+    return of([{label: 'Cuenta Principal', value: 1}]);
   }
 
   getDetailReceipt(): Observable<IReceipt> {

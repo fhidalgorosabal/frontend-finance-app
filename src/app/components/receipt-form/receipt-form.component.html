@@ -62,6 +62,8 @@
           id="account-input"
           [class]="isValidField('account') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
           [options]="optionsAccount"
+          [filter]="true"
+          filterBy="label"
           optionLabel="label"
           [placeholder]="'--Seleccione--'"
           formControlName="account"

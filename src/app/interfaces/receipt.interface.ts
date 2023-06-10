@@ -9,12 +9,12 @@ export interface IReceiptResponse {
 
 export interface IReceipt {
   date: string;
-  concept_id: string;
+  concept_id: number;
   type: string;
   amount: number;
-  currency_id: string;
+  currency_id: number;
   actual_amount?: number;
-  account_id: string;
+  account_id: number;
   description?: string;
 }
 

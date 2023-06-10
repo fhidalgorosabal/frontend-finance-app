@@ -64,8 +64,8 @@ export class ConceptDetailsComponent implements OnInit {
   }
 
   getTitle(actionDetails: ACTION_TYPE): string {
-    const type = RECEIPT_TYPE.EXPENSE ? 'Gasto' : 'Ingreso';
-    return (actionDetails === ACTION_TYPE.DETAIL) ? `Detalles del concepto (${ type })` : `Crear concepto (${ type })`;
+    const type = RECEIPT_TYPE.EXPENSE ? 'de gasto' : 'de ingreso';
+    return (actionDetails === ACTION_TYPE.DETAIL) ? `Detalles del concepto ${ type }` : `Crear concepto ${ type }`;
   }
 
   showDialogDetails(action: ACTION_TYPE): void {

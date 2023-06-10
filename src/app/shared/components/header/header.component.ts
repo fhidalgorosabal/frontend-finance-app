@@ -82,6 +82,10 @@ export class HeaderComponent implements OnInit {
               routerLink:'currency'
             },
             {
+              label:'Cuentas',
+              routerLink:'account'
+            },
+            {
               label:'Clientes',
               routerLink:'customer'
             },
