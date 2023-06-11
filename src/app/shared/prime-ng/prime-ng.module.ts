@@ -21,6 +21,7 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import {DropdownModule} from 'primeng/dropdown';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {InputSwitchModule} from 'primeng/inputswitch';
+import {InputMaskModule} from 'primeng/inputmask';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import {InputSwitchModule} from 'primeng/inputswitch';
     DropdownModule,
     InputTextareaModule,
     InputSwitchModule,
+    InputMaskModule,
   ],
   exports: [
     CommonModule,
@@ -68,6 +70,7 @@ import {InputSwitchModule} from 'primeng/inputswitch';
     DropdownModule,
     InputTextareaModule,
     InputSwitchModule,
+    InputMaskModule,
   ]
 })
 export class PrimeNgModule { }

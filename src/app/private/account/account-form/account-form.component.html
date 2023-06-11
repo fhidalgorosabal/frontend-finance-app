@@ -2,15 +2,14 @@
     <div class="grid p-fluid">  
         <div class="field col-12 md:col-6">
             <label for="code-input">{{ 'Código:' }}</label>
-            <input 
+            <p-inputMask 
               id="code" 
               [class]="isValidField('code') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
-              pInputText 
-              type="text" 
-              formControlName="code"
-            >
+              mask="9999-9999-9999-9999"
+              formControlName="code" 
+            ></p-inputMask>
             <small *ngIf="isValidField('code')" id="concept-help" class="p-error block">
-              {{ 'El código es obligatorio.' }}
+              {{ 'El código es obligatorio, con un formato: (####-####-####-####).' }}
             </small>
         </div>
         <div class="field col-12">
