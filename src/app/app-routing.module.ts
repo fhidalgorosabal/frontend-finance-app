@@ -27,6 +27,10 @@ const routes: Routes = [
     loadChildren: () => import('./private/account/account.module').then( m => m.AccountModule )
   },
   {
+    path: 'bank',
+    loadChildren: () => import('./private/bank/bank.module').then( m => m.BankModule )
+  },
+  {
     path: '**',
     redirectTo: 'home'
   }
