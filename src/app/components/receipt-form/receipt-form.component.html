@@ -54,6 +54,7 @@
           [virtualScroll]="true"
           optionLabel="label"
           [placeholder]="'--Seleccione--'"
+          (onChange)="changeCurrencyType()"
           formControlName="currency"
         ></p-dropdown>
         <small *ngIf="isValidField('currency')" id="concept-help" class="p-error block">
