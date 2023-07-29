@@ -5,7 +5,8 @@ import {
   OnDestroy,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  DoCheck
 } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { ILabel } from '../../interfaces/label.interface';
@@ -18,13 +19,15 @@ import { Utils } from 'src/app/shared/utils/utils';
   templateUrl: './receipt-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ReceiptFormModelComponent implements OnInit, OnDestroy {
+export class ReceiptFormModelComponent implements OnInit, DoCheck, OnDestroy {
 
   @Input() optionsConcept: ILabel[] = []
 
   @Input() optionsCurrency: ILabel[] = []
 
   @Input() optionsAccount: ILabel[] = []
+
+  tempAccounts: ILabel[] = []
 
   @Input() receiptForm = new ReceiptFormModel();
 
@@ -42,7 +45,12 @@ export class ReceiptFormModelComponent implements OnInit, OnDestroy {
     .subscribe(
       () => this.formState.emit(this.receiptForm)
     );
-    this.getDetailData();
+    this.getDetailData();  
+    this.tempAccounts = [...this.optionsAccount];
+  }
+
+  ngDoCheck(): void { 
+    this.changeCurrencyType();    
   }
 
   getDetailData(): void {
@@ -66,6 +74,19 @@ export class ReceiptFormModelComponent implements OnInit, OnDestroy {
 
   isValidField(field: string): boolean {
     return this.receiptForm.controls[field].touched && this.receiptForm.controls[field].invalid;
+  }
+
+  changeCurrencyType(): void {    
+    const currencyField = this.receiptForm.controls['currency'];      
+    if (currencyField.valid) {     
+      this.receiptForm.controls['account'].enable({onlySelf: true}); 
+      this.optionsAccount = [...this.tempAccounts];
+      this.optionsAccount = this.optionsAccount.filter(
+        account => account.type === currencyField.value.type
+      );          
+    } else {
+      this.receiptForm.controls['account'].disable({onlySelf: true}); 
+    }    
   }
 
   ngOnDestroy(): void {

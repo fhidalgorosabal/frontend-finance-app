@@ -1,51 +1,65 @@
 <form [formGroup]="accountForm">
     <div class="grid p-fluid">  
         <div class="field col-12 md:col-6">
-            <label for="code-input">{{ 'Código:' }}</label>
-            <p-inputMask 
-              id="code" 
-              [class]="isValidField('code') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
-              mask="9999-9999-9999-9999"
-              formControlName="code" 
-            ></p-inputMask>
-            <small *ngIf="isValidField('code')" id="concept-help" class="p-error block">
-              {{ 'El código es obligatorio, con un formato: (####-####-####-####).' }}
-            </small>
+          <label for="code-input">{{ 'Código:' }}</label>
+          <p-inputMask 
+            id="code" 
+            [class]="isValidField('code') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
+            mask="9999-9999-9999-9999"
+            formControlName="code" 
+          ></p-inputMask>
+          <small *ngIf="isValidField('code')" id="concept-help" class="p-error block">
+            {{ 'El código es obligatorio, con un formato: (####-####-####-####).' }}
+          </small>
+        </div>
+        <div class="field col-12 md:col-6">
+          <label for="currency-input">{{ 'Tipo de moneda:' }}</label>
+          <p-dropdown
+            id="currency-input"
+            [class]="isValidField('currency') ? 'ng-invalid ng-dirty w-12' : 'w-12'"              
+            [options]="optionsCurrency"
+            [virtualScroll]="true"
+            optionLabel="label"
+            [placeholder]="'--Seleccione--'"
+            formControlName="currency"
+          ></p-dropdown>
+          <small *ngIf="isValidField('currency')" id="concept-help" class="p-error block">
+            {{ 'El tipo de moneda es obligatorio.' }}
+          </small>
         </div>
         <div class="field col-12">
-            <label for="description-input">{{ 'Descripción:' }}</label>
-            <input 
-                id="description"                 
-                [class]="isValidField('description') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
-                pInputText 
-                type="text" 
-                formControlName="description"
-            >
-            <small *ngIf="isValidField('description')" id="concept-help" class="p-error block">
-              {{ 'La descripción es obligatoria.' }}
-            </small>
+          <label for="bank-input">{{ 'Banco:' }}</label>
+          <p-dropdown
+            id="bank-input"
+            [class]="'w-12'"               
+            [options]="optionsBank"
+            [virtualScroll]="true"
+            [filter]="true"
+            filterBy="label"
+            optionLabel="label"
+            [placeholder]="'--Seleccione--'"
+            formControlName="bank"
+          ></p-dropdown>
         </div>
-        <div class="field col-12 md:col-6 mb-5">
-            <label for="currency-input">{{ 'Tipo de moneda:' }}</label>
-            <p-dropdown
-              id="currency-input"
-              [class]="isValidField('currency') ? 'ng-invalid ng-dirty w-12' : 'w-12'"              
-              [options]="optionsCurrency"
-              [virtualScroll]="true"
-              optionLabel="label"
-              [placeholder]="'--Seleccione--'"
-              formControlName="currency"
-            ></p-dropdown>
-            <small *ngIf="isValidField('currency')" id="concept-help" class="p-error block">
-              {{ 'El tipo de moneda es obligatorio.' }}
-            </small>
+        <div class="field col-12">
+          <label for="description-input">{{ 'Descripción:' }}</label>
+          <input 
+            id="description"                 
+            [class]="isValidField('description') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
+            pInputText 
+            type="text" 
+            formControlName="description"
+          >
+          <small *ngIf="isValidField('description')" id="concept-help" class="p-error block">
+            {{ 'La descripción es obligatoria.' }}
+          </small>
         </div>
         <div *ngIf="account" class="field field-checkbox col-12">
-            <p-inputSwitch 
-                inputId="active"
-                formControlName="active"
-            ></p-inputSwitch>
-            <label for="active-input">{{ 'Activa' }}</label>
+          <p-inputSwitch 
+            inputId="active"
+            formControlName="active"
+          ></p-inputSwitch>
+          <label for="active-input">{{ 'Activa' }}</label>
         </div>
     </div>
 </form> 

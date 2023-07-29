@@ -4,6 +4,7 @@ import { EMPTY, Observable, combineLatest, of } from 'rxjs';
 import { catchError, map, first, switchMap, tap } from 'rxjs/operators';
 import { ConceptService } from 'src/app/services/concept.service';
 import { CurrencyService } from 'src/app/services/currency.service';
+import { AccountService } from 'src/app/services/account.service';
 import { ReceiptService } from 'src/app/services/receipt.service';
 import { TableService } from 'src/app/services/table.service';
 import { ReceiptFormModel } from 'src/app/components/receipt-form/receipt-form.model';
@@ -38,6 +39,7 @@ export class IngressDetailsComponent implements OnInit {
     private receiptService: ReceiptService,
     private conceptService: ConceptService,
     private currencyService: CurrencyService,
+    private accountService: AccountService,
     private messageService: MessageService,
     private tableService: TableService
   ) {
@@ -87,13 +89,17 @@ export class IngressDetailsComponent implements OnInit {
   getCurrencies(): Observable<ILabel[]> {
     return this.currencyService.currenciesList().pipe(
       map(
-        (data) => data.map(data => ({label: data.initials, value: data.id }))
+        (data) => data.map(data => ({label: data.initials, value: data.id, type: data?.id?.toString() }))
       )
     );
   }
 
   getAccounts(): Observable<ILabel[]> {
-    return of([{label: 'Cuenta Principal', value: 1}]);
+    return this.accountService.accountsList().pipe(
+      map(
+        (data) => data.map(data => ({label: data.description, value: data.id, type: data.currency_id.toString() }))
+      )
+    );
   }
 
   getDetailReceipt(): Observable<IReceipt> {

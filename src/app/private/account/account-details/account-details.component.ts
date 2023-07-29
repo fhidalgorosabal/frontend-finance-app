@@ -3,13 +3,14 @@ import { EMPTY, Observable, combineLatest } from 'rxjs';
 import { catchError, map, first, switchMap, tap } from 'rxjs/operators';
 import { AccountService } from 'src/app/services/account.service';
 import { TableService } from 'src/app/services/table.service';
+import { CurrencyService } from 'src/app/services/currency.service';
+import { BankService } from 'src/app/services/bank.service';
 import { MessageService } from 'primeng/api';
 import { AccountFormModel } from '../account-form/account-form.model';
 import { IAccount, IAccountData } from 'src/app/interfaces/account.interface';
 import { ACTION_TYPE } from 'src/app/enums/actions.enum';
 import { Utils } from 'src/app/shared/utils/utils';
 import { ILabel } from 'src/app/interfaces/label.interface';
-import { CurrencyService } from 'src/app/services/currency.service';
 
 @Component({
   selector: 'app-account-details',
@@ -39,6 +40,7 @@ export class AccountDetailsComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private currencyService: CurrencyService,
+    private bankService: BankService,
     private messageService: MessageService,
     private tableService: TableService
   ) {
@@ -51,16 +53,19 @@ export class AccountDetailsComponent implements OnInit {
 
   getData(): void {
     const currencies$ = this.getCurrencies();
+    const banks$ = this.getBanks();
     const account$ = this.getDetailAccount();
 
     this.data$ = combineLatest([
       currencies$,
+      banks$,
       ...(this.actionDetails === ACTION_TYPE.DETAIL ? [account$] : [])
     ]).pipe(
       first(),
-      map(([currencies, account]) => {
+      map(([currencies, banks, account]) => {
         return {
           'currencies': currencies,
+          'banks': banks,
           'account': account,
         }
       }),
@@ -75,6 +80,14 @@ export class AccountDetailsComponent implements OnInit {
     return this.currencyService.currenciesList().pipe(
       map(
         (data) => data.map(data => ({label: data.initials, value: data.id }))
+      )
+    );
+  }
+
+  getBanks(): Observable<ILabel[]> {
+    return this.bankService.banksList().pipe(
+      map(
+        (data) => data.map(data => ({label: data.bank_name, value: data.id }))
       )
     );
   }
@@ -149,10 +162,12 @@ export class AccountDetailsComponent implements OnInit {
 
   private getFormAccount(): IAccount {
     const dataForm = this.accountForm.value;
+    
     return { 
       code: dataForm.code,
       description: dataForm.description,
       currency_id: dataForm.currency.value,
+      bank_id: dataForm.bank.value,
       active: dataForm.active
     };
   }

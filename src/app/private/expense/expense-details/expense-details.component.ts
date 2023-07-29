@@ -89,7 +89,7 @@ export class ExpenseDetailsComponent implements OnInit {
   getCurrencies(): Observable<ILabel[]> {
     return this.currencyService.currenciesList().pipe(
       map(
-        (data) => data.map(data => ({label: data.initials, value: data.id }))
+        (data) => data.map(data => ({label: data.initials, value: data.id, type: data?.id?.toString() }))
       )
     );
   }
@@ -97,7 +97,7 @@ export class ExpenseDetailsComponent implements OnInit {
   getAccounts(): Observable<ILabel[]> {
     return this.accountService.accountsList().pipe(
       map(
-        (data) => data.map(data => ({label: data.description, value: data.id }))
+        (data) => data.map(data => ({label: data.description, value: data.id, type: data.currency_id.toString() }))
       )
     );
   }

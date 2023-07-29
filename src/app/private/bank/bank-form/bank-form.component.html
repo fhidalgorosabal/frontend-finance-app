@@ -1,0 +1,107 @@
+<form [formGroup]="bankForm">
+  <div class="grid p-fluid">
+    <div class="col-12 md:col-6">  
+        <div class="col-12 md:col-6">
+            <label for="swift-input">{{ 'Código SWIFT/BIC:' }}</label>
+            <input 
+                id="swift"                 
+                [class]="isValidField('swift') ? 'ng-invalid ng-dirty w-12 mt-2' : 'w-12 mt-2'"
+                pInputText 
+                type="text" 
+                formControlName="swift"
+            >
+            <small *ngIf="isValidField('swift')" id="concept-help" class="p-error block">
+              {{ 'El código del banco es obligatorio y debe contener máximo 25 caracteres.' }}
+            </small>
+        </div>
+        <div class="field col-12 md:col-10">
+            <label for="bank-name-input">{{ 'Nombre del banco:' }}</label>
+            <input 
+                id="bank-name"                 
+                [class]="isValidField('bank_name') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
+                pInputText 
+                type="text" 
+                formControlName="bank_name"
+            >
+            <small *ngIf="isValidField('bank_name')" id="concept-help" class="p-error block">
+              {{ 'El nombre del banco es obligatorio y debe contener máximo 100 caracteres.' }}
+            </small>
+        </div>
+        <div class="col-12 md:col-6">
+            <label for="cis-input">{{ 'Código de sucursal:' }}</label>
+            <input 
+                id="cis"                 
+                [class]="isValidField('cis') ? 'ng-invalid ng-dirty w-12 mt-2' : 'w-12 mt-2'"
+                pInputText 
+                type="text" 
+                formControlName="cis"
+            >
+            <small *ngIf="isValidField('cis')" id="concept-help" class="p-error block">
+              {{ 'El código de sucursal es obligatorio y debe contener máximo 10 caracteres.' }}
+            </small>
+        </div>
+        <div class="col-12 md:col-10">
+            <label for="branch-name-input">{{ 'Nombre de sucursal:' }}</label>
+            <input 
+                id="branch-name"                 
+                [class]="isValidField('branch_name') ? 'ng-invalid ng-dirty w-12 mt-2' : 'w-12 mt-2'"
+                pInputText 
+                type="text" 
+                formControlName="branch_name"
+            >
+            <small *ngIf="isValidField('branch_name')" id="concept-help" class="p-error block">
+              {{ 'El nombre de la sucursal debe contener máximo 100 caracteres.' }}
+            </small>
+        </div>
+    </div>
+    <div class="col-12 md:col-6">
+        <div class="field col-12">
+          <label for="address-input">{{ 'Dirección:' }}</label>
+          <textarea
+            id="address-input"
+            [class]="isValidField('address') ? 'ng-invalid ng-dirty w-12 h-max' : 'w-12 h-max'"
+            [rows]="3"
+            pInputTextarea
+            [autoResize]="true"
+            formControlName="address"
+          ></textarea>
+          <small *ngIf="isValidField('address')" id="concept-help" class="p-error block">
+            {{ 'La dirección debe ser única y contener máximo 200 caracteres.' }}
+          </small>
+        </div>
+        <div class="field col-12 md:col-10">
+            <label for="email-input">{{ 'Correo:' }}</label>
+            <input 
+                id="email"                 
+                [class]="isValidField('email') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
+                pInputText 
+                type="email" 
+                formControlName="email"
+            >
+            <small *ngIf="isValidField('email')" id="concept-help" class="p-error block">
+              {{ 'Este correo no es válido.' }}
+            </small>
+        </div>
+        <div class="field col-12 md:col-6">
+            <label for="phone_number-input">{{ 'Teléfono:' }}</label>
+            <input 
+                id="phone_number"                 
+                [class]="isValidField('phone_number') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
+                pInputText 
+                type="text" 
+                formControlName="phone_number"
+            >
+            <small *ngIf="isValidField('phone_number')" id="concept-help" class="p-error block">
+              {{ 'Este número de teléfono no es válido.' }}
+            </small>
+        </div>
+    </div>
+    <div *ngIf="bank" class="field field-checkbox col-12 md:col-6">
+        <p-inputSwitch 
+            inputId="active"
+            formControlName="active"
+        ></p-inputSwitch>
+        <label for="active-input">{{ 'Activa' }}</label>
+    </div>
+  </div>
+</form> 
