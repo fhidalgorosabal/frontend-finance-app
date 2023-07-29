@@ -5,10 +5,12 @@ export interface IAccount {
   code: string;
   description: string;
   currency_id: number;
+  bank_id: number;
   active?: boolean;
 }
 
 export interface IAccountData {
   currencies: ILabel[];
+  banks: ILabel[];
   account?: IAccount;
 }

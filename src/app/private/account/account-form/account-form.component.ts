@@ -4,15 +4,18 @@ import { takeUntil } from 'rxjs/operators';
 import { AccountFormModel } from './account-form.model';
 import { IAccount } from 'src/app/interfaces/account.interface';
 import { ILabel } from 'src/app/interfaces/label.interface';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-account-form',
   templateUrl: './account-form.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class AccountFormComponent implements OnInit, OnDestroy {
 
-  @Input() optionsCurrency: ILabel[] = []
+  @Input() optionsCurrency: ILabel[] = [];
+
+  @Input() optionsBank: ILabel[] = [];
 
   @Input() accountForm = new AccountFormModel();
 
@@ -31,14 +34,16 @@ export class AccountFormComponent implements OnInit, OnDestroy {
     this.getDetailData();
   }
 
-  getDetailData(): void {
+  getDetailData(): void {    
     if (this.account) {
       const currency = this.optionsCurrency.find( option => option.value == this.account?.currency_id );
+      const bank = this.optionsBank.find( option => option.value == this.account?.bank_id );
 
       this.accountForm.setValue({
         code: this.account.code,
         description: this.account.description,
         currency: currency,
+        bank: bank,
         active: this.account.active
       });
     }
