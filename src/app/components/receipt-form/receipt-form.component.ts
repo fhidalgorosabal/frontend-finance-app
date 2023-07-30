@@ -79,13 +79,13 @@ export class ReceiptFormModelComponent implements OnInit, DoCheck, OnDestroy {
   changeCurrencyType(): void {    
     const currencyField = this.receiptForm.controls['currency'];      
     if (currencyField.valid) {     
-      this.receiptForm.controls['account'].enable({onlySelf: true}); 
+      this.receiptForm.controls['account'].enable(); 
       this.optionsAccount = [...this.tempAccounts];
       this.optionsAccount = this.optionsAccount.filter(
         account => account.type === currencyField.value.type
       );          
     } else {
-      this.receiptForm.controls['account'].disable({onlySelf: true}); 
+      this.receiptForm.controls['account'].disable(); 
     }    
   }
 

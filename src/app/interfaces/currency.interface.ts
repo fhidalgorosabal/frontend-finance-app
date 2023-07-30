@@ -4,5 +4,5 @@ export interface ICurrency {
   description: string;
   exchange_rate: number;
   is_default?: boolean;
-  active?: boolean;
+  active?: boolean | string;
 }

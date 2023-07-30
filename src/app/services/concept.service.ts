@@ -5,6 +5,8 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IResponse } from '../interfaces/response.interface';
 import { IConcept } from '../interfaces/concept.interface';
+import { RECEIPT_TYPE } from '../enums/receipt.enum';
+import { ILabel } from '../interfaces/label.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +19,7 @@ export class ConceptService {
     this._url = environment.base_url;
   }
 
-  conceptsList(conceptType?: string): Observable<IConcept[]> {    
+  getConcepts(conceptType?: RECEIPT_TYPE): Observable<IConcept[]> {    
     return this.http.get<IResponse>(`${ this._url }/concept`)
       .pipe(
         map(
@@ -33,6 +35,14 @@ export class ConceptService {
           (res) => res.data
         )
       );
+  }
+
+  conceptsList(type: RECEIPT_TYPE): Observable<ILabel[]> {
+    return this.getConcepts( type ).pipe(
+      map(
+        (data) => data.map(data => ({label: data.description, value: data.id }))
+      )
+    );
   }
 
   createConcept(concept: IConcept): Observable<IResponse> {

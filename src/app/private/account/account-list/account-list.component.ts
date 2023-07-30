@@ -36,11 +36,11 @@ export class AccountListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.accountsList();
+    this.getAccounts();
   }
 
-  accountsList(): void {
-    this.accounts$ = this.accountService.accountsList()
+  getAccounts(): void {
+    this.accounts$ = this.accountService.getAccounts()
     .pipe(
       tap( res => {      
         if (res.length === 0) {
@@ -66,7 +66,7 @@ export class AccountListComponent implements OnInit {
 
   cancelDialogDetails(event: boolean): void {
     if (event) {
-      this.accountsList();
+      this.getAccounts();
     }
     this.displayDetails = false;
   }
@@ -90,7 +90,7 @@ export class AccountListComponent implements OnInit {
       first(),
       tap(res => {
         this.messageService.add(Utils.messageServiceTitle('¡Cuenta eliminada!', res));
-        this.accountsList();
+        this.getAccounts();
       }),
       catchError((error) => {
         this.messageService.add(Utils.responseError(error));
