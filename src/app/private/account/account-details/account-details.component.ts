@@ -52,8 +52,8 @@ export class AccountDetailsComponent implements OnInit {
   }
 
   getData(): void {
-    const currencies$ = this.getCurrencies();
-    const banks$ = this.getBanks();
+    const currencies$ = this.currencyService.currenciesList();
+    const banks$ = this.bankService.banksList();
     const account$ = this.getDetailAccount();
 
     this.data$ = combineLatest([
@@ -73,22 +73,6 @@ export class AccountDetailsComponent implements OnInit {
         this.messageService.add(Utils.responseError(error));
         return EMPTY;
       }),
-    );
-  }
-
-  getCurrencies(): Observable<ILabel[]> {
-    return this.currencyService.currenciesList().pipe(
-      map(
-        (data) => data.map(data => ({label: data.initials, value: data.id }))
-      )
-    );
-  }
-
-  getBanks(): Observable<ILabel[]> {
-    return this.bankService.banksList().pipe(
-      map(
-        (data) => data.map(data => ({label: data.bank_name, value: data.id }))
-      )
     );
   }
 

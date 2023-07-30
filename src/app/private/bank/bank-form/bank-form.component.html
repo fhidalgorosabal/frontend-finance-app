@@ -96,12 +96,14 @@
             </small>
         </div>
     </div>
-    <div *ngIf="bank" class="field field-checkbox col-12 md:col-6">
+    <div *ngIf="bank" class="col-12">
+      <div class="field field-checkbox col-12 md:col-6">
         <p-inputSwitch 
             inputId="active"
             formControlName="active"
         ></p-inputSwitch>
-        <label for="active-input">{{ 'Activa' }}</label>
+        <label for="active-input">{{ 'Activo' }}</label>
+      </div>
     </div>
   </div>
 </form> 

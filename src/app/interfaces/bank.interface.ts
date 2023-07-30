@@ -7,5 +7,5 @@ export interface IBank {
   address?: string;
   phone_number?: string;
   email?: string;
-  active?: boolean;
+  active?: boolean | string;
 }

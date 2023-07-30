@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { EMPTY, Observable, combineLatest, of } from 'rxjs';
+import { EMPTY, Observable, combineLatest } from 'rxjs';
 import { catchError, map, first, switchMap, tap } from 'rxjs/operators';
 import { ConceptService } from 'src/app/services/concept.service';
 import { CurrencyService } from 'src/app/services/currency.service';
@@ -8,7 +8,6 @@ import { AccountService } from 'src/app/services/account.service';
 import { ReceiptService } from 'src/app/services/receipt.service';
 import { TableService } from 'src/app/services/table.service';
 import { ReceiptFormModel } from 'src/app/components/receipt-form/receipt-form.model';
-import { ILabel } from 'src/app/interfaces/label.interface';
 import { RECEIPT_TYPE } from 'src/app/enums/receipt.enum';
 import { ACTION_TYPE } from 'src/app/enums/actions.enum';
 import { IReceiptData, IReceipt } from 'src/app/interfaces/receipt.interface';
@@ -51,9 +50,9 @@ export class IngressDetailsComponent implements OnInit {
   }
 
   getData(): void {
-    const concepts$ = this.getConcepts();
-    const currencies$ = this.getCurrencies();
-    const accounts$ = this.getAccounts();
+    const concepts$ = this.conceptService.conceptsList( RECEIPT_TYPE.INGRESS );
+    const currencies$ = this.currencyService.currenciesList();
+    const accounts$ = this.accountService.accountsList();
     const receipt$ = this.getDetailReceipt();
 
     this.data$ = combineLatest([
@@ -75,30 +74,6 @@ export class IngressDetailsComponent implements OnInit {
         this.messageService.add(Utils.responseError(error));
         return EMPTY;
       }),
-    );
-  }
-
-  getConcepts(): Observable<ILabel[]> {
-    return this.conceptService.conceptsList( RECEIPT_TYPE.INGRESS ).pipe(
-      map(
-        (data) => data.map(data => ({label: data.description, value: data.id }))
-      )
-    );
-  }
-
-  getCurrencies(): Observable<ILabel[]> {
-    return this.currencyService.currenciesList().pipe(
-      map(
-        (data) => data.map(data => ({label: data.initials, value: data.id, type: data?.id?.toString() }))
-      )
-    );
-  }
-
-  getAccounts(): Observable<ILabel[]> {
-    return this.accountService.accountsList().pipe(
-      map(
-        (data) => data.map(data => ({label: data.description, value: data.id, type: data.currency_id.toString() }))
-      )
     );
   }
 

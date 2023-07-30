@@ -29,8 +29,7 @@ export class ConceptListComponent implements OnInit {
 
   columnData: ILabel[] = [
     { label: 'Id Concepto', value: 'id'},
-    { label: 'Descripción', value: 'description', type: 'titlecase'},
-    { label: 'Id Tipo', value: 'type', type: 'titlecase'}
+    { label: 'Descripción', value: 'description', type: 'titlecase'}
   ];
 
   actionDetails = ACTION_TYPE.DETAIL;
@@ -44,16 +43,16 @@ export class ConceptListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.conceptsList();
+    this.getConcepts();
   }
 
-  getType(): string | undefined {
-    return this.typeConcept.value?.toString();
+  getType(): RECEIPT_TYPE | undefined {
+    return this.typeConcept.value as RECEIPT_TYPE;
   }
 
-  conceptsList(): void {
+  getConcepts(): void {
     const type = this.getType();
-    this.concepts$ = this.conceptService.conceptsList( type )
+    this.concepts$ = this.conceptService.getConcepts( type )
     .pipe(
       tap( res => {      
         if (res.length === 0) {
@@ -79,7 +78,7 @@ export class ConceptListComponent implements OnInit {
 
   cancelDialogDetails(event: boolean): void {
     if (event) {
-      this.conceptsList();
+      this.getConcepts();
     }
     this.displayDetails = false;
   }
@@ -103,7 +102,7 @@ export class ConceptListComponent implements OnInit {
       first(),
       tap(res => {
         this.messageService.add(Utils.messageServiceTitle('¡Concepto eliminado!', res));
-        this.conceptsList();
+        this.getConcepts();
       }),
       catchError((error) => {
         this.messageService.add(Utils.responseError(error));

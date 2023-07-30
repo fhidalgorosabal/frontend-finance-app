@@ -28,6 +28,19 @@
           </small>
         </div>
         <div class="field col-12">
+          <label for="description-input">{{ 'Descripción:' }}</label>
+          <input 
+            id="description"                 
+            [class]="isValidField('description') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
+            pInputText 
+            type="text" 
+            formControlName="description"
+          >
+          <small *ngIf="isValidField('description')" id="concept-help" class="p-error block">
+            {{ 'La descripción es obligatoria.' }}
+          </small>
+        </div>
+        <div class="field col-12">
           <label for="bank-input">{{ 'Banco:' }}</label>
           <p-dropdown
             id="bank-input"
@@ -40,19 +53,6 @@
             [placeholder]="'--Seleccione--'"
             formControlName="bank"
           ></p-dropdown>
-        </div>
-        <div class="field col-12">
-          <label for="description-input">{{ 'Descripción:' }}</label>
-          <input 
-            id="description"                 
-            [class]="isValidField('description') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
-            pInputText 
-            type="text" 
-            formControlName="description"
-          >
-          <small *ngIf="isValidField('description')" id="concept-help" class="p-error block">
-            {{ 'La descripción es obligatoria.' }}
-          </small>
         </div>
         <div *ngIf="account" class="field field-checkbox col-12">
           <p-inputSwitch 

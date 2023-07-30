@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IResponse } from '../interfaces/response.interface';
 import { IAccount } from '../interfaces/account.interface';
+import { ILabel } from '../interfaces/label.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class AccountService {
     this._url = environment.base_url;
   }
 
-  accountsList(): Observable<IAccount[]> {
+  getAccounts(): Observable<IAccount[]> {
     return this.http.get<IResponse>(`${ this._url }/account`)
       .pipe(
         map((res) => res.data.map((account: IAccount) => ({
@@ -25,8 +26,7 @@ export class AccountService {
           active: account.active ? 'Active' : 'Inactive'
         })))
       );
-  }
-  
+  }  
 
   getAccount(id: number | null): Observable<IAccount> {
     return this.http.get<IResponse>(`${ this._url }/account/${ id }`)
@@ -35,6 +35,16 @@ export class AccountService {
           (res) => res.data
         )
       );
+  }
+
+  accountsList(): Observable<ILabel[]> {
+    return this.getAccounts().pipe(
+      map(
+        (data) => data.filter(data => data.active === 'Active').map(data => ({
+          label: data.description, value: data.id, type: data.currency_id.toString() 
+        }))
+      )
+    );
   }
 
   createAccount(account: IAccount): Observable<IResponse> {    

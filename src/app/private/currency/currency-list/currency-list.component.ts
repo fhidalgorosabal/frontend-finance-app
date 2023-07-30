@@ -36,11 +36,11 @@ export class CurrencyListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.currenciesList();
+    this.getCurrencies();
   }
 
-  currenciesList(): void {
-    this.currencies$ = this.currencyService.currenciesList()
+  getCurrencies(): void {
+    this.currencies$ = this.currencyService.getCurrencies()
     .pipe(
       tap( res => {      
         if (res.length === 0) {
@@ -66,7 +66,7 @@ export class CurrencyListComponent implements OnInit {
 
   cancelDialogDetails(event: boolean): void {
     if (event) {
-      this.currenciesList();
+      this.getCurrencies();
     }
     this.displayDetails = false;
   }
@@ -90,7 +90,7 @@ export class CurrencyListComponent implements OnInit {
       first(),
       tap(res => {
         this.messageService.add(Utils.messageServiceTitle('¡Moneda eliminada!', res));
-        this.currenciesList();
+        this.getCurrencies();
       }),
       catchError((error) => {
         this.messageService.add(Utils.responseError(error));

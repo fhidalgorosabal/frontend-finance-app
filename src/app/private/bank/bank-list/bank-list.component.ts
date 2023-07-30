@@ -36,11 +36,11 @@ export class BankListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.banksList();
+    this.getBanks();
   }
 
-  banksList(): void {
-    this.banks$ = this.bankService.banksList()
+  getBanks(): void {
+    this.banks$ = this.bankService.getBanks()
     .pipe(
       tap( res => {      
         if (res.length === 0) {
@@ -66,7 +66,7 @@ export class BankListComponent implements OnInit {
 
   cancelDialogDetails(event: boolean): void {
     if (event) {
-      this.banksList();
+      this.getBanks();
     }
     this.displayDetails = false;
   }
@@ -90,7 +90,7 @@ export class BankListComponent implements OnInit {
       first(),
       tap(res => {
         this.messageService.add(Utils.messageServiceTitle('¡Banco eliminado!', res));
-        this.banksList();
+        this.getBanks();
       }),
       catchError((error) => {
         this.messageService.add(Utils.responseError(error));
