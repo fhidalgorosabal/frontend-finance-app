@@ -27,6 +27,10 @@ export class SettingService {
       );
   }
 
+  closeOfMonth(month: number): Observable<IResponse> {
+    return this.http.post<IResponse>(`${ this._url }/setting/change-month`, { month: month });
+  }
+
   getType(): ILabel[] {
     return [
       { label: 'Empresa', value: 1 },

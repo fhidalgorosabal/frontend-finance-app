@@ -46,7 +46,7 @@ export class Utils {
     return { 
       severity: res?.status, 
       summary: title,
-      detail: res.message,
+      detail: res?.message,
       life: 6000
     };
   }
