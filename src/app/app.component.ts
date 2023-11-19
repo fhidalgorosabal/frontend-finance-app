@@ -9,7 +9,7 @@ import { MessageService } from 'primeng/api';
 })
 export class AppComponent {
 
-  title = 'angular';
+  title = 'FinanceApp';
 
   constructor(private messageService: MessageService) {}
 }

@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./private/home/home.module').then( m => m.HomeModule )
   },
   {
+    path: 'setting',
+    loadChildren: () => import('./private/setting/setting.module').then( m => m.SettingModule )
+  },
+  {
     path: 'expense',
     loadChildren: () => import('./private/expense/expense.module').then( m => m.ExpenseModule )
   },

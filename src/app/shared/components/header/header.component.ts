@@ -75,33 +75,34 @@ export class HeaderComponent implements OnInit {
           items:[
             {
                 label:'Conceptos',
-                routerLink:'concept'
+                routerLink:'/concept'
             },
             {
               label:'Monedas',
-              routerLink:'currency'
+              routerLink:'/currency'
             },
             {
               label:'Cuentas',
-              routerLink:'account'
+              routerLink:'/account'
             },
             {
               label:'Bancos',
-              routerLink:'bank'
+              routerLink:'/bank'
             },
             {
               label:'Clientes',
-              routerLink:'customer'
+              routerLink:'/customer'
             },
             {
               label:'Proveedores',
-              routerLink:'Provider'
+              routerLink:'/provider'
             }
           ]
       },
       {
           label:'Configuración',
-          icon:'pi pi-cog'
+          icon:'pi pi-cog',
+          routerLink: '/setting'
       }
     ];
   }
@@ -119,6 +120,7 @@ export class HeaderComponent implements OnInit {
 
   confirmExit() {
     this.confirmationService.confirm({
+        header: 'Salir',
         message: '¿Está seguro que desea salir de la aplicación?',
         accept: () => {
             console.log('Salir');
