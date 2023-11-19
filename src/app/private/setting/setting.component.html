@@ -1,0 +1,79 @@
+<div class="px-4 pt-5 md:px-6 lg:px-8">    
+    <h2 class="col-12">{{ 'Configuración del sistema' }}</h2>    
+</div>
+
+<form [formGroup]="settingForm">
+    <div class="px-4 pt-2 md:px-6 lg:px-8">
+        <p-panel header="Datos de la compañia" [toggleable]="true">      
+            <div class="grid p-fluid">
+                <div class="field col-12 md:col-6  lg:col-3">
+                    <label for="company-code" class="block">{{ 'Código:' }}</label>
+                    <input 
+                        id="company-code" 
+                        type="text" 
+                        pInputText 
+                        formControlName="company_code"
+                        readonly="readonly"
+                    />
+                </div>
+                <div class="field col-12 md:col-  lg:col-6">
+                    <label for="company-name" class="block">{{ 'Nombre de la compañia:' }}</label>
+                    <input 
+                        id="company-name" 
+                        type="text" 
+                        pInputText formControlName="company_name"
+                        readonly="readonly"
+                    />
+                </div>
+                <div class="field col-12 md:col-6  lg:col-3">
+                    <label for="company-type" class="block">{{ 'Tipo:' }}</label>
+                    <input 
+                        id="company-type" 
+                        type="text" 
+                        pInputText 
+                        formControlName="company_type"
+                        readonly="readonly"
+                    />
+                </div>
+            </div>
+        </p-panel>
+    </div>
+    
+    <div class="px-4 pt-2 md:px-6 lg:px-8">
+        <p-panel header="Mes a procesar" [toggleable]="true">   
+            <div class="grid p-fluid">
+                <div class="field col-12 md:col-6 lg:col-4">
+                    <label for="current-month" class="block">{{ 'Mes a procesar:' }}</label>
+                    <input 
+                        id="current-month" 
+                        type="text" 
+                        pInputText 
+                        formControlName="current_month"
+                        readonly="readonly"
+                    />
+                </div>
+                <div class="field col-12 md:col-6 lg:col-2">
+                    <label for="current-year" class="block">{{ 'Periodo:' }}</label>
+                    <input 
+                        id="current-year" 
+                        type="text" 
+                        pInputText 
+                        formControlName="current_year"
+                        readonly="readonly"
+                    />
+                </div>
+                <div class="field col-12 md:col-6 lg:col-4">&nbsp;</div>
+                <div class="field col-12 md:col-6 lg:col-2">
+                    <button
+                      pButton
+                      type="button"
+                      icon="pi pi-calendar-times"
+                      [label]="'Cerrar el mes'"
+                      class="p-button-success mt-4"
+                      (click)="changeMonth()"
+                    ></button>
+                </div>
+            </div>
+        </p-panel>
+    </div>
+</form>  
