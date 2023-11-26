@@ -1,7 +1,7 @@
 <header>
   <div class="dark-navbar shadow-3 border-bottom-1 border-400">
 
-    <p-menubar [model]="links">
+    <p-menubar [model]="showLinks">
       <ng-template pTemplate="start">
         <a routerLink="/home" class="no-underline">
           <div class="grid mt-1 mr-2">
@@ -12,6 +12,7 @@
       </ng-template>
       <ng-template pTemplate="end">
         <span
+          *ngIf="loggedIn"
           class="pi pi-bell mr-4 p-text-secondary"
           pBadge
           style="font-size: 1.25rem; cursor: pointer;"
@@ -21,6 +22,7 @@
           tooltipPosition="bottom"
         ></span>
         <button
+          *ngIf="loggedIn; else register"
           pButton
           pRipple
           type="button"
@@ -30,13 +32,24 @@
           tooltipPosition="bottom"
           (click)="confirmExit()"
         ></button>
+        <ng-template #register>
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-user-plus"
+            class="p-button-rounded p-button-text p-button-success"
+            label="Registrarse"
+            tooltipPosition="bottom"
+          ></button>
+        </ng-template>
       </ng-template>
     </p-menubar>
 
     <p-menu
       #notification
       id="notification_menu"
-      [model]="notifications"
+      [model]="showNotifications"
       [popup]="true"
     ></p-menu>
   </div>

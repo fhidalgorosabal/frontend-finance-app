@@ -1,6 +1,11 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef, OnDestroy, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { MenuItem, MessageService } from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
+import { EMPTY, Subject } from 'rxjs';
+import { catchError, take, takeUntil, tap } from 'rxjs/operators';
+import { SesionService } from 'src/app/services/sesion.service';
+import { Utils } from '../../utils/utils';
 
 
 @Component({
@@ -8,114 +13,39 @@ import {ConfirmationService} from 'primeng/api';
   templateUrl: './header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
-  links: MenuItem[] = [];
-  notifications: MenuItem[] = [];
+  @Input() links: MenuItem[] = [];
+  @Input() notifications: MenuItem[] = [];
+  showLinks: MenuItem[] = [];
+  showNotifications: MenuItem[] = [];
+  loggedIn = false;
+  destroy$ = new Subject<void>();
 
-  constructor(private confirmationService: ConfirmationService) { }
+  constructor(
+    private confirmationService: ConfirmationService,
+    private router: Router,
+    private sesionService: SesionService,    
+    private messageService: MessageService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
-  ngOnInit(): void {
-    this.setLinks();
-    this.setNotifications();
+  ngOnInit(): void {    
+    this.sesionService.getLoggedIn$()
+    .pipe(takeUntil(this.destroy$)).subscribe(login => {   
+      this.setLinks(login);
+      this.setNotifications(login);
+      this.loggedIn = login;
+      this.cdr.detectChanges();
+    })
   }
 
-  private setLinks() {
-    this.links = [
-      {
-        label: 'Inicio',
-        icon: 'pi pi-home',
-        routerLink: '/home'
-      },
-      {
-          label:'Gastos',
-          icon:'pi pi-shopping-cart',
-          items:[
-              {
-                  label:'Gastos',
-                  routerLink: '/expense'
-              },
-              {
-                  separator:true
-              },
-              {
-                  label:'Pagos',
-                  routerLink:'/expense'
-              },
-              {
-                  label:'Liquidación',
-                  routerLink:'/expense'
-              }
-          ]
-      },
-      {
-          label:'Ingresos',
-          icon:'pi pi-money-bill',
-          items:[
-              {
-                  label:'Ingresos',
-                  routerLink: '/ingress'
-              },
-              {
-                  separator:true
-              },
-              {
-                  label:'Cobros',
-                  routerLink:'/ingress'
-              },
-              {
-                  label:'Liquidación',
-                  routerLink:'/ingress'
-              }
-          ]
-      },
-      {
-          label:'Categorías',
-          icon:'pi pi-th-large',
-          items:[
-            {
-                label:'Conceptos',
-                routerLink:'/concept'
-            },
-            {
-              label:'Monedas',
-              routerLink:'/currency'
-            },
-            {
-              label:'Cuentas',
-              routerLink:'/account'
-            },
-            {
-              label:'Bancos',
-              routerLink:'/bank'
-            },
-            {
-              label:'Clientes',
-              routerLink:'/customer'
-            },
-            {
-              label:'Proveedores',
-              routerLink:'/provider'
-            }
-          ]
-      },
-      {
-          label:'Configuración',
-          icon:'pi pi-cog',
-          routerLink: '/setting'
-      }
-    ];
+  private setLinks(login: boolean) {
+    this.showLinks = login ? this.links : [];
   }
 
-  private setNotifications() {
-    this.notifications = [
-      {
-        label: 'Notificación 1'
-      },
-      {
-        label: 'Notificación 2'
-      }
-    ];
+  private setNotifications(login: boolean) {
+    this.showNotifications = login ? this.notifications : [];
   }
 
   confirmExit() {
@@ -123,7 +53,19 @@ export class HeaderComponent implements OnInit {
         header: 'Salir',
         message: '¿Está seguro que desea salir de la aplicación?',
         accept: () => {
-            console.log('Salir');
+          this.sesionService.logout()
+          .pipe(
+            take(1),
+            tap((res) => {
+              this.sesionService.loggedIn = false;
+              this.messageService.add(Utils.messageServiceTitle('¡Sesión finalizada!', res));
+              return this.router.navigate(['/login']);
+            }),
+            catchError((error) => {
+              this.messageService.add(Utils.responseError(error));
+              return EMPTY;
+            })
+          ).subscribe()
         },
         acceptLabel: 'Salir',
         acceptIcon: 'pi pi-power-off',
@@ -131,6 +73,11 @@ export class HeaderComponent implements OnInit {
         rejectLabel: 'Cancelar',
         rejectButtonStyleClass: 'p-button-danger'
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }
