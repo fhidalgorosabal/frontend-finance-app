@@ -12,7 +12,7 @@
                 id="email-input" 
                 type="email" 
                 pInputText 
-                [(ngModel)]="email"
+                [(ngModel)]="credentials.email"
               > 
               <label for="email-input">{{ 'E-mail' }}</label>
             </span>
@@ -23,7 +23,7 @@
                 inputId="pass-input"
                 [toggleMask]="true"
                 [feedback]="false"
-                [(ngModel)]="password"
+                [(ngModel)]="credentials.password"
               ></p-password>
               <label for="pass-input">{{ 'Contraseña' }}</label>
             </span>            

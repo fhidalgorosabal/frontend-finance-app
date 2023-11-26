@@ -1,9 +1,11 @@
 import { Component, ChangeDetectionStrategy, OnInit, ChangeDetectorRef, OnDestroy, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import {ConfirmationService} from 'primeng/api';
-import { Subject, takeUntil } from 'rxjs';
+import { EMPTY, Subject } from 'rxjs';
+import { catchError, take, takeUntil, tap } from 'rxjs/operators';
 import { SesionService } from 'src/app/services/sesion.service';
+import { Utils } from '../../utils/utils';
 
 
 @Component({
@@ -23,7 +25,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private confirmationService: ConfirmationService,
     private router: Router,
-    private sesionService: SesionService,
+    private sesionService: SesionService,    
+    private messageService: MessageService,
     private cdr: ChangeDetectorRef
   ) { }
 
@@ -50,8 +53,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
         header: 'Salir',
         message: '¿Está seguro que desea salir de la aplicación?',
         accept: () => {
-          this.sesionService.loggedIn = false;
-          return this.router.navigate(['/login']);
+          this.sesionService.logout()
+          .pipe(
+            take(1),
+            tap((res) => {
+              this.sesionService.loggedIn = false;
+              this.messageService.add(Utils.messageServiceTitle('¡Sesión finalizada!', res));
+              return this.router.navigate(['/login']);
+            }),
+            catchError((error) => {
+              this.messageService.add(Utils.responseError(error));
+              return EMPTY;
+            })
+          ).subscribe()
         },
         acceptLabel: 'Salir',
         acceptIcon: 'pi pi-power-off',
