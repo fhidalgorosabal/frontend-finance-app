@@ -16,12 +16,14 @@ import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import {  CalendarModule } from 'primeng/calendar';
-import {  InputNumberModule } from 'primeng/inputnumber';
-import {  DropdownModule } from 'primeng/dropdown';
-import {  InputTextareaModule } from 'primeng/inputtextarea';
-import {  InputSwitchModule } from 'primeng/inputswitch';
-import {  InputMaskModule } from 'primeng/inputmask';
+import { CalendarModule } from 'primeng/calendar';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputMaskModule } from 'primeng/inputmask';
+import { PasswordModule } from 'primeng/password';
+import { CheckboxModule } from 'primeng/checkbox';
 
 
 @NgModule({
@@ -48,6 +50,8 @@ import {  InputMaskModule } from 'primeng/inputmask';
     InputTextareaModule,
     InputSwitchModule,
     InputMaskModule,
+    PasswordModule,
+    CheckboxModule,
   ],
   exports: [
     CommonModule,
@@ -71,6 +75,8 @@ import {  InputMaskModule } from 'primeng/inputmask';
     InputTextareaModule,
     InputSwitchModule,
     InputMaskModule,
+    PasswordModule,
+    CheckboxModule,
   ]
 })
 export class PrimeNgModule { }

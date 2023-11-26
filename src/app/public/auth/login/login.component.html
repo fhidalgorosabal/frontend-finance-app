@@ -1,0 +1,42 @@
+<div class="py-7 md:px-6 lg:px-8">
+  <div class="md:px-7 lg:px-8 md:mx-6 lg:mx-6 xl:mx-8">
+    <div class="px-2 md:px-7 lg:px-8 lg:mx-6 xl:mx-8">
+      <p-panel>  
+        <ng-template pTemplate="header">
+          <i class="pi pi-key pr-2"></i> {{ 'Iniciar sesión' }}
+        </ng-template>
+        <div class="grid p-fluid">
+          <div class="field col-12 mt-4">
+            <span class="p-float-label">
+              <input 
+                id="email-input" 
+                type="email" 
+                pInputText 
+                [(ngModel)]="email"
+              > 
+              <label for="email-input">{{ 'E-mail' }}</label>
+            </span>
+          </div>
+          <div class="field col-12 mt-1">
+            <span class="p-float-label">
+              <p-password
+                inputId="pass-input"
+                [toggleMask]="true"
+                [feedback]="false"
+                [(ngModel)]="password"
+              ></p-password>
+              <label for="pass-input">{{ 'Contraseña' }}</label>
+            </span>            
+          </div>
+          <div class="field col-12 mt-1">
+            <p-button label="Aceptar" (click)="login()"></p-button>
+          </div>
+          <div class="field-checkbox col-12">
+            <p-checkbox inputId="remember" [binary]="true" [(ngModel)]="remember"></p-checkbox>
+            <label for="remember">{{ 'Recordar contraseña' }}</label>
+          </div>
+        </div>  
+      </p-panel>
+    </div>
+  </div>
+</div>
