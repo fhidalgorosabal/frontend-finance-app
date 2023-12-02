@@ -1,8 +1,17 @@
 import { IError, IResponse } from "src/app/interfaces/response.interface";
 import { Message } from "primeng/api";
+import { HttpErrorResponse } from "@angular/common/http";
+
+const LITERAL_ERROR = 'error';
 
 export class Utils {
-
+  
+  /*
+  |--------------------------------------------------------------------------
+  | Utils Date
+  |--------------------------------------------------------------------------
+  |
+  */
   static dateFormatISO8601(date: string | number | Date): string {
     const newDate = new Date(date);
     newDate.setUTCHours(0, 0, 0, 0);  
@@ -28,18 +37,20 @@ export class Utils {
     return date.replace(/-/g, '/');
   }
 
-  static createErrorList(errores: { [key: string]: string }): string {
-    const mensajesErrores = Object.values(errores);
-    return mensajesErrores.join(', ');
-  }
+  
+  /*
+  |--------------------------------------------------------------------------
+  | Utils Error
+  |--------------------------------------------------------------------------
+  |
+  */
 
-  static responseError(error: IError): Message {
-    return { 
-      severity: error?.error?.status, 
-      summary: error?.error?.message, 
-      detail: this.createErrorList(error?.error?.errors),
-      life: 6000 
-    };
+  static responseError(error: IError | HttpErrorResponse): Message {  
+    
+    console.log(error);  
+    return (error?.error?.status && error?.error?.status.includes(LITERAL_ERROR)) 
+      ? this.getAppError(error) 
+      : this.getHttpErrorResponse(error as HttpErrorResponse);
   }
 
   static messageServiceTitle(title: string, res: IResponse): Message {
@@ -49,6 +60,28 @@ export class Utils {
       detail: res?.message,
       life: 6000
     };
+  }
+
+  static getAppError(error: IError) {
+    return { 
+      severity: error?.error?.status, 
+      summary: error?.error?.message, 
+      detail: this.createErrorList(error?.error?.errors),
+      life: 6000 
+    };
+  }
+
+  static getHttpErrorResponse(error: HttpErrorResponse) {
+    return {
+      severity: LITERAL_ERROR, 
+      summary: error?.name, 
+      detail: error?.error?.message ? error?.error?.message : error?.message,
+      life: 6000 
+    };
+  }
+
+  static createErrorList(errores: { [key: string]: string }): string {    
+    return errores ? Object.values(errores).join(', ') : LITERAL_ERROR;
   }
 
 }

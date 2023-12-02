@@ -13,7 +13,7 @@ export class HttpTokenInterceptor implements HttpInterceptor {
 
   constructor(private sesionService: SesionService) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     
     const token = this.sesionService.accessToken;
 
