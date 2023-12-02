@@ -45,7 +45,9 @@ export class Utils {
   |
   */
 
-  static responseError(error: IError | HttpErrorResponse): Message {    
+  static responseError(error: IError | HttpErrorResponse): Message {  
+    
+    console.log(error);  
     return (error?.error?.status && error?.error?.status.includes(LITERAL_ERROR)) 
       ? this.getAppError(error) 
       : this.getHttpErrorResponse(error as HttpErrorResponse);
@@ -73,7 +75,7 @@ export class Utils {
     return {
       severity: LITERAL_ERROR, 
       summary: error?.name, 
-      detail: error?.error?.message,
+      detail: error?.error?.message ? error?.error?.message : error?.message,
       life: 6000 
     };
   }
