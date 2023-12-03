@@ -9,13 +9,11 @@
   [modal]="true">
 
   <app-concept-form
-    *ngIf="displayForm; else loading"
+    *ngIf="displayForm"
     [concept]="concept"
     [conceptForm]="conceptForm"
     (formState)="setForm($event)"
   ></app-concept-form>
-  
-  <ng-template #loading><app-loading></app-loading></ng-template>
 
   <ng-template pTemplate="footer">
     <button

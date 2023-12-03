@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
+import { MainBusyService } from './services/main-busy.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [MessageService]
 })
 export class AppComponent {
 
@@ -104,5 +105,5 @@ export class AppComponent {
     }
   ];
 
-  constructor(private messageService: MessageService) {}
+  constructor(public mainBusyService: MainBusyService) {}
 }

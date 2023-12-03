@@ -11,3 +11,5 @@
 <p-toast></p-toast>
 
 <p-confirmDialog icon="pi pi-exclamation-triangle"></p-confirmDialog>
+
+<app-loading *ngIf="(mainBusyService.isLoading$ | async) === true"></app-loading>

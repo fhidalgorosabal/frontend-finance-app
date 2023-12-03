@@ -9,13 +9,11 @@
   [modal]="true">
   
   <app-bank-form
-    *ngIf="displayForm; else loading"
+    *ngIf="displayForm"
     [bank]="bank"
     [bankForm]="bankForm"
     (formState)="setForm($event)"
   ></app-bank-form>
-  
-  <ng-template #loading><app-loading></app-loading></ng-template>
 
   <ng-template pTemplate="footer">
     <button
