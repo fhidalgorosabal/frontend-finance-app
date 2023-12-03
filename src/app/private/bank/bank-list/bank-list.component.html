@@ -1,7 +1,7 @@
 <div class="p-2 mt-5 md:px-4 lg:px-6">
     <app-table
       [title]="title"
-      *ngIf="banks$ | async as banks; else loading"
+      *ngIf="banks$ | async as banks"
       [records]="banks"
       [columnData]="columnData"
       (details)="showDialogDetails($event)"
@@ -17,5 +17,3 @@
 ></app-bank-details>
 
 <p-confirmDialog [header]="'Eliminar'" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-
-<ng-template #loading><app-loading></app-loading></ng-template>

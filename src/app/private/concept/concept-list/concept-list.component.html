@@ -14,7 +14,7 @@
 
     <app-table
       [title]="title"
-      *ngIf="concepts$ | async as concepts; else loading"
+      *ngIf="concepts$ | async as concepts"
       [records]="concepts"
       [columnData]="columnData"
       (details)="showDialogDetails($event)"
@@ -31,5 +31,3 @@
 ></app-concept-details>
 
 <p-confirmDialog [header]="'Eliminar'" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-
-<ng-template #loading><app-loading></app-loading></ng-template>

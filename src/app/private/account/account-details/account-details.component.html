@@ -9,15 +9,13 @@
   [modal]="true">
   
   <app-account-form
-    *ngIf="data$ | async as data; else loading"
+    *ngIf="data$ | async as data"
     [optionsCurrency]="data.currencies"
     [optionsBank]="data.banks"
     [account]="data.account"
     [accountForm]="accountForm"
     (formState)="setForm($event)"
   ></app-account-form>
-  
-  <ng-template #loading><app-loading></app-loading></ng-template>
 
   <ng-template pTemplate="footer">
     <button
