@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 
 @Component({
   selector: 'app-loading',
@@ -6,4 +6,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./loading.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoadingComponent { }
+export class LoadingComponent {
+
+  @Input() overlay = true;
+
+ }

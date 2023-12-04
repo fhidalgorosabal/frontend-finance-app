@@ -16,6 +16,7 @@ export interface IReceipt {
   actual_amount?: number;
   account_id: number;
   description?: string;
+  company_id: number;
 }
 
 export interface IReceiptData {

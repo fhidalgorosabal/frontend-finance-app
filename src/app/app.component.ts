@@ -1,14 +1,13 @@
-import { Component } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MainBusyService } from './services/main-busy.service';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements AfterViewChecked {
 
   title = 'FinanceApp';
 
@@ -105,5 +104,12 @@ export class AppComponent {
     }
   ];
 
-  constructor(public mainBusyService: MainBusyService) {}
+  constructor(public mainBusyService: MainBusyService, private cdr: ChangeDetectorRef) {
+    this.cdr.detach();
+  }
+
+  ngAfterViewChecked(): void {
+    this.cdr.reattach();
+    this.cdr.detectChanges();
+  }
 }

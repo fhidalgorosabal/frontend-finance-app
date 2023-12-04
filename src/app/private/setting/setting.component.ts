@@ -3,6 +3,7 @@ import { SettingService } from 'src/app/services/setting.service';
 import { SettingFormModel } from './setting-form.model';
 import { ILabel } from 'src/app/interfaces/label.interface';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { SessionService } from 'src/app/services/sesion.service';
 import { EMPTY, Subject } from 'rxjs';
 import { takeUntil, tap, catchError } from 'rxjs/operators';
 import { Utils } from 'src/app/shared/utils/utils';
@@ -23,13 +24,14 @@ export class SettingComponent implements OnInit, OnDestroy {
     private settingService: SettingService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
+    private sessionService: SessionService
   ) {
     this.optionsType = this.settingService.getType();
     this.months = this.settingService.getMonths();
    }
 
   ngOnInit(): void {
-    this.settingService.getSetting()
+    this.settingService.getSetting( this.sessionService?.companyId )
     .pipe(
       takeUntil(this.destroy$),
       tap(res => {

@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { EMPTY, Observable, combineLatest } from 'rxjs';
+import { EMPTY, Observable, forkJoin } from 'rxjs';
 import { catchError, map, first, switchMap, tap } from 'rxjs/operators';
 import { AccountService } from 'src/app/services/account.service';
 import { TableService } from 'src/app/services/table.service';
 import { CurrencyService } from 'src/app/services/currency.service';
 import { BankService } from 'src/app/services/bank.service';
 import { MessageService } from 'primeng/api';
+import { SessionService } from 'src/app/services/sesion.service';
 import { AccountFormModel } from '../account-form/account-form.model';
 import { IAccount, IAccountData } from 'src/app/interfaces/account.interface';
 import { ACTION_TYPE } from 'src/app/enums/actions.enum';
 import { Utils } from 'src/app/shared/utils/utils';
-import { ILabel } from 'src/app/interfaces/label.interface';
 
 @Component({
   selector: 'app-account-details',
@@ -42,7 +42,8 @@ export class AccountDetailsComponent implements OnInit {
     private currencyService: CurrencyService,
     private bankService: BankService,
     private messageService: MessageService,
-    private tableService: TableService
+    private tableService: TableService,
+    private sessionService: SessionService
   ) {
     this.accountForm = new AccountFormModel();
    }
@@ -52,17 +53,19 @@ export class AccountDetailsComponent implements OnInit {
   }
 
   getData(): void {
-    const currencies$ = this.currencyService.currenciesList();
+    const currencies$ = this.currencyService.currenciesList( this.sessionService?.companyId );
     const banks$ = this.bankService.banksList();
-    const account$ = this.getDetailAccount();
+    const account$ = this.getDetailAccount$();    
 
-    this.data$ = combineLatest([
+    this.data$ = forkJoin([
       currencies$,
       banks$,
       ...(this.actionDetails === ACTION_TYPE.DETAIL ? [account$] : [])
     ]).pipe(
       first(),
       map(([currencies, banks, account]) => {
+        console.log(account);
+        
         return {
           'currencies': currencies,
           'banks': banks,
@@ -76,7 +79,7 @@ export class AccountDetailsComponent implements OnInit {
     );
   }
 
-  getDetailAccount(): Observable<IAccount> {
+  getDetailAccount$(): Observable<IAccount> {
     return this.tableService.detailId.asObservable().pipe(
       first(),
       tap( detailId => this.id = detailId ),
@@ -151,7 +154,8 @@ export class AccountDetailsComponent implements OnInit {
       code: dataForm.code,
       description: dataForm.description,
       currency_id: dataForm.currency.value,
-      bank_id: dataForm.bank.value,
+      bank_id: dataForm?.bank?.value,
+      company_id: this.sessionService?.companyId,
       active: dataForm.active
     };
   }

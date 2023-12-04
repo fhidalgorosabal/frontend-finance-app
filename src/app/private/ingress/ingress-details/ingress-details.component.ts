@@ -1,12 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { EMPTY, Observable, combineLatest } from 'rxjs';
+import { EMPTY, Observable, forkJoin } from 'rxjs';
 import { catchError, map, first, switchMap, tap } from 'rxjs/operators';
 import { ConceptService } from 'src/app/services/concept.service';
 import { CurrencyService } from 'src/app/services/currency.service';
 import { AccountService } from 'src/app/services/account.service';
 import { ReceiptService } from 'src/app/services/receipt.service';
 import { TableService } from 'src/app/services/table.service';
+import { SessionService } from 'src/app/services/sesion.service';
 import { ReceiptFormModel } from 'src/app/components/receipt-form/receipt-form.model';
 import { RECEIPT_TYPE } from 'src/app/enums/receipt.enum';
 import { ACTION_TYPE } from 'src/app/enums/actions.enum';
@@ -40,7 +41,8 @@ export class IngressDetailsComponent implements OnInit {
     private currencyService: CurrencyService,
     private accountService: AccountService,
     private messageService: MessageService,
-    private tableService: TableService
+    private tableService: TableService,
+    private sessionService: SessionService
   ) {
     this.ingressForm = new ReceiptFormModel();
   }
@@ -50,12 +52,13 @@ export class IngressDetailsComponent implements OnInit {
   }
 
   getData(): void {
-    const concepts$ = this.conceptService.conceptsList( RECEIPT_TYPE.INGRESS );
-    const currencies$ = this.currencyService.currenciesList();
-    const accounts$ = this.accountService.accountsList();
+    const companyId = this.sessionService?.companyId;
+    const concepts$ = this.conceptService.conceptsList( companyId, RECEIPT_TYPE.INGRESS );
+    const currencies$ = this.currencyService.currenciesList(companyId);
+    const accounts$ = this.accountService.accountsList(companyId);
     const receipt$ = this.getDetailReceipt();
 
-    this.data$ = combineLatest([
+    this.data$ = forkJoin([
       concepts$,
       currencies$,
       accounts$,
@@ -154,7 +157,8 @@ export class IngressDetailsComponent implements OnInit {
       amount: dataForm.amount,
       currency_id: dataForm.currency.value,
       account_id: dataForm.account.value,
-      description: dataForm.description
+      description: dataForm.description,
+      company_id: this.sessionService?.companyId
     }
   }
 

@@ -4,7 +4,7 @@ import { MessageService } from 'primeng/api';
 import { EMPTY, Subject } from 'rxjs';
 import { catchError, takeUntil, tap } from 'rxjs/operators';
 import { ICredentials } from 'src/app/interfaces/auth.interface';
-import { SesionService } from 'src/app/services/sesion.service';
+import { SessionService } from 'src/app/services/sesion.service';
 import { Utils } from 'src/app/shared/utils/utils';
 
 @Component({
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private sesionService: SesionService,
+    private sessionService: SessionService,
     private messageService: MessageService,
   ) { }
 
@@ -31,14 +31,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    this.sesionService.login(this.credentials)
+    this.sessionService.login(this.credentials)
     .pipe(
       takeUntil(this.destroy$),
       tap(res => {
-        this.sesionService.accessToken = res?.data?.token?.access_token;   
-        this.sesionService.tokenType = res?.data?.token?.token_type;
-        this.sesionService.expiresIn = res?.data?.token?.expires_in;
-        this.sesionService.loggedIn = true;
+        this.sessionService.accessToken = res?.data?.token?.access_token;   
+        this.sessionService.tokenType = res?.data?.token?.token_type;
+        this.sessionService.expiresIn = res?.data?.token?.expires_in;
+        this.sessionService.companyId = res?.data?.user?.company_id;
+        this.sessionService.loggedIn = true;
         this.messageService.add(Utils.messageServiceTitle('¡Bienvenido!', res));
         return this.router.navigate(['/home']);
       }),

@@ -18,8 +18,8 @@ export class AccountService {
     this._url = environment.base_url;
   }
 
-  getAccounts(): Observable<IAccount[]> {
-    return this.http.get<IResponse>(`${ this._url }/account`)
+  getAccounts(companyId: number): Observable<IAccount[]> {
+    return this.http.post<IResponse>(`${ this._url }/account/list`, { company_id: companyId })
       .pipe(
         map((res) => res.data.map((account: IAccount) => ({
           ...account,
@@ -37,8 +37,8 @@ export class AccountService {
       );
   }
 
-  accountsList(): Observable<ILabel[]> {
-    return this.getAccounts().pipe(
+  accountsList(companyId: number): Observable<ILabel[]> {
+    return this.getAccounts(companyId).pipe(
       map(
         (data) => data.filter(data => data.active === 'Active').map(data => ({
           label: data.description, value: data.id, type: data.currency_id.toString() 

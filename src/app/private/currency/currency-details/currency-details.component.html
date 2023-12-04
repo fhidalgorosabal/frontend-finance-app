@@ -9,11 +9,13 @@
   [modal]="true">
   
   <app-currency-form
-    *ngIf="displayForm"
+    *ngIf="displayForm; else loading"
     [currency]="currency"
     [currencyForm]="currencyForm"
     (formState)="setForm($event)"
   ></app-currency-form>
+
+  <ng-template #loading><app-loading [overlay]="false"></app-loading></ng-template>
 
   <ng-template pTemplate="footer">
     <button

@@ -4,6 +4,7 @@ import { catchError, first, tap } from 'rxjs/operators';
 import { ReceiptService } from 'src/app/services/receipt.service';
 import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
+import { SessionService } from 'src/app/services/sesion.service';
 import { Utils } from 'src/app/shared/utils/utils';
 import { IReceiptResponse } from 'src/app/interfaces/receipt.interface';
 import { ILabel } from 'src/app/interfaces/label.interface';
@@ -35,7 +36,8 @@ export class IngressListComponent implements OnInit {
   constructor(
     private receiptService: ReceiptService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private sessionService: SessionService
   ) { }
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class IngressListComponent implements OnInit {
   }
 
   ingressList(): void {
-    this.ingress$ = this.receiptService.receiptsList( RECEIPT_TYPE.INGRESS )
+    this.ingress$ = this.receiptService.receiptsList( this.sessionService?.companyId, RECEIPT_TYPE.INGRESS )
     .pipe(
       tap( res => {      
         if (res.length === 0) {

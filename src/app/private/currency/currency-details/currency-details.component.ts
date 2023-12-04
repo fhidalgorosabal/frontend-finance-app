@@ -4,6 +4,7 @@ import { catchError, first, switchMap, tap,  } from 'rxjs/operators';
 import { CurrencyService } from 'src/app/services/currency.service';
 import { TableService } from 'src/app/services/table.service';
 import { MessageService } from 'primeng/api';
+import { SessionService } from 'src/app/services/sesion.service';
 import { CurrencyFormModel } from '../currency-form/currency-form.model';
 import { ICurrency } from 'src/app/interfaces/currency.interface';
 import { ACTION_TYPE } from 'src/app/enums/actions.enum';
@@ -35,7 +36,8 @@ export class CurrencyDetailsComponent implements OnInit {
   constructor(
     private currencyService: CurrencyService,
     private messageService: MessageService,
-    private tableService: TableService
+    private tableService: TableService,
+    private sessionService: SessionService
   ) {
     this.currencyForm = new CurrencyFormModel();
    }
@@ -126,6 +128,7 @@ export class CurrencyDetailsComponent implements OnInit {
       initials: dataForm.initials,
       description: dataForm.description,
       exchange_rate: dataForm.exchange_rate,
+      company_id: this.sessionService?.companyId,
       is_default: false,
       active: dataForm.active
     };

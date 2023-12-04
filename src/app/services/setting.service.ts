@@ -18,8 +18,8 @@ export class SettingService {
     this._url = environment.base_url;
   }
 
-  getSetting(): Observable<ISetting> {
-    return this.http.get<IResponse>(`${ this._url }/setting`)
+  getSetting(companyId: number): Observable<ISetting> {
+    return this.http.post<IResponse>(`${ this._url }/setting`, { company_id: companyId })
       .pipe(
         map(
           (res) => res.data
