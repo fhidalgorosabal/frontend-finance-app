@@ -10,7 +10,6 @@ import {
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ConceptFormModel } from './concept-form.model';
-import { ILabel } from 'src/app/interfaces/label.interface';
 import { IConcept } from 'src/app/interfaces/concept.interface';
 
 @Component({

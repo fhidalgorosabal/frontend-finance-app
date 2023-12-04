@@ -18,8 +18,8 @@ export class CurrencyService {
     this._url = environment.base_url;
   }
 
-  getCurrencies(): Observable<ICurrency[]> {
-    return this.http.get<IResponse>(`${ this._url }/currency`)
+  getCurrencies(companyId: number): Observable<ICurrency[]> {
+    return this.http.post<IResponse>(`${ this._url }/currency/list`, { company_id: companyId })
       .pipe(
         map((res) => res.data.map((currency: ICurrency) => ({
           ...currency,
@@ -37,8 +37,8 @@ export class CurrencyService {
       );
   }
 
-  currenciesList(): Observable<ILabel[]> {
-    return this.getCurrencies().pipe(
+  currenciesList(companyId: number): Observable<ILabel[]> {
+    return this.getCurrencies(companyId).pipe(
       map(
         (data) => data.filter(data => data.active === 'Active').map(data => ({
           label: data.initials, value: data.id, type: data?.id?.toString() 

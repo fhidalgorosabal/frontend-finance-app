@@ -18,8 +18,8 @@ export class ReceiptService {
     this._url = environment.base_url;
   }
   
-  receiptsList(receiptType: string): Observable<IReceiptResponse[]> {
-    return this.http.post<IResponse>(`${this._url}/receipt/list`, { type: receiptType })
+  receiptsList(companyId: number, receiptType: string): Observable<IReceiptResponse[]> {
+    return this.http.post<IResponse>(`${this._url}/receipt/list`, { company_id: companyId, type: receiptType })
       .pipe(
         map((res) => res.data.map((receipt: IReceipt) => ({
           ...receipt,

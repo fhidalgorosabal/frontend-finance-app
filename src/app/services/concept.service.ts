@@ -19,11 +19,11 @@ export class ConceptService {
     this._url = environment.base_url;
   }
 
-  getConcepts(conceptType?: RECEIPT_TYPE): Observable<IConcept[]> {    
-    return this.http.get<IResponse>(`${ this._url }/concept`)
+  getConcepts(companyId: number, conceptType?: RECEIPT_TYPE): Observable<IConcept[]> {    
+    return this.http.post<IResponse>(`${ this._url }/concept/list`, { company_id: companyId, type: conceptType })
       .pipe(
         map(
-          (res) => res.data.filter((data: IConcept) => data.type === conceptType)
+          (res) => res.data
         )
       );
   }
@@ -37,8 +37,8 @@ export class ConceptService {
       );
   }
 
-  conceptsList(type: RECEIPT_TYPE): Observable<ILabel[]> {
-    return this.getConcepts( type ).pipe(
+  conceptsList(companyId: number, type: RECEIPT_TYPE): Observable<ILabel[]> {
+    return this.getConcepts( companyId, type ).pipe(
       map(
         (data) => data.map(data => ({label: data.description, value: data.id }))
       )

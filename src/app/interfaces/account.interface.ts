@@ -5,7 +5,8 @@ export interface IAccount {
   code: string;
   description: string;
   currency_id: number;
-  bank_id: number;
+  bank_id?: number;
+  company_id: number;
   active?: boolean | string;
 }
 

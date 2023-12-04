@@ -1,9 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { 
+  ChangeDetectionStrategy, 
+  Component, 
+  OnInit, 
+  OnDestroy, 
+  Input, 
+  Output,
+  EventEmitter 
+} from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CurrencyFormModel } from './currency-form.model';
 import { ICurrency } from 'src/app/interfaces/currency.interface';
-import { ILabel } from 'src/app/interfaces/label.interface';
 
 @Component({
   selector: 'app-currency-form',

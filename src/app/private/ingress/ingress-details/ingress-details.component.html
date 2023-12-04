@@ -8,7 +8,7 @@
   [resizable]="false"
   [modal]="true">
   <app-receipt-form
-    *ngIf="data$ | async as data"
+    *ngIf="data$ | async as data; else loading"
     [optionsConcept]="data.concepts"
     [optionsCurrency]="data.currencies"
     [optionsAccount]="data.accounts"
@@ -16,6 +16,8 @@
     [receiptForm]="ingressForm"
     (formState)="setForm($event)"
   ></app-receipt-form>
+
+  <ng-template #loading><app-loading [overlay]="false"></app-loading></ng-template>
 
   <ng-template pTemplate="footer">
     <button

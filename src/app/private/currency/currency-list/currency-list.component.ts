@@ -3,6 +3,7 @@ import { EMPTY, Observable, first } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { CurrencyService } from 'src/app/services/currency.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { SessionService } from 'src/app/services/sesion.service';
 import { ICurrency } from 'src/app/interfaces/currency.interface';
 import { ILabel } from 'src/app/interfaces/label.interface';
 import { ACTION_TYPE } from 'src/app/enums/actions.enum';
@@ -32,7 +33,8 @@ export class CurrencyListComponent implements OnInit {
   constructor(
     private currencyService: CurrencyService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private sessionService: SessionService
   ) { }
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class CurrencyListComponent implements OnInit {
   }
 
   getCurrencies(): void {
-    this.currencies$ = this.currencyService.getCurrencies()
+    this.currencies$ = this.currencyService.getCurrencies( this.sessionService?.companyId )
     .pipe(
       tap( res => {      
         if (res.length === 0) {

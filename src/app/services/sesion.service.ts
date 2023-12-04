@@ -8,12 +8,13 @@ import { ICredentials } from '../interfaces/auth.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class SesionService {
+export class SessionService {
 
   _loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   _accessToken!: string;
   _tokenType!: string;
   _expiresIn!: string;
+  _companyId!: number;
   _url: string;
 
   constructor(private http: HttpClient) {
@@ -50,6 +51,13 @@ export class SesionService {
   }
   set expiresIn(value: string) {
     this._expiresIn = value;
+  }
+
+  get companyId(): number {
+    return this._companyId;
+  }
+  set companyId(value: number) {
+    this._companyId = value;
   }
 
   login(credentials: ICredentials): Observable<IResponse> {

@@ -3,6 +3,7 @@ import { EMPTY, Observable } from 'rxjs';
 import { catchError, first, switchMap, tap } from 'rxjs/operators';
 import { ConceptService } from 'src/app/services/concept.service';
 import { MessageService } from 'primeng/api';
+import { SessionService } from 'src/app/services/sesion.service';
 import { ConceptFormModel } from '../concept-form/concept-form.model';
 import { ACTION_TYPE } from 'src/app/enums/actions.enum';
 import { IConcept } from 'src/app/interfaces/concept.interface';
@@ -38,7 +39,8 @@ export class ConceptDetailsComponent implements OnInit {
   constructor(
     private conceptService: ConceptService,
     private messageService: MessageService,
-    private tableService: TableService
+    private tableService: TableService,
+    private sessionService: SessionService
   ) {
     this.conceptForm = new ConceptFormModel();
   }
@@ -128,7 +130,8 @@ export class ConceptDetailsComponent implements OnInit {
     const dataForm = this.conceptForm.value;
     return { 
       description: dataForm.description,
-      type: this.type ? this.type : RECEIPT_TYPE.EXPENSE
+      type: this.type ? this.type : RECEIPT_TYPE.EXPENSE,      
+      company_id: this.sessionService?.companyId,
     };
   }
 

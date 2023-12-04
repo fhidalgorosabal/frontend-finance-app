@@ -3,6 +3,7 @@ import { EMPTY, Observable, first } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { AccountService } from 'src/app/services/account.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { SessionService } from 'src/app/services/sesion.service';
 import { IAccount } from 'src/app/interfaces/account.interface';
 import { ILabel } from 'src/app/interfaces/label.interface';
 import { ACTION_TYPE } from 'src/app/enums/actions.enum';
@@ -32,7 +33,8 @@ export class AccountListComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private sessionService: SessionService
   ) { }
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class AccountListComponent implements OnInit {
   }
 
   getAccounts(): void {
-    this.accounts$ = this.accountService.getAccounts()
+    this.accounts$ = this.accountService.getAccounts( this.sessionService?.companyId )
     .pipe(
       tap( res => {      
         if (res.length === 0) {

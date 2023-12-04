@@ -3,6 +3,7 @@ import { EMPTY, Observable, first } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { ConceptService } from 'src/app/services/concept.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { SessionService } from 'src/app/services/sesion.service';
 import { IConcept } from 'src/app/interfaces/concept.interface';
 import { ILabel } from 'src/app/interfaces/label.interface';
 import { ACTION_TYPE } from 'src/app/enums/actions.enum';
@@ -39,7 +40,8 @@ export class ConceptListComponent implements OnInit {
   constructor(
     private conceptService: ConceptService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private sessionService: SessionService
   ) { }
 
   ngOnInit(): void {
@@ -52,7 +54,7 @@ export class ConceptListComponent implements OnInit {
 
   getConcepts(): void {
     const type = this.getType();
-    this.concepts$ = this.conceptService.getConcepts( type )
+    this.concepts$ = this.conceptService.getConcepts( this.sessionService?.companyId, type )
     .pipe(
       tap( res => {      
         if (res.length === 0) {

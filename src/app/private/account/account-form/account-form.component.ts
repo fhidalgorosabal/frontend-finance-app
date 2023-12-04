@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AccountFormModel } from './account-form.model';
 import { IAccount } from 'src/app/interfaces/account.interface';
 import { ILabel } from 'src/app/interfaces/label.interface';
-import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-account-form',
@@ -43,7 +42,7 @@ export class AccountFormComponent implements OnInit, OnDestroy {
         code: this.account.code,
         description: this.account.description,
         currency: currency,
-        bank: bank,
+        bank: bank ? bank : null,
         active: this.account.active
       });
     }
