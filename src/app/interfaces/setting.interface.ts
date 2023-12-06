@@ -3,4 +3,5 @@ export interface ISetting {
     company_name: string;
     current_month: string;
     current_year: string;
+    type: string;
 }
