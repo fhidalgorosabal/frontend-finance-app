@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SettingComponent } from './setting.component';
+import { SettingManagementComponent } from './setting-management/setting-management.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SettingComponent
+    component: SettingManagementComponent
   }
 ];
 

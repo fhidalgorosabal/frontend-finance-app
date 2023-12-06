@@ -5,13 +5,15 @@ import { PrimeNgModule } from './prime-ng/prime-ng.module';
 import { ConfirmationService } from 'primeng/api';
 import { HeaderComponent } from './components/header/header.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { SummaryCardComponent } from './components/summary-card/summary-card.component';
 
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    LoadingComponent
+    LoadingComponent,
+    SummaryCardComponent,
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { LoadingComponent } from './components/loading/loading.component';
   exports: [
     PrimeNgModule,
     HeaderComponent,
-    LoadingComponent
+    LoadingComponent,
+    SummaryCardComponent,
   ],
   providers: [
     ConfirmationService

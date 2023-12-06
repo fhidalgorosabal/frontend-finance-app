@@ -33,8 +33,8 @@ export class SettingService {
 
   getType(): ILabel[] {
     return [
-      { label: 'Empresa', value: 1 },
-      { label: 'Personal', value: 2 },
+      { label: 'Empresa', value: '1' },
+      { label: 'Personal', value: '2' },
     ];
   }
 

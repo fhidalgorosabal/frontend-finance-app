@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SettingService } from 'src/app/services/setting.service';
-import { SettingFormModel } from './setting-form.model';
+import { SettingFormModel } from '../setting-form.model';
 import { ILabel } from 'src/app/interfaces/label.interface';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SessionService } from 'src/app/services/sesion.service';
@@ -11,13 +11,15 @@ import { ISetting } from 'src/app/interfaces/setting.interface';
 
 @Component({
   selector: 'app-setting',
-  templateUrl: './setting.component.html',
-  styleUrls: ['./setting.component.scss']
+  templateUrl: './setting-management.component.html',
+  styleUrls: ['./setting-management.component.scss']
 })
-export class SettingComponent implements OnInit, OnDestroy {
+export class SettingManagementComponent implements OnInit, OnDestroy {
   settingForm = new SettingFormModel();
   optionsType: ILabel[];
   months: ILabel[];
+  companyEdit = false;
+  type: string;
   destroy$ = new Subject<void>();
 
   constructor(
@@ -28,15 +30,14 @@ export class SettingComponent implements OnInit, OnDestroy {
   ) {
     this.optionsType = this.settingService.getType();
     this.months = this.settingService.getMonths();
+    this.type = this.settingForm.controls['company_type'].value?.value;
    }
 
   ngOnInit(): void {
     this.settingService.getSetting( this.sessionService?.companyId )
     .pipe(
       takeUntil(this.destroy$),
-      tap(res => {
-        this.setSetting(res);
-      }),
+      tap(res => this.setSetting(res)),
       catchError((error) => {
         this.messageService.add(Utils.responseError(error));
         return EMPTY;
@@ -44,11 +45,23 @@ export class SettingComponent implements OnInit, OnDestroy {
     ).subscribe();    
   }
 
+  getHeaderTitle() {
+    return `Datos de la ${ this.type === '1' ? 'compañía' : 'persona' }`;
+  }
+
+  getCompanyLabel() {
+    return `Nombre de la ${ this.type === '1' ? 'compañía' : 'persona' }:`;
+  }
+
+  getCode() {
+    return this.type === '1' ? 'Código:' : 'NI:';
+  }
+
   private setSetting(setting: ISetting) {
     this.settingForm.setValue({
       company_code: setting.company_code,
       company_name: setting.company_name,
-      company_type: this.optionsType.find(item => item.value === 2)?.label,
+      company_type: this.optionsType.find(item => item.value === setting.type),
       current_month: this.months.find(item => item.value == setting.current_month)?.label,
       current_year: setting.current_year
     })
@@ -81,7 +94,7 @@ export class SettingComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$),
       tap(res => {
         this.setSetting(res.data as ISetting);
-        this.messageService.add(Utils.messageServiceTitle('¡Cambio de mes!', res));
+        this.messageService.add(Utils.messageServiceTitle('Cambio de mes', res));
       }),
       catchError((error) => {
         this.messageService.add(Utils.responseError(error));
