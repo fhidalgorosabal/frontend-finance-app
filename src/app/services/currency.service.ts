@@ -37,6 +37,24 @@ export class CurrencyService {
       );
   }
 
+  defaultCurrency(companyId: number): Observable<ICurrency> {
+    return this.http.get<IResponse>(`${ this._url }/currency/default-currency/${ companyId }`)
+      .pipe(
+        map(
+          (res) => res.data
+        )
+      );
+  }
+
+  changeDefaultCurrency(id: number): Observable<ICurrency> {
+    return this.http.post<IResponse>(`${ this._url }/currency/default-currency`, { id: id })
+      .pipe(
+        map(
+          (res) => res.data
+        )
+      );
+  }
+
   currenciesList(companyId: number): Observable<ILabel[]> {
     return this.getCurrencies(companyId).pipe(
       map(

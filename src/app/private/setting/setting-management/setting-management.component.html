@@ -1,12 +1,12 @@
-<div class="px-4 pt-5 md:px-6 lg:px-8">    
+<div class="px-4 pt-4 md:px-6 lg:px-8">    
     <h2 class="col-12">{{ 'Configuración del sistema' }}</h2>    
 </div>
 
 <form [formGroup]="settingForm">
     <div class="px-4 pt-2 md:px-6 lg:px-8">
         <p-panel [header]="getHeaderTitle()" [toggleable]="true">      
-            <div class="grid p-fluid">
-                <div class="field col-12 md:col-6  lg:col-3">
+            <div class="grid p-fluid" *ngIf="optionsCurrency$ | async as optionsCurrency">
+                <div class="field col-12 md:col-6 lg:col-3 xl:col-2">
                     <label for="company-code" class="block">{{ getCode() }}</label>
                     <input 
                         id="company-code" 
@@ -16,7 +16,7 @@
                         [readonly]="!companyEdit"
                     />
                 </div>
-                <div class="field col-12 md:col-  lg:col-6">
+                <div class="field col-12 md:col-6 lg:col-6 xl:col-6">
                     <label for="company-name" class="block">{{ getCompanyLabel() }}</label>
                     <input 
                         id="company-name" 
@@ -25,16 +25,26 @@
                         [readonly]="!companyEdit"
                     />
                 </div>
-                <div class="field col-12 md:col-6  lg:col-3">
+                <div class="field col-12 md:col-6 lg:col-3 xl:col-2">
                     <label for="company-type" class="block">{{ 'Tipo:' }}</label>                    
                     <p-dropdown
                         id="company-type"
                         [class]="'w-12'"               
                         [options]="optionsType"
                         optionLabel="label"
-                        [placeholder]="'--Seleccione--'"
                         formControlName="company_type"
                         [readonly]="!companyEdit"
+                    ></p-dropdown>
+                </div>
+                <div class="field col-12 md:col-6 lg:col-3 xl:col-2">
+                    <label for="currency-type" class="block">{{ 'Moneda:' }}</label>                    
+                    <p-dropdown
+                        id="currency-type"
+                        [class]="'w-12'"               
+                        [options]="optionsCurrency"
+                        optionLabel="label"
+                        formControlName="default_currency"
+                        (onChange)="changeDefaultCurrencyConfirm($event)"
                     ></p-dropdown>
                 </div>
             </div>
