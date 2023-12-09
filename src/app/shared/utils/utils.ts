@@ -46,8 +46,6 @@ export class Utils {
   */
 
   static responseError(error: IError | HttpErrorResponse): Message {  
-    
-    console.log(error);  
     return (error?.error?.status && error?.error?.status.includes(LITERAL_ERROR)) 
       ? this.getAppError(error) 
       : this.getHttpErrorResponse(error as HttpErrorResponse);

@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.sessionService.accessToken = res?.data?.token?.access_token;   
         this.sessionService.tokenType = res?.data?.token?.token_type;
         this.sessionService.expiresIn = res?.data?.token?.expires_in;
+        this.sessionService.date = new Date();
         this.sessionService.companyId = res?.data?.user?.company_id;
         this.sessionService.loggedIn = true;
         this.messageService.add(Utils.messageServiceTitle('Bienvenido', res));
