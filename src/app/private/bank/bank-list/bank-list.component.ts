@@ -89,7 +89,7 @@ export class BankListComponent implements OnInit {
     this.bankService.deleteBank(id).pipe(
       first(),
       tap(res => {
-        this.messageService.add(Utils.messageServiceTitle('¡Banco eliminado!', res));
+        this.messageService.add(Utils.messageServiceTitle('Banco eliminado', res));
         this.getBanks();
       }),
       catchError((error) => {

@@ -120,7 +120,7 @@ export class IngressDetailsComponent implements OnInit {
     this.receiptService.createReceipt(this.getFormReceipt()).pipe(
       first(),
       tap((res) => {
-        this.messageService.add(Utils.messageServiceTitle('¡Nuevo ingreso!', res));
+        this.messageService.add(Utils.messageServiceTitle('Nuevo ingreso', res));
         this.close();
       }),
       catchError((error) => {
@@ -136,7 +136,7 @@ export class IngressDetailsComponent implements OnInit {
       this.receiptService.editReceipt(this.getFormReceipt(), this.id).pipe(
         first(),
         tap((res) => {
-          this.messageService.add(Utils.messageServiceTitle('¡Ingreso actualizado!', res));
+          this.messageService.add(Utils.messageServiceTitle('Ingreso actualizado', res));
           this.close();
         }),
         catchError((error) => {

@@ -94,7 +94,7 @@ export class ExpenseListComponent implements OnInit {
     this.receiptService.deleteReceipt(id).pipe(
       first(),
       tap(res => {
-        this.messageService.add(Utils.messageServiceTitle('¡Gasto eliminado!', res));
+        this.messageService.add(Utils.messageServiceTitle('Gasto eliminado', res));
         this.expensesList();
       }),
       catchError((error) => {

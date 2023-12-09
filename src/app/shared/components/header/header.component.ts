@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
             take(1),
             tap((res) => {
               this.sessionService.loggedIn = false;
-              this.messageService.add(Utils.messageServiceTitle('¡Sesión finalizada!', res));
+              this.messageService.add(Utils.messageServiceTitle('Sesión finalizada', res));
               return this.router.navigate(['/login']);
             }),
             catchError((error) => {

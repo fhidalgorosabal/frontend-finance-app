@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.sessionService.expiresIn = res?.data?.token?.expires_in;
         this.sessionService.companyId = res?.data?.user?.company_id;
         this.sessionService.loggedIn = true;
-        this.messageService.add(Utils.messageServiceTitle('¡Bienvenido!', res));
+        this.messageService.add(Utils.messageServiceTitle('Bienvenido', res));
         return this.router.navigate(['/home']);
       }),
       catchError((error) => {
