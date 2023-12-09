@@ -92,7 +92,7 @@ export class BankDetailsComponent implements OnInit {
     this.bankService.createBank(this.getFormBank()).pipe(
       first(),
       tap((res) => {
-        this.messageService.add(Utils.messageServiceTitle('¡Nuevo banco!', res));
+        this.messageService.add(Utils.messageServiceTitle('Nuevo banco', res));
         this.close();
       }),
       catchError((error) => {        
@@ -108,7 +108,7 @@ export class BankDetailsComponent implements OnInit {
       this.bankService.editBank(this.getFormBank(), this.id).pipe(
         first(),
         tap((res) => {
-          this.messageService.add(Utils.messageServiceTitle('¡Banco actualizado!', res));
+          this.messageService.add(Utils.messageServiceTitle('Banco actualizado', res));
           this.close();
         }),
         catchError((error) => {

@@ -91,7 +91,7 @@ export class AccountListComponent implements OnInit {
     this.accountService.deleteAccount(id).pipe(
       first(),
       tap(res => {
-        this.messageService.add(Utils.messageServiceTitle('¡Cuenta eliminada!', res));
+        this.messageService.add(Utils.messageServiceTitle('Cuenta eliminada', res));
         this.getAccounts();
       }),
       catchError((error) => {

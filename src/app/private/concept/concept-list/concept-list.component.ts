@@ -103,7 +103,7 @@ export class ConceptListComponent implements OnInit {
     this.conceptService.deleteConcept(id).pipe(
       first(),
       tap(res => {
-        this.messageService.add(Utils.messageServiceTitle('¡Concepto eliminado!', res));
+        this.messageService.add(Utils.messageServiceTitle('Concepto eliminado', res));
         this.getConcepts();
       }),
       catchError((error) => {

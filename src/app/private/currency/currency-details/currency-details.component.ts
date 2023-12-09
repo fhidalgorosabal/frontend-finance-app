@@ -94,7 +94,7 @@ export class CurrencyDetailsComponent implements OnInit {
     this.currencyService.createCurrency(this.getFormCurrency()).pipe(
       first(),
       tap((res) => {
-        this.messageService.add(Utils.messageServiceTitle('¡Nueva moneda!', res));
+        this.messageService.add(Utils.messageServiceTitle('Nueva moneda', res));
         this.close();
       }),
       catchError((error) => {        
@@ -110,7 +110,7 @@ export class CurrencyDetailsComponent implements OnInit {
       this.currencyService.editCurrency(this.getFormCurrency(), this.id).pipe(
         first(),
         tap((res) => {
-          this.messageService.add(Utils.messageServiceTitle('¡Moneda actualizada!', res));
+          this.messageService.add(Utils.messageServiceTitle('Moneda actualizada', res));
           this.close();
         }),
         catchError((error) => {

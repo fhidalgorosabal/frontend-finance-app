@@ -94,7 +94,7 @@ export class IngressListComponent implements OnInit {
     this.receiptService.deleteReceipt(id).pipe(
       first(),
       tap(res => {
-        this.messageService.add(Utils.messageServiceTitle('¡Ingreso eliminado!', res));
+        this.messageService.add(Utils.messageServiceTitle('Ingreso eliminado', res));
         this.ingressList();
       }),
       catchError((error) => {

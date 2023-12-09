@@ -91,7 +91,7 @@ export class CurrencyListComponent implements OnInit {
     this.currencyService.deleteCurrency(id).pipe(
       first(),
       tap(res => {
-        this.messageService.add(Utils.messageServiceTitle('¡Moneda eliminada!', res));
+        this.messageService.add(Utils.messageServiceTitle('Moneda eliminada', res));
         this.getCurrencies();
       }),
       catchError((error) => {

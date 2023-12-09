@@ -98,7 +98,7 @@ export class ConceptDetailsComponent implements OnInit {
     this.conceptService.createConcept(this.getFormConcept()).pipe(
       first(),
       tap((res) => {
-        this.messageService.add(Utils.messageServiceTitle('¡Nuevo concepto!', res));
+        this.messageService.add(Utils.messageServiceTitle('Nuevo concepto', res));
         this.close();
       }),
       catchError((error) => {        
@@ -114,7 +114,7 @@ export class ConceptDetailsComponent implements OnInit {
       this.conceptService.editConcept(this.getFormConcept(), this.id).pipe(
         first(),
         tap((res) => {
-          this.messageService.add(Utils.messageServiceTitle('¡Concepto actualizado!', res));
+          this.messageService.add(Utils.messageServiceTitle('Concepto actualizado', res));
           this.close();
         }),
         catchError((error) => {

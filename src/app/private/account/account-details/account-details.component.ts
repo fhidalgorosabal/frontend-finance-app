@@ -119,7 +119,7 @@ export class AccountDetailsComponent implements OnInit {
     this.accountService.createAccount(this.getFormAccount()).pipe(
       first(),
       tap((res) => {
-        this.messageService.add(Utils.messageServiceTitle('¡Nueva cuenta!', res));
+        this.messageService.add(Utils.messageServiceTitle('Nueva cuenta', res));
         this.close();
       }),
       catchError((error) => {        
@@ -135,7 +135,7 @@ export class AccountDetailsComponent implements OnInit {
       this.accountService.editAccount(this.getFormAccount(), this.id).pipe(
         first(),
         tap((res) => {
-          this.messageService.add(Utils.messageServiceTitle('¡Cuenta actualizada!', res));
+          this.messageService.add(Utils.messageServiceTitle('Cuenta actualizada', res));
           this.close();
         }),
         catchError((error) => {

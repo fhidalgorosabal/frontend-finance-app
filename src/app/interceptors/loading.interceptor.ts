@@ -11,21 +11,20 @@ import { MainBusyService } from '../services/main-busy.service';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
-
-  private isLoading = false;
+  private count = 0;
 
   constructor(private mainBusyService: MainBusyService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (!this.isLoading) {
-      this.isLoading = true;
-      this.mainBusyService.isLoading$.next(true);      
-    }
+    this.count++;
+    this.mainBusyService.isLoading$.next(true);   
 
     return next.handle(request).pipe(
       finalize(() => {
-        this.isLoading = false;
-        this.mainBusyService.isLoading$.next(false);        
+        this.count--;
+        if (this.count === 0) {
+          this.mainBusyService.isLoading$.next(false);
+        }      
       }),
     );
   }
