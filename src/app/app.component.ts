@@ -1,6 +1,8 @@
-import { AfterViewChecked, ChangeDetectorRef, Component } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, HostListener } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MainBusyService } from './services/main-busy.service';
+import { SessionService } from './services/sesion.service';
+import { ReloadSessionService } from './services/reload-session.service';
 
 @Component({
   selector: 'app-root',
@@ -104,7 +106,19 @@ export class AppComponent implements AfterViewChecked {
     }
   ];
 
-  constructor(public mainBusyService: MainBusyService, private cdr: ChangeDetectorRef) {
+  @HostListener('window:beforeunload', ['$event'])
+  handleBeforeUnload() {
+    if (this.sessionService.loggedIn) {
+      this.reloadSessionService.saveOnStorage();
+    }
+  }
+
+  constructor(
+    public mainBusyService: MainBusyService, 
+    private cdr: ChangeDetectorRef,
+    private sessionService: SessionService,
+    private reloadSessionService: ReloadSessionService,
+  ) {
     this.cdr.detach();
   }
 

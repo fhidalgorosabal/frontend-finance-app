@@ -63,9 +63,7 @@ export class AccountDetailsComponent implements OnInit {
       ...(this.actionDetails === ACTION_TYPE.DETAIL ? [account$] : [])
     ]).pipe(
       first(),
-      map(([currencies, banks, account]) => {
-        console.log(account);
-        
+      map(([currencies, banks, account]) => {        
         return {
           'currencies': currencies,
           'banks': banks,

@@ -14,6 +14,7 @@ export class SessionService {
   _accessToken!: string;
   _tokenType!: string;
   _expiresIn!: string;
+  _date!: Date;
   _companyId!: number;
   _url: string;
 
@@ -51,6 +52,13 @@ export class SessionService {
   }
   set expiresIn(value: string) {
     this._expiresIn = value;
+  }
+
+  get date(): Date {
+    return this._date;
+  }
+  set date(value: Date) {
+    this._date = value;
   }
 
   get companyId(): number {
