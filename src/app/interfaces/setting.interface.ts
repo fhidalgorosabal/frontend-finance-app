@@ -5,3 +5,11 @@ export interface ISetting {
     current_year: string;
     type: string;
 }
+
+export interface IClose {
+    company_id: number;
+}
+
+export interface ICloseMonth extends IClose {
+    month: number;
+}

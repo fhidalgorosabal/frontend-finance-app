@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ISetting } from '../interfaces/setting.interface';
+import { ICloseMonth, IClose, ISetting } from '../interfaces/setting.interface';
 import { IResponse } from '../interfaces/response.interface';
 import { ILabel } from '../interfaces/label.interface';
 
@@ -27,8 +27,12 @@ export class SettingService {
       );
   }
 
-  closeOfMonth(month: number): Observable<IResponse> {
-    return this.http.post<IResponse>(`${ this._url }/setting/change-month`, { month: month });
+  closeOfMonth(data: ICloseMonth): Observable<IResponse> {
+    return this.http.post<IResponse>(`${ this._url }/setting/change-month`, data);
+  }
+
+  closeOfYear(data: IClose) {
+    return this.http.post<IResponse>(`${ this._url }/setting/close-year`, data);
   }
 
   getType(): ILabel[] {
