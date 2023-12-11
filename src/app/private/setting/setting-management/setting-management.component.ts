@@ -25,6 +25,7 @@ export class SettingManagementComponent implements OnInit, OnDestroy {
   months: ILabel[];
   companyEdit = false;
   type: string;
+  closeMonthLabelBotton = 'Cierre de mes';
   destroy$ = new Subject<void>();
 
   constructor(
@@ -109,10 +110,6 @@ export class SettingManagementComponent implements OnInit, OnDestroy {
     ).subscribe(); 
   }
 
-  getHeaderTitle() {
-    return `Datos de la ${ this.type === '1' ? 'compañía' : 'persona' }`;
-  }
-
   getCompanyLabel() {
     return `Nombre de la ${ this.type === '1' ? 'compañía' : 'persona' }:`;
   }
@@ -122,17 +119,21 @@ export class SettingManagementComponent implements OnInit, OnDestroy {
   }
 
   private setSetting(setting: ISetting) {
+    const month: ILabel  = this.months.find(item => item.value == setting.current_month) as ILabel;
     this.settingForm.controls['company_code'].setValue(setting.company_code);
     this.settingForm.controls['company_name'].setValue(setting.company_name);
     this.settingForm.controls['company_type'].setValue(this.optionsType.find(item => item.value === setting.type));
-    this.settingForm.controls['current_month'].setValue(this.months.find(item => item.value == setting.current_month)?.label);
+    this.settingForm.controls['current_month'].setValue(month?.label);
     this.settingForm.controls['current_year'].setValue(setting.current_year);
+    if (month?.value === 12) {
+      this.closeMonthLabelBotton = 'Cierre de año';
+    }
   }
 
   closeOfMonthConfirm() {
     this.setDataConfirmation(
       'Cerrar mes',
-      '¿Está seguro que desea realizar el cierre de mes? Tenga en cuenta que este cambio no se puede revertir.',
+      `¿Está seguro que desea realizar el ${ this.closeMonthLabelBotton.toLowerCase() }? Tenga en cuenta que este cambio no se puede revertir.`,
       () => this.closeOfMonth(),
       'Cerrar',
       'pi pi-power-off',
@@ -163,18 +164,25 @@ export class SettingManagementComponent implements OnInit, OnDestroy {
   private closeOfMonth() {
     const currentMonth = this.months.find(item => item.label === this.settingForm.controls['current_month'].value)?.value;
     let nextMonth;
+    let functionClose$ = new Observable<IResponse>();
+    let message = 'Cambio de mes';
     if (currentMonth !== 12) {
       nextMonth = Number(currentMonth) + 1;
+      functionClose$ = this.settingService.closeOfMonth({ 
+        month: nextMonth, 
+        company_id: this.sessionService?.companyId 
+      });
     } else {
-      nextMonth = 1
-      //TODO: Change of year
+      functionClose$ = this.settingService.closeOfYear({ 
+        company_id: this.sessionService?.companyId 
+      });
+      message = 'Cierre de año';
     }
-    this.settingService.closeOfMonth(nextMonth)
-    .pipe(
+    functionClose$.pipe(
       takeUntil(this.destroy$),
       tap(res => {
         this.setSetting(res.data as ISetting);
-        this.messageService.add(Utils.messageServiceTitle('Cambio de mes', res));
+        this.messageService.add(Utils.messageServiceTitle(message, res));
       }),
       catchError((error) => {
         this.messageService.add(Utils.responseError(error));

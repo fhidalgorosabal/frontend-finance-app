@@ -1,10 +1,10 @@
-<div class="px-4 pt-4 md:px-6 lg:px-8">    
+<div class="px-4 md:px-6 lg:px-8">    
     <h2 class="col-12">{{ 'Configuración del sistema' }}</h2>    
 </div>
 
 <form [formGroup]="settingForm">
     <div class="px-4 pt-2 md:px-6 lg:px-8">
-        <p-panel [header]="getHeaderTitle()" [toggleable]="true">      
+        <p-panel header="Datos generales" [toggleable]="true">      
             <div class="grid p-fluid" *ngIf="optionsCurrency$ | async as optionsCurrency">
                 <div class="field col-12 md:col-6 lg:col-3 xl:col-2">
                     <label for="company-code" class="block">{{ getCode() }}</label>
@@ -80,7 +80,7 @@
                       pButton
                       type="button"
                       icon="pi pi-calendar-times"
-                      [label]="'Cerrar el mes'"
+                      [label]="closeMonthLabelBotton"
                       class="p-button-success mt-4"
                       (click)="closeOfMonthConfirm()"
                     ></button>
