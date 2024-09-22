@@ -28,6 +28,10 @@ export class ChartService {
           series: {
             allowPointSelect: true,
             cursor: 'pointer',
+            dataLabels: [{
+                enabled: true,
+                format: '{point.y:.2f}'        
+            }],
           },
         },
         xAxis: {
@@ -55,7 +59,7 @@ export class ChartService {
               enabled: false
             }, {
                 enabled: true,
-                format: '{point.y}',
+                format: '{point.y:.2f}',
                 style: {
                     fontSize: '1em',
                     textOutline: 'none',
