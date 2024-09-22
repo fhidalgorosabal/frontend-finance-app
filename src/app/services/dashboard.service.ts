@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IResponse } from '../interfaces/response.interface';
-import { IDataMonthTotal } from '../interfaces/dashboard.interface';
+import { IDataConcepts, IDataIngressAndExpenses, IDataMonth } from '../interfaces/dashboard.interface';
 
 
 @Injectable({
@@ -18,8 +18,26 @@ export class DashboardService {
     this._url = environment.base_url;
   }
 
-  getMonthTotal(data: IDataMonthTotal): Observable<number> {
+  getMonthTotal(data: IDataMonth): Observable<number> {
     return this.http.post<IResponse>(`${ this._url }/dashboard/get-month-total`, { ...data })
+      .pipe(
+        map(
+          (res) => res.data
+        )
+      );
+  }
+
+  getMonthConcepts(data: IDataMonth): Observable<IDataConcepts[]> {
+    return this.http.post<IResponse>(`${ this._url }/dashboard/get-month-concepts`, { ...data })
+      .pipe(
+        map(
+          (res) => res.data
+        )
+      );
+  }
+
+  getIngressAndExpensesByMonth(companyId: number): Observable<IDataIngressAndExpenses[]> {
+    return this.http.post<IResponse>(`${ this._url }/dashboard/get-ingress-expenses-month`, { company_id: companyId })
       .pipe(
         map(
           (res) => res.data
