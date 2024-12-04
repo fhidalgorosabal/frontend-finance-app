@@ -1,27 +1,68 @@
-# Angular
+# Finance App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.0.
+**Finance App** es una aplicación desarrollada en Angular 13.0.0 para la gestión de ingresos y gastos personales o de pequeñas empresas. Permite organizar las finanzas por meses y años, proporcionando una interfaz intuitiva y visualizaciones interactivas.  
+Se utilizan librerías como **NgPrime** para componentes de UI y **Highcharts** para gráficos dinámicos.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Características principales
 
-## Code scaffolding
+- **Gestión financiera**: Registro de ingresos y gastos categorizados.
+- **Visualizaciones dinámicas**: Gráficos interactivos para análisis mensual y anual.
+- **Diseño responsivo**: Adaptado para escritorio y dispositivos móviles.
+- **Fácil de usar**: Interfaz intuitiva y clara.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## Requisitos previos
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Asegúrate de tener instalado:
 
-## Running unit tests
+- [Node.js](https://nodejs.org/) (versión recomendada: 14.x o superior)
+- [Angular CLI](https://angular.io/cli) (versión 13.0.0)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+---
 
-## Running end-to-end tests
+## Librerías utilizadas
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **[NgPrime](https://primeng.org/)**: Biblioteca de componentes UI para Angular.
+- **[Highcharts](https://www.highcharts.com/)**: Biblioteca para crear gráficos interactivos.
 
-## Further help
+---
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Instalación y ejecución
+
+1. Clona este repositorio en tu máquina local:
+   ```bash
+   git clone https://github.com/fhidalgorosabal/frontend-finance-app
+   cd frontend-finance-app
+   npm install
+   ng serve
+   http://localhost:4200/
+   
+---   
+
+## Autor
+
+Desarrollado por: Fernando Hidalgo Rosabal.
+
+---
+
+## Capturas de pantalla
+
+### Login
+![Login](assets/img/screenshots/login.png)
+
+### Dashboard
+![Dashboard](assets/img/screenshots/dashboard.png)
+
+### Gráficos interactivos
+![Gráficos interactivos](assets/img/screenshots/charts.png)
+
+### Listado de ingresos
+![Listado de ingresos](assets/img/screenshots/table.png)
+
+### Capturar ingreso
+![Capturar ingreso](assets/img/screenshots/form.png)
+
+---
