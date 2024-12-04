@@ -51,18 +51,18 @@ Desarrollado por: Fernando Hidalgo Rosabal.
 ## Capturas de pantalla
 
 ### Login
-![Login](assets/img/screenshots/login.png)
+![Login](src/assets/img/screenshots/login.png)
 
 ### Dashboard
-![Dashboard](assets/img/screenshots/dashboard.png)
+![Dashboard](src/assets/img/screenshots/dashboard.png)
 
 ### Gráficos interactivos
-![Gráficos interactivos](assets/img/screenshots/charts.png)
+![Gráficos interactivos](src/assets/img/screenshots/charts.png)
 
 ### Listado de ingresos
-![Listado de ingresos](assets/img/screenshots/table.png)
+![Listado de ingresos](src/assets/img/screenshots/table.png)
 
 ### Capturar ingreso
-![Capturar ingreso](assets/img/screenshots/form.png)
+![Capturar ingreso](src/assets/img/screenshots/form.png)
 
 ---
