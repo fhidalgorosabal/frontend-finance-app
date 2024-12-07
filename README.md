@@ -1,25 +1,6 @@
-# Finance App
+# FinanceApp
 
-**Finance App** es una aplicación desarrollada en Angular 13.0.0 para la gestión de ingresos y gastos personales o de pequeñas empresas. Permite organizar las finanzas por meses y años, proporcionando una interfaz intuitiva y visualizaciones interactivas.  
-Se utilizan librerías como **NgPrime** para componentes de UI y **Highcharts** para gráficos dinámicos.
-
----
-
-## Características principales
-
-- **Gestión financiera**: Registro de ingresos y gastos categorizados.
-- **Visualizaciones dinámicas**: Gráficos interactivos para análisis mensual y anual.
-- **Diseño responsivo**: Adaptado para escritorio y dispositivos móviles.
-- **Fácil de usar**: Interfaz intuitiva y clara.
-
----
-
-## Requisitos previos
-
-Asegúrate de tener instalado:
-
-- [Node.js](https://nodejs.org/) (versión recomendada: 14.x o superior)
-- [Angular CLI](https://angular.io/cli) (versión 13.0.0)
+**FinanceApp** es una aplicación web desarrollada en Angular 13.0.0 diseñada para gestionar ingresos y gastos de manera eficiente, ya sea a nivel personal o para pequeñas empresas. Ofrece herramientas para organizar las finanzas mensuales y anuales, con una interfaz intuitiva y gráficos interactivos que facilitan el análisis y la toma de decisiones.  
 
 ---
 
@@ -30,23 +11,23 @@ Asegúrate de tener instalado:
 
 ---
 
-## Instalación y ejecución
+## Requisitos previos
 
-1. Clona este repositorio en tu máquina local:
-   ```bash
-   git clone https://github.com/fhidalgorosabal/frontend-finance-app
-   cd frontend-finance-app
-   npm install
-   ng serve
-   http://localhost:4200/
-   
----   
+Asegúrate de tener instalado:
 
-## Autor
-
-Desarrollado por: Fernando Hidalgo Rosabal.
+- [Node.js](https://nodejs.org/) (Recomendado tener Node 14.15.0 - 16.13.0 para Angular 13.0.0).
+- [Angular CLI](https://angular.io/cli) (versión 13.0.0).
 
 ---
+
+## Instalación y ejecución
+
+1. Clona este repositorio en tu máquina local `git clone https://github.com/fhidalgorosabal/frontend-finance-app`.
+2. Accede a la carpeta del proyecto `cd frontend-finance-app`.
+3. Ejecuta `npm install` para instalar los paquetes de node.
+4. Para iniciar la aplicación `ng serve` y accede en el navedador a `http://localhost:4200/`.
+   
+---   
 
 ## Capturas de pantalla
 
@@ -64,5 +45,17 @@ Desarrollado por: Fernando Hidalgo Rosabal.
 
 ### Capturar ingreso
 ![Capturar ingreso](src/assets/img/screenshots/form.png)
+
+---
+
+## Autor
+
+Desarrollado por: Fernando Hidalgo Rosabal.
+
+---
+
+## Licencia
+
+Este proyecto está licenciado bajo la [Licencia MIT](https://opensource.org/licenses/MIT).
 
 ---
