@@ -22,7 +22,7 @@ Asegúrate de tener instalado:
 
 ## Instalación y ejecución
 
-1. Clona este repositorio en tu máquina local `git clone https://github.com/fhidalgorosabal/frontend-finance-app`.
+1. Clona este repositorio en tu máquina local `git clone https://github.com/fhidalgorosabal/frontend-finance-app.git`.
 2. Accede a la carpeta del proyecto `cd frontend-finance-app`.
 3. Ejecuta `npm install` para instalar los paquetes de node.
 4. Para iniciar la aplicación `ng serve` y accede en el navedador a `http://localhost:4200/`.
