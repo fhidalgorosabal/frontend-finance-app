@@ -1,14 +1,14 @@
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 
 
-export class AccountFormModel extends FormGroup {
+export class AccountFormModel extends UntypedFormGroup {
   constructor() {
     super({
-        code: new FormControl('', [ Validators.required, Validators.maxLength(20) ]),
-        description: new FormControl('', [ Validators.required ]),
-        currency: new FormControl('', [ Validators.required ]),
-        bank: new FormControl(''),
-        active: new FormControl(''),
+        code: new UntypedFormControl('', [ Validators.required, Validators.maxLength(20) ]),
+        description: new UntypedFormControl('', [ Validators.required ]),
+        currency: new UntypedFormControl('', [ Validators.required ]),
+        bank: new UntypedFormControl(''),
+        active: new UntypedFormControl(''),
     });
   }
 }

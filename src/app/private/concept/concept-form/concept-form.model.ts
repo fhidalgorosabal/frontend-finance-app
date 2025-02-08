@@ -1,12 +1,12 @@
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 
 
-export class ConceptFormModel extends FormGroup {
+export class ConceptFormModel extends UntypedFormGroup {
   constructor() {
     super({
-      id: new FormControl(''),
-      description: new FormControl('', [ Validators.required ]),
-      type: new FormControl(''),
+      id: new UntypedFormControl(''),
+      description: new UntypedFormControl('', [ Validators.required ]),
+      type: new UntypedFormControl(''),
     });
   }
 }

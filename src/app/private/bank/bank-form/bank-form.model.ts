@@ -1,17 +1,17 @@
-import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms";
 
 
-export class BankFormModel extends FormGroup {
+export class BankFormModel extends UntypedFormGroup {
   constructor() {
     super({
-        swift: new FormControl('', [ Validators.required, Validators.maxLength(25) ]),
-        bank_name: new FormControl('', [ Validators.required, Validators.maxLength(100) ]),
-        cis: new FormControl('', [ Validators.required, Validators.maxLength(10) ]),
-        branch_name: new FormControl('', [ Validators.maxLength(100) ]),
-        address: new FormControl('', [ Validators.maxLength(200) ]),
-        phone_number: new FormControl('', [ Validators.maxLength(15) ]),
-        email: new FormControl('', [ Validators.email, Validators.maxLength(100) ]),
-        active: new FormControl(''),
+        swift: new UntypedFormControl('', [ Validators.required, Validators.maxLength(25) ]),
+        bank_name: new UntypedFormControl('', [ Validators.required, Validators.maxLength(100) ]),
+        cis: new UntypedFormControl('', [ Validators.required, Validators.maxLength(10) ]),
+        branch_name: new UntypedFormControl('', [ Validators.maxLength(100) ]),
+        address: new UntypedFormControl('', [ Validators.maxLength(200) ]),
+        phone_number: new UntypedFormControl('', [ Validators.maxLength(15) ]),
+        email: new UntypedFormControl('', [ Validators.email, Validators.maxLength(100) ]),
+        active: new UntypedFormControl(''),
     });
   }
 }
