@@ -153,7 +153,7 @@ export class IngressDetailsComponent implements OnInit {
     return {
       date: Utils.dateFormatISO8601(dataForm.date),
       conceptId: dataForm.concept.value,
-      type: RECEIPT_TYPE.INGRESS,
+      //type: RECEIPT_TYPE.INGRESS,
       amount: dataForm.amount,
       currencyId: dataForm.currency.value,
       accountId: dataForm.account.value,

@@ -10,7 +10,7 @@ export interface IReceiptResponse {
 export interface IReceipt {
   date: string;
   conceptId: number;
-  type: string;
+  //type: string;
   amount: number;
   currencyId: number;
   actualAmount?: number;

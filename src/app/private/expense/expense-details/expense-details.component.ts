@@ -153,7 +153,7 @@ export class ExpenseDetailsComponent implements OnInit {
     return {
       date: Utils.dateFormatISO8601(dataForm.date),
       conceptId: dataForm.concept.value,
-      type: RECEIPT_TYPE.EXPENSE,
+      //type: RECEIPT_TYPE.EXPENSE,
       amount: dataForm.amount,
       currencyId: dataForm.currency.value,
       accountId: dataForm.account.value,
