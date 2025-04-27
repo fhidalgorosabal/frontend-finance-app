@@ -107,7 +107,7 @@ export class CurrencyDetailsComponent implements OnInit {
 
   editCurrency(): void {
     if (this.id) {
-      this.currencyService.editCurrency(this.getFormCurrency(), this.id).pipe(
+      this.currencyService.editCurrency(this.getFormCurrency(true), this.id).pipe(
         first(),
         tap((res) => {
           this.messageService.add(Utils.messageServiceTitle('Moneda actualizada', res));
@@ -122,16 +122,16 @@ export class CurrencyDetailsComponent implements OnInit {
     }
   }
 
-  private getFormCurrency(): ICurrency {
+  private getFormCurrency(isEdit: boolean = false): ICurrency {
     const dataForm = this.currencyForm.value;
-    return { 
+    const currency = { 
       initials: dataForm.initials,
       description: dataForm.description,
       exchangeRate: dataForm.exchangeRate,
       companyId: this.sessionService?.companyId,
-      isDefault: false,
-      active: dataForm.active
+      isDefault: false,      
     };
+    return (isEdit) ? { ...currency, active: dataForm.active } : currency;
   }
 
   private close(): void {
