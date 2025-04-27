@@ -130,7 +130,7 @@ export class AccountDetailsComponent implements OnInit {
 
   editAccount(): void {
     if (this.id) {
-      this.accountService.editAccount(this.getFormAccount(), this.id).pipe(
+      this.accountService.editAccount(this.getFormAccount(true), this.id).pipe(
         first(),
         tap((res) => {
           this.messageService.add(Utils.messageServiceTitle('Cuenta actualizada', res));
@@ -145,17 +145,16 @@ export class AccountDetailsComponent implements OnInit {
     }
   }
 
-  private getFormAccount(): IAccount {
+  private getFormAccount(isEdit: boolean = false): IAccount {
     const dataForm = this.accountForm.value;
-    
-    return { 
+    const account = { 
       code: dataForm.code,
       description: dataForm.description,
       currencyId: dataForm.currency.value,
       bankId: dataForm?.bank?.value,
       companyId: this.sessionService?.companyId,
-      active: dataForm.active
     };
+    return (isEdit) ? { ...account, active: dataForm.active } : account;
   }
 
   private close(): void {
