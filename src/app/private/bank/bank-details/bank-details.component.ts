@@ -105,7 +105,7 @@ export class BankDetailsComponent implements OnInit {
 
   editBank(): void {
     if (this.id) {
-      this.bankService.editBank(this.getFormBank(), this.id).pipe(
+      this.bankService.editBank(this.getFormBank(true), this.id).pipe(
         first(),
         tap((res) => {
           this.messageService.add(Utils.messageServiceTitle('Banco actualizado', res));
@@ -120,9 +120,9 @@ export class BankDetailsComponent implements OnInit {
     }
   }
 
-  private getFormBank(): IBank {
+  private getFormBank(isEdit: boolean = false): IBank {
     const dataForm = this.bankForm.value;
-    return { 
+    const bank = { 
       swift: dataForm.swift,
       bankName: dataForm.bankName,
       cis: dataForm.cis,
@@ -130,8 +130,8 @@ export class BankDetailsComponent implements OnInit {
       address: dataForm.address,
       phoneNumber: dataForm.phoneNumber,
       email: dataForm.email,
-      active: dataForm.active
     };
+    return (isEdit) ? { ...bank, active: dataForm.active } : bank;
   }
 
   private close(): void {
