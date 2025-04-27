@@ -152,9 +152,10 @@ export class AccountDetailsComponent implements OnInit {
       description: dataForm.description,
       currencyId: dataForm.currency.value,
       bankId: dataForm?.bank?.value,
-      companyId: this.sessionService?.companyId,
     };
-    return (isEdit) ? { ...account, active: dataForm.active } : account;
+    return (isEdit) 
+      ? { ...account, active: dataForm.active } 
+      : { ...account, companyId: this.sessionService?.companyId};
   }
 
   private close(): void {

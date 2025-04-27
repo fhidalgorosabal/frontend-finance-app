@@ -6,7 +6,7 @@ export interface IAccount {
   description: string;
   currencyId: number;
   bankId?: number;
-  companyId: number;
+  companyId?: number;
   active?: boolean | string;
 }
 
