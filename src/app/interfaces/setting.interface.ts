@@ -11,5 +11,5 @@ export interface IClose {
 }
 
 export interface ICloseMonth extends IClose {
-    month: number;
+    currentMonth: string;
 }

@@ -169,7 +169,7 @@ export class SettingManagementComponent implements OnInit, OnDestroy {
     if (currentMonth !== 12) {
       nextMonth = Number(currentMonth) + 1;
       functionClose$ = this.settingService.closeOfMonth({ 
-        month: nextMonth, 
+        currentMonth: nextMonth.toString(), 
         companyId: this.sessionService?.companyId 
       });
     } else {
