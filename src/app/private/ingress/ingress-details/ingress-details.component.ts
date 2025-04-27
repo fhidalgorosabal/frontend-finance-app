@@ -152,13 +152,13 @@ export class IngressDetailsComponent implements OnInit {
     const dataForm = this.ingressForm.value;
     return {
       date: Utils.dateFormatISO8601(dataForm.date),
-      concept_id: dataForm.concept.value,
+      conceptId: dataForm.concept.value,
       type: RECEIPT_TYPE.INGRESS,
       amount: dataForm.amount,
-      currency_id: dataForm.currency.value,
-      account_id: dataForm.account.value,
+      currencyId: dataForm.currency.value,
+      accountId: dataForm.account.value,
       description: dataForm.description,
-      company_id: this.sessionService?.companyId
+      companyId: this.sessionService?.companyId
     }
   }
 

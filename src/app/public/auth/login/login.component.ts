@@ -35,11 +35,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     .pipe(
       takeUntil(this.destroy$),
       tap(res => {
-        this.sessionService.accessToken = res?.data?.token?.access_token;   
-        this.sessionService.tokenType = res?.data?.token?.token_type;
-        this.sessionService.expiresIn = res?.data?.token?.expires_in;
+        this.sessionService.accessToken = res?.data?.token?.accessToken;   
+        this.sessionService.tokenType = res?.data?.token?.tokenType;
+        this.sessionService.expiresIn = res?.data?.token?.expiresIn;
         this.sessionService.date = new Date();
-        this.sessionService.companyId = res?.data?.user?.company_id;
+        this.sessionService.companyId = res?.data?.user?.companyId;
         this.sessionService.loggedIn = true;
         this.messageService.add(Utils.messageServiceTitle('Bienvenido', res));
         return this.router.navigate(['/home']);

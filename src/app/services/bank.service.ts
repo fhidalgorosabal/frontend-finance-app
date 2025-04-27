@@ -15,7 +15,7 @@ export class BankService {
   _url: string;
 
   constructor(private http: HttpClient) {
-    this._url = environment.base_url;
+    this._url = environment.baseUrl;
   }
 
   getBanks(): Observable<IBank[]> {
@@ -41,7 +41,7 @@ export class BankService {
     return this.getBanks().pipe(
       map(
         (data) => data.filter(data => data.active === 'Active').map(data => ({ 
-          label: data.bank_name, value: data.id 
+          label: data.bankName, value: data.id 
         }))
       )
     );

@@ -4,12 +4,12 @@ import { UntypedFormControl, UntypedFormGroup, Validators } from "@angular/forms
 export class SettingFormModel extends UntypedFormGroup {
   constructor() {
     super({
-        company_code: new UntypedFormControl('', [ Validators.required ]),
-        company_name: new UntypedFormControl('', [ Validators.required ]),
-        company_type: new UntypedFormControl('', [ Validators.required ]),
-        default_currency: new UntypedFormControl('', [ Validators.required ]),
-        current_month: new UntypedFormControl('', [ Validators.required ]),
-        current_year: new UntypedFormControl('', [ Validators.required ]),
+        companyCode: new UntypedFormControl('', [ Validators.required ]),
+        companyName: new UntypedFormControl('', [ Validators.required ]),
+        companyType: new UntypedFormControl('', [ Validators.required ]),
+        defaultCurrency: new UntypedFormControl('', [ Validators.required ]),
+        currentMonth: new UntypedFormControl('', [ Validators.required ]),
+        currentYear: new UntypedFormControl('', [ Validators.required ]),
     });
   }
 }

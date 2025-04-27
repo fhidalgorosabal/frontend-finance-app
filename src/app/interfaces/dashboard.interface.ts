@@ -1,7 +1,7 @@
 export interface IDataMonth {
     type: string;
     month: string;
-    company_id: number;
+    companyId: number;
 }
 
 export interface ISummary {
@@ -12,9 +12,9 @@ export interface ISummary {
 
 export interface IDataConcepts {
     id: number;
-    concept_description: string;
+    conceptDescription: string;
     type: string;
-    total_amount: number;
+    totalAmount: number;
 }
 
 export interface IDataIngressAndExpenses {

@@ -151,9 +151,9 @@ export class AccountDetailsComponent implements OnInit {
     return { 
       code: dataForm.code,
       description: dataForm.description,
-      currency_id: dataForm.currency.value,
-      bank_id: dataForm?.bank?.value,
-      company_id: this.sessionService?.companyId,
+      currencyId: dataForm.currency.value,
+      bankId: dataForm?.bank?.value,
+      companyId: this.sessionService?.companyId,
       active: dataForm.active
     };
   }

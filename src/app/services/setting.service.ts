@@ -15,11 +15,11 @@ export class SettingService {
   _url: string;
 
   constructor(private http: HttpClient) {
-    this._url = environment.base_url;
+    this._url = environment.baseUrl;
   }
 
   getSetting(companyId: number): Observable<ISetting> {
-    return this.http.post<IResponse>(`${ this._url }/setting`, { company_id: companyId })
+    return this.http.post<IResponse>(`${ this._url }/setting`, { companyId: companyId })
       .pipe(
         map(
           (res) => res.data

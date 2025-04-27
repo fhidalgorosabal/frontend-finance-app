@@ -37,7 +37,7 @@ export class SettingManagementComponent implements OnInit, OnDestroy {
   ) {
     this.optionsType = this.settingService.getType();
     this.months = this.settingService.getMonths();
-    this.type = this.settingForm.controls['company_type'].value?.value;
+    this.type = this.settingForm.controls['companyType'].value?.value;
    }
 
   ngOnInit(): void {
@@ -74,7 +74,7 @@ export class SettingManagementComponent implements OnInit, OnDestroy {
       ? { label: defaultCurrency.initials, value: defaultCurrency.id, type: defaultCurrency?.id?.toString() } 
       : {};
     this.defCurrency = defaultCurrency;  
-    this.settingForm.controls['default_currency'].setValue(currency);
+    this.settingForm.controls['defaultCurrency'].setValue(currency);
   }
 
   changeDefaultCurrencyConfirm(event: any) {
@@ -119,12 +119,12 @@ export class SettingManagementComponent implements OnInit, OnDestroy {
   }
 
   private setSetting(setting: ISetting) {
-    const month: ILabel  = this.months.find(item => item.value == setting.current_month) as ILabel;
-    this.settingForm.controls['company_code'].setValue(setting.company_code);
-    this.settingForm.controls['company_name'].setValue(setting.company_name);
-    this.settingForm.controls['company_type'].setValue(this.optionsType.find(item => item.value === setting.type));
-    this.settingForm.controls['current_month'].setValue(month?.label);
-    this.settingForm.controls['current_year'].setValue(setting.current_year);
+    const month: ILabel  = this.months.find(item => item.value == setting.currentMonth) as ILabel;
+    this.settingForm.controls['companyCode'].setValue(setting.companyCode);
+    this.settingForm.controls['companyName'].setValue(setting.companyName);
+    this.settingForm.controls['companyType'].setValue(this.optionsType.find(item => item.value === setting.type));
+    this.settingForm.controls['currentMonth'].setValue(month?.label);
+    this.settingForm.controls['currentYear'].setValue(setting.currentYear);
     if (month?.value === 12) {
       this.closeMonthLabelBotton = 'Cierre de año';
     }
@@ -162,7 +162,7 @@ export class SettingManagementComponent implements OnInit, OnDestroy {
   }
 
   private closeOfMonth() {
-    const currentMonth = this.months.find(item => item.label === this.settingForm.controls['current_month'].value)?.value;
+    const currentMonth = this.months.find(item => item.label === this.settingForm.controls['currentMonth'].value)?.value;
     let nextMonth;
     let functionClose$ = new Observable<IResponse>();
     let message = 'Cambio de mes';
@@ -170,11 +170,11 @@ export class SettingManagementComponent implements OnInit, OnDestroy {
       nextMonth = Number(currentMonth) + 1;
       functionClose$ = this.settingService.closeOfMonth({ 
         month: nextMonth, 
-        company_id: this.sessionService?.companyId 
+        companyId: this.sessionService?.companyId 
       });
     } else {
       functionClose$ = this.settingService.closeOfYear({ 
-        company_id: this.sessionService?.companyId 
+        companyId: this.sessionService?.companyId 
       });
       message = 'Cierre de año';
     }

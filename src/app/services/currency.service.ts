@@ -15,11 +15,11 @@ export class CurrencyService {
   _url: string;
 
   constructor(private http: HttpClient) {
-    this._url = environment.base_url;
+    this._url = environment.baseUrl;
   }
 
   getCurrencies(companyId: number): Observable<ICurrency[]> {
-    return this.http.post<IResponse>(`${ this._url }/currency/list`, { company_id: companyId })
+    return this.http.post<IResponse>(`${ this._url }/currency/list`, { companyId: companyId })
       .pipe(
         map((res) => res.data.map((currency: ICurrency) => ({
           ...currency,

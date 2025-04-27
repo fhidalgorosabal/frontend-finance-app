@@ -61,18 +61,18 @@ export class DashboardComponent implements OnInit {
   
     return this.settingService.getSetting(companyId).pipe(
       switchMap((setting) => {
-        const month = setting.current_month;
+        const month = setting.currentMonth;
         
         const expense$ = this.dashboardService.getMonthTotal({
           type: RECEIPT_TYPE.EXPENSE.toString(),
           month,
-          company_id: companyId,
+          companyId: companyId,
         });
   
         const ingress$ = this.dashboardService.getMonthTotal({
           type: RECEIPT_TYPE.INGRESS.toString(),
           month,
-          company_id: companyId,
+          companyId: companyId,
         });
   
         return forkJoin({ expenses: expense$, ingress: ingress$ }).pipe(
@@ -109,27 +109,27 @@ export class DashboardComponent implements OnInit {
   
     return this.settingService.getSetting(companyId).pipe(
       switchMap((setting) => {
-        const month = setting.current_month;
+        const month = setting.currentMonth;
         
         const expense$: Observable<ILabel[]> = this.dashboardService.getMonthConcepts({
           type: RECEIPT_TYPE.EXPENSE.toString(),
           month,
-          company_id: companyId,
+          companyId: companyId,
         }).pipe(
             map(res => res.map(item => ({ 
-              label: item.concept_description, 
-              value: Number(item.total_amount) 
+              label: item.conceptDescription, 
+              value: Number(item.totalAmount) 
             })))
           );
   
         const ingress$: Observable<ILabel[]> = this.dashboardService.getMonthConcepts({
           type: RECEIPT_TYPE.INGRESS.toString(),
           month,
-          company_id: companyId,
+          companyId: companyId,
         }).pipe(
             map(res => res.map(item => ({ 
-              label: item.concept_description, 
-              value: Number(item.total_amount) 
+              label: item.conceptDescription, 
+              value: Number(item.totalAmount) 
             })))
           );
 

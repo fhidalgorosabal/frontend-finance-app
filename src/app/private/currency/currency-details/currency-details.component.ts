@@ -127,9 +127,9 @@ export class CurrencyDetailsComponent implements OnInit {
     return { 
       initials: dataForm.initials,
       description: dataForm.description,
-      exchange_rate: dataForm.exchange_rate,
-      company_id: this.sessionService?.companyId,
-      is_default: false,
+      exchangeRate: dataForm.exchangeRate,
+      companyId: this.sessionService?.companyId,
+      isDefault: false,
       active: dataForm.active
     };
   }

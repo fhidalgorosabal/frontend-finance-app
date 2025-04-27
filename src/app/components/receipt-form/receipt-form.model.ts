@@ -12,7 +12,7 @@ export class ReceiptFormModel extends UntypedFormGroup {
 
       currency: new UntypedFormControl('', [ Validators.required ]),
 
-      actual_amount: new UntypedFormControl(''),
+      actualAmount: new UntypedFormControl(''),
 
       account: new UntypedFormControl('', [ Validators.required ]),
 

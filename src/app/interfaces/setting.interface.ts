@@ -1,13 +1,13 @@
 export interface ISetting {
-    company_code: string;
-    company_name: string;
-    current_month: string;
-    current_year: string;
+    companyCode: string;
+    companyName: string;
+    currentMonth: string;
+    currentYear: string;
     type: string;
 }
 
 export interface IClose {
-    company_id: number;
+    companyId: number;
 }
 
 export interface ICloseMonth extends IClose {

@@ -41,8 +41,8 @@ export class CurrencyFormComponent implements OnInit, OnDestroy {
       this.currencyForm.setValue({
         initials: this.currency.initials,
         description: this.currency.description,
-        exchange_rate: this.currency.exchange_rate,
-        is_default: this.currency.is_default,
+        exchangeRate: this.currency.exchangeRate,
+        isDefault: this.currency.isDefault,
         active: this.currency.active
       });
     }

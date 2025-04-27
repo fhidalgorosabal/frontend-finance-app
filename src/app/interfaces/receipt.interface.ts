@@ -3,20 +3,20 @@ import { ILabel } from './label.interface';
 export interface IReceiptResponse {
   id: number;
   date: string;
-  concept_id: string;
-  actual_amount: number;
+  conceptId: string;
+  actualAmount: number;
 }
 
 export interface IReceipt {
   date: string;
-  concept_id: number;
+  conceptId: number;
   type: string;
   amount: number;
-  currency_id: number;
-  actual_amount?: number;
-  account_id: number;
+  currencyId: number;
+  actualAmount?: number;
+  accountId: number;
   description?: string;
-  company_id: number;
+  companyId: number;
 }
 
 export interface IReceiptData {

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  base_url: 'https://finance-nestjs.onrender.com/api'
+  baseUrl: 'https://finance-nestjs.onrender.com/api'
 };
 
 /*

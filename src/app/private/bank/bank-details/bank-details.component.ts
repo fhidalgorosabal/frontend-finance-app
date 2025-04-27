@@ -124,11 +124,11 @@ export class BankDetailsComponent implements OnInit {
     const dataForm = this.bankForm.value;
     return { 
       swift: dataForm.swift,
-      bank_name: dataForm.bank_name,
+      bankName: dataForm.bankName,
       cis: dataForm.cis,
-      branch_name: dataForm.branch_name,
+      branchName: dataForm.branchName,
       address: dataForm.address,
-      phone_number: dataForm.phone_number,
+      phoneNumber: dataForm.phoneNumber,
       email: dataForm.email,
       active: dataForm.active
     };

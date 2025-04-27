@@ -15,11 +15,11 @@ export class ReceiptService {
   _url: string;
 
   constructor(private http: HttpClient) {
-    this._url = environment.base_url;
+    this._url = environment.baseUrl;
   }
   
   receiptsList(companyId: number, receiptType: string): Observable<IReceiptResponse[]> {
-    return this.http.post<IResponse>(`${this._url}/receipt/list`, { company_id: companyId, type: receiptType })
+    return this.http.post<IResponse>(`${this._url}/receipt/list`, { companyId: companyId, type: receiptType })
       .pipe(
         map((res) => res.data.map((receipt: IReceipt) => ({
           ...receipt,

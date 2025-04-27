@@ -19,7 +19,7 @@ export class SessionService {
   _url: string;
 
   constructor(private http: HttpClient) {
-    this._url = environment.base_url;
+    this._url = environment.baseUrl;
   }
 
   getLoggedIn$(): BehaviorSubject<boolean> {

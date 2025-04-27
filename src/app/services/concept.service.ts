@@ -16,11 +16,11 @@ export class ConceptService {
   _url: string;
 
   constructor(private http: HttpClient) {
-    this._url = environment.base_url;
+    this._url = environment.baseUrl;
   }
 
   getConcepts(companyId: number, conceptType?: RECEIPT_TYPE): Observable<IConcept[]> {    
-    return this.http.post<IResponse>(`${ this._url }/concept/list`, { company_id: companyId, type: conceptType })
+    return this.http.post<IResponse>(`${ this._url }/concept/list`, { companyId: companyId, type: conceptType })
       .pipe(
         map(
           (res) => res.data

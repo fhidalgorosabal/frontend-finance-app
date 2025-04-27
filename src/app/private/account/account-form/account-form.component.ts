@@ -35,8 +35,8 @@ export class AccountFormComponent implements OnInit, OnDestroy {
 
   getDetailData(): void {    
     if (this.account) {
-      const currency = this.optionsCurrency.find( option => option.value == this.account?.currency_id );
-      const bank = this.optionsBank.find( option => option.value == this.account?.bank_id );
+      const currency = this.optionsCurrency.find( option => option.value == this.account?.currencyId );
+      const bank = this.optionsBank.find( option => option.value == this.account?.bankId );
 
       this.accountForm.setValue({
         code: this.account.code,

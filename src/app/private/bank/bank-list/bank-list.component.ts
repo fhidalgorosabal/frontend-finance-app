@@ -20,7 +20,7 @@ export class BankListComponent implements OnInit {
   banks$ = new Observable<IBank[]>();
 
   columnData: ILabel[] = [
-    { label: 'Banco', value: 'bank_name', type: 'uppercase'},
+    { label: 'Banco', value: 'bankName', type: 'uppercase'},
     { label: 'Sucursal', value: 'cis'},
     { label: 'Estado', value: 'active', type: 'status'}
   ];

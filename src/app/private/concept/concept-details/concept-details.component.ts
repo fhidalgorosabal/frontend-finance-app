@@ -131,7 +131,7 @@ export class ConceptDetailsComponent implements OnInit {
     return { 
       description: dataForm.description,
       type: this.type ? this.type : RECEIPT_TYPE.EXPENSE,      
-      company_id: this.sessionService?.companyId,
+      companyId: this.sessionService?.companyId,
     };
   }
 

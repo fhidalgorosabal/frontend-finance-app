@@ -1,11 +1,11 @@
 export interface IBank {
   id?: number;
   swift: string;
-  bank_name: string;
+  bankName: string;
   cis: string;
-  branch_name: string;
+  branchName: string;
   address?: string;
-  phone_number?: string;
+  phoneNumber?: string;
   email?: string;
   active?: boolean | string;
 }

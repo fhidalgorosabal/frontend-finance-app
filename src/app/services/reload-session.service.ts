@@ -14,14 +14,14 @@ export class ReloadSessionService {
   }
 
   updateReloadData(): void {
-    const reloadData: string = String(sessionStorage.getItem('reload_data'));
+    const reloadData: string = String(sessionStorage.getItem('reloadData'));
     const data: IReloadSessionData = JSON.parse(reloadData);
     (data && this.sessionValid(data)) ? this.loadSessionData(data) : this.goToRoute('/login');
   }
 
   saveOnStorage(): void {
     const url = this.router.url;
-    sessionStorage.setItem('reload_data', JSON.stringify(this.getSessionData(url)));    
+    sessionStorage.setItem('reloadData', JSON.stringify(this.getSessionData(url)));    
   }
 
   private sessionValid(data: IReloadSessionData): boolean {
@@ -57,6 +57,6 @@ export class ReloadSessionService {
   }
 
   cleanStorage(): void {
-    sessionStorage.removeItem('reload_data');
+    sessionStorage.removeItem('reloadData');
   }
 }

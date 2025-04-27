@@ -22,7 +22,7 @@ export class CurrencyListComponent implements OnInit {
 
   columnData: ILabel[] = [
     { label: 'Sigla', value: 'initials', type: 'uppercase'},
-    { label: 'Tipo de cambio', value: 'exchange_rate', type: 'number'},
+    { label: 'Tipo de cambio', value: 'exchangeRate', type: 'number'},
     { label: 'Estado', value: 'active', type: 'status'}
   ];
 

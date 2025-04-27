@@ -4,9 +4,9 @@ export interface IAccount {
   id?: number;
   code: string;
   description: string;
-  currency_id: number;
-  bank_id?: number;
-  company_id: number;
+  currencyId: number;
+  bankId?: number;
+  companyId: number;
   active?: boolean | string;
 }
 

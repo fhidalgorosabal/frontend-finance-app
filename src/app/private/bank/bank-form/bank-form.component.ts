@@ -32,11 +32,11 @@ export class BankFormComponent implements OnInit, OnDestroy {
     if (this.bank) {
       this.bankForm.setValue({
         swift: this.bank.swift,
-        bank_name: this.bank.bank_name,
+        bankName: this.bank.bankName,
         cis: this.bank.cis,
-        branch_name: this.bank.branch_name,
+        branchName: this.bank.branchName,
         address: this.bank.address,
-        phone_number: this.bank.phone_number,
+        phoneNumber: this.bank.phoneNumber,
         email: this.bank.email,
         active: this.bank.active
       });

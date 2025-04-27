@@ -15,11 +15,11 @@ export class AccountService {
   _url: string;
 
   constructor(private http: HttpClient) {
-    this._url = environment.base_url;
+    this._url = environment.baseUrl;
   }
 
   getAccounts(companyId: number): Observable<IAccount[]> {
-    return this.http.post<IResponse>(`${ this._url }/account/list`, { company_id: companyId })
+    return this.http.post<IResponse>(`${ this._url }/account/list`, { companyId: companyId })
       .pipe(
         map((res) => res.data.map((account: IAccount) => ({
           ...account,
@@ -41,7 +41,7 @@ export class AccountService {
     return this.getAccounts(companyId).pipe(
       map(
         (data) => data.filter(data => data.active === 'Active').map(data => ({
-          label: data.description, value: data.id, type: data.currency_id.toString() 
+          label: data.description, value: data.id, type: data.currencyId.toString() 
         }))
       )
     );

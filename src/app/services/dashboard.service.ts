@@ -15,7 +15,7 @@ export class DashboardService {
   _url: string;
 
   constructor(private http: HttpClient) {
-    this._url = environment.base_url;
+    this._url = environment.baseUrl;
   }
 
   getMonthTotal(data: IDataMonth): Observable<number> {
@@ -37,7 +37,7 @@ export class DashboardService {
   }
 
   getIngressAndExpensesByMonth(companyId: number): Observable<IDataIngressAndExpenses[]> {
-    return this.http.post<IResponse>(`${ this._url }/dashboard/get-ingress-expenses-month`, { company_id: companyId })
+    return this.http.post<IResponse>(`${ this._url }/dashboard/get-ingress-expenses-month`, { companyId: companyId })
       .pipe(
         map(
           (res) => res.data
