@@ -30,12 +30,12 @@
             <label for="exchange-rate-input">{{ 'Tasa de cambio:' }}</label>
             <p-inputNumber
                 id="exchange-rate"
-                [class]="isValidField('exchange_rate') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
+                [class]="isValidField('exchangeRate') ? 'ng-invalid ng-dirty w-12' : 'w-12'"
                 mode="decimal"
                 [minFractionDigits]="2"
-                formControlName="exchange_rate"
+                formControlName="exchangeRate"
             ></p-inputNumber>
-            <small *ngIf="isValidField('exchange_rate')" id="concept-help" class="p-error block">
+            <small *ngIf="isValidField('exchangeRate')" id="concept-help" class="p-error block">
               {{ 'La tasa de cambio es obligatoria y debe ser mayor a cero.' }}
             </small>
         </div>

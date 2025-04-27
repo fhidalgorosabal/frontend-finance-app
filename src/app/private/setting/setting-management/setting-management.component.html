@@ -12,7 +12,7 @@
                         id="company-code" 
                         type="text" 
                         pInputText 
-                        formControlName="company_code"
+                        formControlName="companyCode"
                         [readonly]="!companyEdit"
                     />
                 </div>
@@ -21,7 +21,7 @@
                     <input 
                         id="company-name" 
                         type="text" 
-                        pInputText formControlName="company_name"
+                        pInputText formControlName="companyName"
                         [readonly]="!companyEdit"
                     />
                 </div>
@@ -32,7 +32,7 @@
                         [class]="'w-12'"               
                         [options]="optionsType"
                         optionLabel="label"
-                        formControlName="company_type"
+                        formControlName="companyType"
                         [readonly]="!companyEdit"
                     ></p-dropdown>
                 </div>
@@ -44,7 +44,7 @@
                         [options]="optionsCurrency"
                         optionLabel="label"
                         [placeholder]="'--Seleccione--'"
-                        formControlName="default_currency"
+                        formControlName="defaultCurrency"
                         (onChange)="changeDefaultCurrencyConfirm($event)"
                     ></p-dropdown>
                 </div>
@@ -61,7 +61,7 @@
                         id="current-month" 
                         type="text" 
                         pInputText 
-                        formControlName="current_month"
+                        formControlName="currentMonth"
                         readonly="readonly"
                     />
                 </div>
@@ -71,7 +71,7 @@
                         id="current-year" 
                         type="text" 
                         pInputText 
-                        formControlName="current_year"
+                        formControlName="currentYear"
                         readonly="readonly"
                     />
                 </div>
