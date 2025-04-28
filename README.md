@@ -27,9 +27,15 @@ Asegúrate de tener instalado:
 3. Ejecuta `npm install` para instalar los paquetes de node.
 4. Para iniciar la aplicación `ng serve` y accede en el navedador a `http://localhost:4200/`.
    
----   
+---  
 
-## Capturas de pantalla
+## Aplicación
+
+Puedes acceder a la aplicación desplegada aquí: [FinanceApp](https://finance-app-fhr.vercel.app/)
+
+---
+
+## Capturas de pantalla [Applicación](https://finance-app-fhr.vercel.app/)
 
 ### Login
 ![Login](src/assets/img/screenshots/login.png)
