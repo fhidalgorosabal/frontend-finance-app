@@ -84,7 +84,11 @@ export class IngressDetailsComponent implements OnInit {
     return this.tableService.detailId.asObservable().pipe(
       first(),
       tap( detailId => this.id = detailId ),
-      switchMap( detailId => this.receiptService.getReceipt(detailId) )
+      switchMap( detailId => this.receiptService.getReceipt(detailId) ),
+      map(res => ({
+        ...res,
+        date: Utils.dateFormatISO8601(res.date),
+      })),
     );
   }
 
@@ -153,7 +157,6 @@ export class IngressDetailsComponent implements OnInit {
     return {
       date: Utils.dateFormatISO8601(dataForm.date),
       conceptId: dataForm.concept.value,
-      //type: RECEIPT_TYPE.INGRESS,
       amount: dataForm.amount,
       currencyId: dataForm.currency.value,
       accountId: dataForm.account.value,
